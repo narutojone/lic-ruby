@@ -1,0 +1,24 @@
+<% if policy(EmailNotification).index? || policy(Account).edit?%>
+  <% content_for(:link_for_second_level_menu) do %>
+    <a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
+  <% end %>
+<% end %>
+
+<div id="am-navbar-collapse" class="second-level-menu collapse navbar-collapse">
+  <ul class="list-inline">
+    <% if policy(Account).edit? %>
+      <li class="<%= active_when(@_email_settings_services_section) %>">
+        <%= link_to edit_email_settings_path do %>
+          <i class="fa fa-code"></i><span>Header and Footer</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(EmailNotification).index? %>
+      <li class="<%= active_when(@_notifications_services_section) %>">
+        <%= link_to email_notifications_path do %>
+          <i class="s7-bell"></i><span>Notifications</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

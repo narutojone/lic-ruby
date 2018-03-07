@@ -1,0 +1,18 @@
+<% content_for(:subnav) { render 'roles/nav' } %>
+<% content_for(:page_head) { render 'layouts/page_head', icon: 'icon s7-lock', title: 'Roles' } %>
+
+<div class="content-block">
+  <div class="content">
+    <div class="content-heading">
+      <div class="caption">
+        <div class="title">
+          <h4>Edit Role "<%= @role.name %>"</h4>
+        </div>
+      </div>
+      <div class="tools"></div>
+    </div>
+    <div class="content-body">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

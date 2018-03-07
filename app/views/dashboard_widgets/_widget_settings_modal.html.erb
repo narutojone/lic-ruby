@@ -1,0 +1,22 @@
+<div id="widget-settings-modal" tabindex="-1" role="dialog" class="modal colored-header fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<script id="widget-settings-modal-blank-slate-template" type="text/html">
+  <div class="modal-header">
+    <button type="button" data-dismiss="modal" aria-hidden="true" class="close mdl-close"><i class="icon s7-close"></i></button>
+    <h3 class="modal-title">Widget Settings</h3>
+  </div>
+
+  <div class="modal-body">
+    <%= content_loading_spinner %>
+  </div>
+
+  <div class="modal-footer">
+    <input type="submit" value="Save" class="btn btn-primary" disabled="disabled" />
+    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+  </div>
+</script>

@@ -1,0 +1,59 @@
+<div class="widget-heading widget-primary">
+  <span class="call-center"><%= dashboard_widget_call_center_name(@data) %></span>
+  <span class="title">Open tickets by type</span>
+</div>
+<div class="widget-body widget-primary widget-pie">
+  <div class="row chart-container">
+    <div class="col-xs-12 col-md-6">
+      <div id="open-ticket-request-types-pie-chart-<%= @widget.id %>" class="chart"></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="legend"></div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do -%>
+  var data = [
+  <% @data[:ticket_types].each_with_index do |ticket, i| %>
+    {
+      label: "<%= ticket.ticket_type || '-No Type-' %>  (<%= ticket.count %>)",
+      data: <%= ticket.count %>,
+      color: REQUEST_TYPE_COLORS['<%= ticket_type_color(ticket) %>'],
+      ticket_type: "<%= ticket.ticket_type %>"
+    },
+  <% end %>
+  ];
+  var plotObj = $.plot($("#open-ticket-request-types-pie-chart-<%= @widget.id %>"), data, {
+    series: {
+      pie: {
+        show: true,
+        innerRadius: 0.5,
+        highlight: {
+          opacity: 0.3
+        },
+        stroke:{
+          width: 0
+        }
+      }
+    },
+    grid: {
+      hoverable: true
+    },
+    legend: {
+      container: $("#open-ticket-request-types-pie-chart-<%= @widget.id %>").parent().next().find(".legend"),
+      labelFormatter: function(label, series) {
+        return '<a href="<%= tickets_simple_search_path({'status_in' => 'open', 'ticket_type_in' => 'TICKET_TYPE'}, @data[:call_center]) %>">'.replace('TICKET_TYPE', series.ticket_type) + label + '</a>';
+      }
+    },
+    tooltip: true,
+    tooltipOpts: {
+      content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+      shifts: {
+        x: 20,
+        y: 0
+      },
+      defaultTheme: true
+    }
+  });
+<% end -%>

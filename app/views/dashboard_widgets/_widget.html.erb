@@ -1,0 +1,17 @@
+<div class="grid-stack-item"
+  data-gs-x="<%= widget.settings['x'] || 0 %>"
+  data-gs-y="<%= widget.settings['y'] || 0 %>"
+  data-gs-width="<%= DASHBOARD_WIDGETS[widget.type_id][:width][:lg] %>"
+  data-gs-height="<%= DASHBOARD_WIDGETS[widget.type_id][:height] %>">
+  <div class="grid-stack-item-content dashboard-widget" data-widget-id="<%= widget.id %>" data-widget-type="<%= widget.type_id %>">
+    <div class="widget">
+      <%= link_to dashboard_widget_path(widget), method: :delete, remote: true, title: 'Remove from dashboard', class: 'btn btn-clear btn-delete' do %>
+        <i class="zmdi zmdi-close"></i>
+      <% end %>
+      <% if widget.has_settings? %>
+        <a href="#" class="btn btn-clear btn-cogs" data-toggle="modal" data-target="#widget-settings-modal"><i class="zmdi zmdi-settings"></i></a>
+      <% end %>
+      <%= content_loading_spinner %>
+    </div>
+  </div>
+</div>

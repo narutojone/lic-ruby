@@ -1,0 +1,15 @@
+var $li = $('.dashboard-widgets-list li[data-type-id="<%= @widget.type_id %>"]');
+<% if @widget.has_settings? %>
+  $li.find('a').html('<i class="fa fa-plus mr-5"></i>Add another');
+<% else %>
+  enableDisableWidgetAdding($li, false);
+<% end %>
+
+if ($('.empty-block').length > 0) {
+  // no widgets yet, only blank slate message we'll replace
+  $('.empty-block').replaceWith('<div class="content-block content-block-widgets"><div class="grid-stack"></div></div>');
+  initGridStack();
+}
+var grid = $('.grid-stack').data('gridstack');
+var new_widget = grid.addWidget('<%= j(render "widget", widget: @widget) %>');
+loadWidgetContents(new_widget.find('.dashboard-widget'));

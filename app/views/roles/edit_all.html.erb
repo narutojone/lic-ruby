@@ -1,0 +1,65 @@
+<% content_for(:subnav) { render 'roles/nav' } %>
+<% content_for(:page_head) { render 'layouts/page_head', icon: 'icon s7-lock', title: 'Roles' } %>
+
+<div class="content-block">
+  <div class="content">
+    <div class="content-heading">
+      <div class="caption">
+        <div class="title">
+          <h4>Edit All Roles</h4>
+        </div>
+      </div>
+      <div class="tools"></div>
+    </div>
+    <div class="content-body">
+      <%= form_tag update_all_roles_path, method: :patch, class: 'form-horizontal' do %>
+        <div class="table-responsive">
+          <table class="table table-roles">
+            <thead>
+              <tr>
+                <th width="30%">Permission</th>
+                <% @roles.each do |role| %>
+                  <th>
+                    <div class="am-checkbox">
+                      <input id="check-uncheck-column-<%= role.id %>" type="checkbox" class="check-uncheck-column" data-action="check">
+                      <label for="check-uncheck-column-<%= role.id %>"></label>
+                    </div>
+                  </th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% PERMISSIONS.each do |key, perm| %>
+                <tr class="title">
+                  <td><%= perm[:label] %></td>
+
+                  <% @roles.each do |role| %>
+                    <td><%= role.name %></td>
+                  <% end %>
+                </tr>
+
+                <% perm[:activities].each do |_key, permission| %>
+                  <tr>
+                    <td><%= permission[:label] %></td>
+
+                    <% @roles.each do |role| %>
+                      <td>
+                        <div class="am-checkbox">
+                          <%= check_box_tag "permissions[#{role.id}][permissions][]", permission[:id], role.permissions.include?(permission[:id]), id: "permissions_#{role.id}_permissions_#{permission[:id]}" %>
+                          <label for="<%= "permissions_#{role.id}_permissions_#{permission[:id]}" %>"></label>
+                        </div>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="content-form-footer">
+          <%= save_and_cancel %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<% content_for(:subnav) { render 'roles/nav' } %>
+<% content_for(:page_head) { render 'layouts/page_head', icon: 'icon s7-lock', title: 'Roles' } %>
+
+<div class="content-block">
+  <div class="content">
+    <div class="content-heading">
+      <div class="caption">
+        <div class="title">
+          <h4>New Role</h4>
+        </div>
+      </div>
+      <div class="tools"></div>
+    </div>
+    <div class="content-body">
+      <% if current_account.reached_role_limit? %>
+        <div class="alert alert-warning">
+          You have reached the maximum number of roles you can have with your account level. You can either delete some of your roles or <%= link_to 'upgrade your account', plan_account_path %> to be able to create more roles.
+        </div>
+      <% else %>
+        <%= render 'form' %>
+      <% end %>
+    </div>
+  </div>
+</div>

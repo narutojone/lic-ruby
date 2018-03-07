@@ -1,0 +1,24 @@
+<div class="modal colored-header fade" id="bulk-edit-users-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" data-dismiss="modal" aria-hidden="true" class="close mdl-close"><i class="icon s7-close"></i></button>
+        <h3 class="modal-title">Users Edit</h3>
+        <small>Leave the field blank if you don't wish do change it.</small>
+      </div>
+
+      <%= simple_form_for :user, {url: bulk_update_users_path, method: :patch, html: {id: 'bulk_edit_users_modal_form'}} do |f| %>
+        <div class="modal-body">
+
+          <%= f.input :role_ids, label: 'Roles', collection: current_account.roles.all, input_html: { class: 'select2-multiple', multiple: true, 'data-placeholder' => 'Select roles'} %>
+
+        </div>
+
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-primary" value="Save changes" name="commit">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

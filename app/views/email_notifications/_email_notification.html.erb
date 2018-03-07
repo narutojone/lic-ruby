@@ -1,0 +1,27 @@
+<tr>
+  <td>
+    <% if policy(email_notification).edit? %>
+      <%= simple_form_for email_notification,
+                          url: quick_toggle_email_notification_path(email_notification),
+                          method: :patch,
+                          remote: true do |f| %>
+        <div class="switch-button switch-button-sm">
+          <%= f.check_box :enabled, {id: "email_notification_#{email_notification.id}_enabled", class: 'js-email-notification-quick-toggle'} %>
+          <span>
+            <label for="email_notification_<%= email_notification.id %>_enabled"></label>
+          </span>
+        </div>
+      <% end %>
+    <% end %>
+  </td>
+  <td><%= email_notification.template.humanize %></td>
+  <td><%= email_notification_recipients(email_notification) %></td>
+  <td>
+    <% if policy(email_notification).edit? %>
+      <a href="<%= edit_email_notification_path(email_notification) %>"
+       class="btn btn-primary btn-circle btn-icon-only btn-icon-only-sm">
+        <i class="fa fa-pencil"></i>
+      </a>
+    <% end %>
+  </td>
+</tr>

@@ -1,0 +1,80 @@
+<% if policy(CallCenter).manage? || policy(MapService).manage? || policy(RoutingRule).index? || policy(Tag).index? || policy(CustomField).index? || policy(EventLog).index? || policy(HolidayCalendar).manage? || policy(TimeEntryTask).manage? || policy(BusinessHour).manage? %>
+  <% content_for(:link_for_second_level_menu) do %>
+    <a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
+  <% end %>
+<% end %>
+
+<div id="am-navbar-collapse" class="second-level-menu collapse navbar-collapse">
+  <ul class="list-inline">
+    <% if policy(CallCenter).manage? %>
+      <li class="<%= active_when(@_call_centers_section) %>">
+        <%= link_to call_centers_path do %>
+          <i class="icon s7-call"></i><span>Call Centers</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(ResponseCode).manage? %>
+        <li class="<%= active_when(@_response_codes_section) %>">
+          <%= link_to response_codes_path do %>
+              <i class="icon s7-target"></i><span>Response Codes</span>
+          <% end %>
+        </li>
+    <% end %>
+    <% if policy(MapService).manage? %>
+      <li class="<%= active_when(@_map_services_section) %>">
+        <%= link_to map_services_path do %>
+          <i class="icon s7-global"></i><span>Map Services</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(RoutingRule).index? %>
+      <li class="<%= active_when(@_routings_section) %>">
+        <%= link_to routing_rules_path do %>
+          <i class="icon s7-shuffle"></i><span>Routing</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(TimeEntryTask).manage? %>
+      <li class="<%= active_when(@_time_entry_tasks_section) %>">
+        <%= link_to time_entry_tasks_path do %>
+          <i class="icon s7-ribbon"></i><span>Time Entry Tasks</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(Tag).index? %>
+      <li class="<%= active_when(@_tags_section) %>">
+        <%= link_to tags_path do %>
+          <i class="icon s7-ticket"></i><span>Tags</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(CustomField).index? %>
+      <li class="<%= active_when(@_custom_fields_section) %>">
+        <%= link_to custom_fields_path do %>
+          <i class="icon s7-menu"></i><span>Custom Fields</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(BusinessHour).manage? %>
+      <li class="<%= active_when(@_business_hours_section) %>">
+        <%= link_to business_hours_path do %>
+          <i class="icon s7-alarm"></i><span>Business Hours</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(HolidayCalendar).manage? %>
+      <li class="<%= active_when(@_holiday_calendars_section) %>">
+        <%= link_to holiday_calendars_path do %>
+          <i class="icon s7-date"></i><span>Holiday Calendars</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% if policy(EventLog).index? %>
+      <li class="<%= active_when(@_event_logs_section) %>">
+        <%= link_to event_logs_path do %>
+          <i class="icon s7-copy-file"></i><span>Event Logs</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

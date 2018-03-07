@@ -1,0 +1,48 @@
+<%= f.input :first_name, label: 'First Name' %>
+<%= f.input :last_name, label: 'Last Name' %>
+<%= f.input :email, label: 'E-mail', required: true %>
+
+<% if policy(@user).permitted_attributes.include?(role_ids: []) %>
+  <div class="form-group row <%= 'has-error' if @user.errors[:roles].present? %>">
+    <div class="col-xs-12 col-sm-3">
+      <label class="control-label">Roles</label>
+    </div>
+    <div class="col-xs-12 col-sm-9">
+      <%= f.collection_select :role_ids, current_account.roles.all, :id, :name, {}, class: 'select2-multiple', multiple: true, 'data-placeholder' => 'Select Roles' %>
+      <%= f.error :roles %>
+    </div>
+  </div>
+<% end %>
+
+<% if policy(@user).permitted_attributes.include?(call_center_ids: []) %>
+  <div class="form-group row <%= 'has-error' if @user.errors[:call_centers].present? %>">
+    <div class="col-xs-12 col-sm-3">
+      <label class="control-label">Call Centers</label>
+    </div>
+    <div class="col-xs-12 col-sm-9">
+      <%= f.collection_select :call_center_ids, current_account_call_centers, :id, :name, {}, class: 'select2-multiple', multiple: true, 'data-placeholder' => 'Select Call Centers' %>
+      <%= f.error :call_centers %>
+    </div>
+  </div>
+<% end %>
+
+<%= f.input :time_zone, priority: /US/, include_blank: false %>
+
+<% if policy(@user).permitted_attributes.include?(:password) %>
+  <%= f.input :password, required: @user.new_record?, input_html: {class: 'show-password'} %>
+  <%= f.input :password_confirmation, required: @user.new_record?, input_html: {class: 'show-password'} %>
+<% end %>
+
+<% if policy(@user).permitted_attributes.include?(:active) %>
+  <div class="form-group">
+    <div class="col-xs-12 col-sm-3">
+      <%= f.label :active, class: 'control-label' %>
+    </div>
+    <div class="col-xs-12 col-sm-9">
+      <div class="switch-button switch-button-sm">
+        <%= f.check_box :active %>
+        <span><label for="user_active"></label></span>
+      </div>
+    </div>
+  </div>
+<% end %>

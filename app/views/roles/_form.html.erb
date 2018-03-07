@@ -1,0 +1,51 @@
+<%= simple_form_for @role do |f| %>
+  <div class="content-form">
+    <%= f.input :name %>
+
+    <div class="form-group">
+      <div class="col-xs-12 col-sm-3">
+        <label class="control-label">Permissions</label>
+      </div>
+      <div class="col-xs-12 col-sm-9">
+        <div class="table-responsive">
+          <table class="table table-roles table-roles-wbg">
+            <thead>
+              <tr>
+                <th></th>
+                <th width="10%">
+                  <div class="am-checkbox">
+                    <input id="check-uncheck-column-<%= @role.id %>" type="checkbox" class="check-uncheck-column" data-action="check">
+                    <label for="check-uncheck-column-<%= @role.id %>"></label>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% PERMISSIONS.each_value do |perm| %>
+                <tr class="title">
+                  <td><%= perm[:label] %></td>
+                  <td>&nbsp;</td>
+                </tr>
+
+                <% perm[:activities].each do |activity, attrs| %>
+                  <tr>
+                    <td><%= attrs[:label] %></td>
+                    <td>
+                      <div class="am-checkbox">
+                        <%= check_box_tag "role[permissions][]", attrs[:id], @role.permissions.include?(attrs[:id]), id: "role_permissions_#{attrs[:id]}" %>
+                        <label for="role_permissions_<%= attrs[:id] %>"></label>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-form-footer">
+    <%= save_and_cancel %>
+  </div>
+<% end %>

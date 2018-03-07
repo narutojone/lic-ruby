@@ -1,0 +1,66 @@
+<div class="widget-heading widget-primary">
+  <span class="call-center"><%= dashboard_widget_call_center_name(@data) %></span>
+  <span class="title"><%= "#{'My' if my_tickets} Ticket due times" %></span>
+</div>
+<div class="widget-body widget-primary widget-table">
+  <div class="table-responsive">
+    <table class="table ticket-due-times">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th># of Tickets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a href="<%= tickets_due_path(:in_the_past, my_tickets: my_tickets, call_center: @data[:call_center]) %>">
+              Overdue
+            </a>
+          </td>
+          <td><%= badge(@data[:overdue], color_based_on_number(@data[:overdue], 0, 'primary', 'danger'), 'badge-circle') %></td>
+        </tr>
+        <tr>
+          <td>
+            <a href="<%= tickets_due_path(:today, my_tickets: my_tickets, call_center: @data[:call_center]) %>">
+              Today
+            </a>
+          </td>
+          <td><%= badge(@data[:today], color_based_on_number(@data[:today], 0, 'primary', 'warning'), 'badge-circle') %></td>
+        </tr>
+        <tr>
+          <td>
+            <a href="<%= tickets_due_path(:tomorrow, my_tickets: my_tickets, call_center: @data[:call_center]) %>">
+              Tomorrow
+            </a>
+          </td>
+          <td><%= badge(@data[:tomorrow], 'primary', 'badge-circle') %></td>
+        </tr>
+        <tr>
+          <td>
+            <a href="<%= tickets_due_path(:this_week, my_tickets: my_tickets, call_center: @data[:call_center]) %>">
+              This week
+            </a>
+          </td>
+          <td><%= badge(@data[:this_week], 'primary', 'badge-circle') %></td>
+        </tr>
+        <tr>
+          <td>
+            <a href="<%= tickets_due_path(:next_week, my_tickets: my_tickets, call_center: @data[:call_center]) %>">
+              Next week
+            </a>
+          </td>
+          <td><%= badge(@data[:next_week], 'primary', 'badge-circle') %></td>
+        </tr>
+        <tr>
+          <td>
+            <a href="<%= tickets_due_path(:after_next_week, my_tickets: my_tickets, call_center: @data[:call_center]) %>">
+              Later
+            </a>
+          </td>
+          <td><%= badge(@data[:later], 'primary', 'badge-circle') %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

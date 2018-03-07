@@ -1,0 +1,97 @@
+<% content_for(:page_head) { render 'layouts/page_head', icon: 'icon fa fa-cogs', title: 'Settings' } %>
+
+<div class="content-block content-block-padding">
+  <% if policy(Account).edit? %>
+    <h3>Account</h3>
+    <ul class="list-inline list-settings">
+      <%= settings_icon_for title: 'General',
+                            icon: 'zmdi zmdi-account',
+                            url: edit_account_path %>
+      <%= settings_icon_for title: 'Attachment Upload',
+                            icon: 'zmdi zmdi-cloud-upload',
+                            url: edit_attachment_settings_account_path %>
+    </ul>
+  <% end %>
+
+  <% if policy(Role).index? %>
+    <h3>User Management</h3>
+    <ul class="list-inline list-settings">
+      <%= settings_icon_for title: 'Roles',
+                            icon: 'fa fa-lock',
+                            url: roles_path %>
+    </ul>
+  <% end %>
+
+  <% if policy(EmailNotification).index? || policy(Account).edit? %>
+    <h3>E-mail Settings</h3>
+  <% end %>
+  <ul class="list-inline list-settings">
+    <% if policy(Account).edit? %>
+      <%= settings_icon_for title: 'Header and Footer',
+                            icon: 'fa fa-code',
+                            url: edit_email_settings_path %>
+    <% end %>
+
+    <% if policy(EmailNotification).index? %>
+      <%= settings_icon_for title: 'Notifications',
+                            icon: 'fa fa-bell-o',
+                            url: email_notifications_path %>
+    <% end %>
+  </ul>
+
+  <% if policy(CallCenter).manage? || policy(MapService).manage? || policy(RoutingRule).index? || policy(Tag).index? || policy(CustomField).index? || policy(EventLog).index? || policy(HolidayCalendar).manage? || policy(TimeEntryTask).manage? || policy(BusinessHour).manage? %>
+    <h3>Ticket Management</h3>
+  <% end %>
+  <ul class="list-inline list-settings">
+    <% if policy(CallCenter).manage? %>
+      <%= settings_icon_for title: 'Call&nbsp;Centers',
+                            icon: 'zmdi zmdi-account-box-phone',
+                            url: call_centers_path %>
+    <% end %>
+    <% if policy(ResponseCode).manage? %>
+        <%= settings_icon_for title: 'Response&nbsp;Codes',
+                              icon: 'fa fa-qrcode',
+                              url: response_codes_path %>
+    <% end %>
+    <% if policy(MapService).manage? %>
+      <%= settings_icon_for title: 'Map&nbsp;Services',
+                            icon: 'fa fa-globe',
+                            url: map_services_path %>
+    <% end %>
+    <% if policy(RoutingRule).index? %>
+      <%= settings_icon_for title: 'Routing',
+                            icon: 'zmdi zmdi-shuffle',
+                            url: routing_rules_path %>
+    <% end %>
+    <% if policy(TimeEntryTask).manage? %>
+      <%= settings_icon_for title: 'Time&nbsp;Entry&nbsp;Tasks',
+                            icon: 'zmdi zmdi-bookmark',
+                            url: time_entry_tasks_path %>
+    <% end %>
+    <% if policy(Tag).index? %>
+      <%= settings_icon_for title: 'Tags',
+                            icon: 'fa fa-tags',
+                            url: tags_path %>
+    <% end %>
+    <% if policy(CustomField).index? %>
+      <%= settings_icon_for title: 'Custom&nbsp;Fields',
+                            icon: 'fa fa-bars',
+                            url: custom_fields_path %>
+    <% end %>
+    <% if policy(BusinessHour).manage? %>
+      <%= settings_icon_for title: 'Business&nbsp;Hours',
+                            icon: 'zmdi zmdi-time',
+                            url: business_hours_path %>
+    <% end %>
+    <% if policy(HolidayCalendar).manage? %>
+      <%= settings_icon_for title: 'Holiday&nbsp;Calendars',
+                            icon: 'zmdi zmdi-calendar',
+                            url: holiday_calendars_path %>
+    <% end %>
+    <% if policy(EventLog).index? %>
+      <%= settings_icon_for title: 'Event&nbsp;Logs',
+                            icon: 'fa fa-clone',
+                            url: event_logs_path %>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,22 @@
+<% content_for(:page_head) { render 'layouts/page_head', icon: 'zmdi zmdi-accounts-alt', title: 'Users' } %>
+
+<div class="content-block">
+  <div class="content">
+    <div class="content-heading">
+      <div class="caption">
+        <div class="title">
+          <h4>Edit User: "<%= @user.name %>"</h4>
+        </div>
+      </div>
+      <div class="tools"></div>
+    </div>
+    <div class="content-body">
+      <%= simple_form_for @user do |f| %>
+        <div class="content-form">
+          <%= render 'form', f: f %>
+        </div>
+        <%= save_and_cancel %>
+      <% end %>
+    </div>
+  </div>
+</div>

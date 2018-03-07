@@ -1,0 +1,10 @@
+<%= simple_form_for @widget,remote: true do |f| %>
+  <div class="modal-body">
+    <%= f.input :call_center_id, label: 'Call Center', collection: current_user_call_centers_for_select %>
+  </div>
+
+  <div class="modal-footer">
+    <input type="submit" value="Save" class="btn btn-primary" data-disable-with="Saving..." />
+    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<tr>
+  <td  class="blue_text weight_300 roboto"  style="color: #464646; font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 300;" align="left">
+    <h4><%= @subject %></h4>
+  </td>
+</tr>
+<tr>
+  <td  class="blue_text weight_300 roboto"  style="color: #464646; font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 300;" align="left">
+    <%= auto_link(@email_text, html: {style: "color: #25a0da; font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 400; text-decoration: none;"}, sanitize: false).html_safe %>
+  </td>
+</tr>

@@ -1,0 +1,58 @@
+<% content_for(:page_head) { render 'layouts/page_head', icon: 'zmdi zmdi-accounts-alt', title: 'Users' } %>
+
+<div class="content-block">
+  <div class="content">
+    <div class="content-heading">
+      <div class="caption">
+        <div class="title">
+          <h4>User "<%= @user.name %>"</h4>
+        </div>
+      </div>
+      <div class="tools">
+        <% if policy(@user).edit? %>
+          <%= confirmable_action inner_html: '<i class="fa fa-envelope-o"></i>',
+                                 url: request_password_reset_user_path(@user),
+                                 method: :patch,
+                                 type: 'warning',
+                                 tooltip: 'Send password reset e-mail',
+                                 message: "Are you sure you want to send a password reset e-mail to #{@user.name}?" %>
+
+          <a class="btn btn-circle btn-icon-only btn-primary" href="<%= edit_user_path(@user) %>" data-tooltip="tooltip" data-placement="bottom" title="Edit user">
+            <i class="fa fa-pencil"></i>
+          </a>
+        <% end %>
+      </div>
+    </div>
+    <div class="content-body">
+      <div class="content-detail">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8">
+            <h3><i class="fa fa-info"></i> General Information</h3>
+            <dl class="dl-horizontal">
+              <dt>E-mail</dt>
+              <dd><%= @user.email %></dd>
+              <dt>Time zone</dt>
+              <dd><%= @user.time_zone %></dd>
+              <dt>Active?</dt>
+              <dd><%= check_or_cross(@user.active) %></dd>
+            </dl>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <h3><i class="fa fa-lock"></i> Roles</h3>
+            <p>
+              <% @user.roles.each do |role| %>
+                <%= role_label(role) %>
+              <% end %>
+            </p>
+            <h3><i class="zmdi zmdi-phone"></i> Call Centers</h3>
+            <p>
+              <% @user.call_centers.select(:name).each do |call_center| %>
+                <%= bootstrap_label(call_center.name, 'primary') %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

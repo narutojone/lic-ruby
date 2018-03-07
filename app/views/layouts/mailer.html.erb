@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @font-face {
+        font-family: 'Roboto'; font-style: normal; font-weight: 100; src: local('Roboto Thin'), local('Roboto-Thin'), url('https://fonts.gstatic.com/s/roboto/v15/Jzo62I39jc0gQRrbndN6nfesZW2xOQ-xsNqO47m55DA.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Roboto'; font-style: normal; font-weight: 300; src: local('Roboto Light'), local('Roboto-Light'), url('https://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfaCWcynf_cDxXwCLxiixG1c.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Roboto'; font-style: normal; font-weight: 400; src: local('Roboto'), local('Roboto-Regular'), url('https://fonts.gstatic.com/s/roboto/v15/zN7GBFwfMP4uA6AR0HCoLQ.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Roboto'; font-style: normal; font-weight: 700; src: local('Roboto Bold'), local('Roboto-Bold'), url('https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOKCWcynf_cDxXwCLxiixG1c.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Roboto'; font-style: normal; font-weight: 900; src: local('Roboto Black'), local('Roboto-Black'), url('https://fonts.gstatic.com/s/roboto/v15/mnpfi9pxYH-Go5UiibESIqCWcynf_cDxXwCLxiixG1c.ttf') format('truetype');
+      }
+
+      img{
+        display: block;
+      }
+      body{
+        margin: 0 auto;
+        padding: 0;
+        width: 100% !important;
+        background-color: #ffffff;
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        color: #393939;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+
+      a{
+        color: #25A0DA;
+        text-decoration: none;
+      }
+
+      .content p{
+        margin: 0 0 10px;
+        font-size: 15px;
+      }
+      .content p:last-of-type{
+        margin: 0;
+      }
+
+      .noresponsive{
+        display: none !important;
+      }
+      .noborder{
+        border: 0 !important;
+      }
+      .nomargin{
+        margin: 0 !important;
+      }
+      .align_center{
+        text-align: center !important;
+      }
+      .align_right{
+        text-align: right !important;
+      }
+      .align_left{
+        text-align: left !important;
+      }
+
+      @media (max-width: 768px) and (min-width: 421px) {
+        body{
+          margin: 0 auto !important; width: 600px !important;
+        }
+        img{
+          height: auto !important; max-width: 100% !important;
+        }
+        .content img.logo{
+          height: auto !important; max-width: 50px !important;
+        }
+        .wrapper_table{
+          width: 600px !important; margin: 0 auto; text-align: center; background-size: 100% 100% !important;
+        }
+        .content{
+          width: 600px !important;
+        }
+        .content img{
+          max-width: 150px !important;
+        }
+        .padding{
+          width: 20px !important;
+        }
+        .image img{
+          height: auto !important; max-width: 100% !important;
+        }
+      }
+      @media (max-width: 421px) {
+        body{
+          margin: 0 auto !important; width: 320px !important;
+        }
+        img{
+          height: auto !important; max-width: 100% !important;
+        }
+        .content img.logo{
+          height: auto !important; max-width: 50px !important;
+        }
+        .wrapper_table{
+          width: 320px !important; background-size: 100% 100% !important;
+        }
+        .content{
+          width: 320px !important;
+        }
+        .content img{
+          max-width: 150px !important;
+        }
+        .padding{
+          width: 10px !important;
+        }
+        .image img{
+          display: block; width: 100% !important; height: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; background:#ffffff; color:#393939; font-family: 'Roboto', sans-serif; font-size:14px; margin: 0 auto; padding:0; width:100% !important" bgcolor="#ffffff">
+    <table class="wrapper_table" style="max-width: 800px" align="center" border="0" cellpadding="0" cellspacing="0" width="800">
+      <tbody>
+        <tr>
+          <td class="content" height="20" width="800"></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="wrapper_table" style="max-width: 800px" align="center" border="0" cellpadding="0" cellspacing="0" width="800">
+      <tbody>
+        <tr>
+          <td class="content" align="left" style="font-size: 20px; line-height: 22px;">
+            <%= @header.html_safe %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="wrapper_table" style="max-width: 800px" align="center" border="0" cellpadding="0" cellspacing="0" width="800">
+      <tbody>
+        <tr>
+          <td class="content" height="20" width="800"></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="wrapper_table" width="800" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width: 800px">
+      <tbody>
+        <tr>
+          <td class="content" width="800" height="1" bgcolor="#f5f6f6" style="background: #f5f6f6; font-size: 1px; line-height: 1px" data-color-greybg="background-color"></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="wrapper_table" style="max-width: 800px" align="center" border="0" cellpadding="0" cellspacing="0" width="800">
+      <tbody>
+        <tr>
+          <td class="content" height="20" width="800"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="wrapper_table" style="max-width: 800px" align="center" border="0" cellpadding="0" cellspacing="0" width="800">
+      <tbody>
+        <tr>
+          <td class="content" width="800">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <%= yield %>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="wrapper_table" style="max-width: 800px" align="center" border="0" cellpadding="0" cellspacing="0" width="800">
+      <tbody>
+        <tr>
+          <td class="content" height="20" width="800"></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="wrapper_table" width="800" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width: 800px">
+      <tbody>
+        <tr>
+          <td class="content" width="800" height="1" bgcolor="#f5f6f6" style="background: #f5f6f6; font-size: 1px; line-height: 1px" data-color-greybg="background-color"></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="wrapper_table" style="max-width: 800px" align="center" border="0" cellpadding="0" cellspacing="0" width="800">
+      <tbody>
+        <tr>
+          <td class="content" height="20" width="800"></td>
+        </tr>
+        <tr>
+          <td class="content"  style="color: #777; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 300;" align="left" width="800">
+            <%= @footer.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td class="content" height="20" width="800"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

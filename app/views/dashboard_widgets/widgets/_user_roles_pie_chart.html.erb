@@ -1,0 +1,49 @@
+<div class="widget-heading widget-primary">
+  <span class="title">User Role Distribution</span>
+</div>
+<div class="widget-body widget-primary widget-pie">
+  <div class="row chart-container">
+    <div class="col-xs-12 col-md-6">
+      <div id="user-roles-distribution-chart" class="chart"></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="legend"></div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do -%>
+  var data = [
+  <% @data[:roles].each do |role| %>
+    {
+      label: "<%= role.role_name %>  (<%= role.count %>)",
+      data: <%= role.count %>,
+      role_id: <%= role.role_id %>
+    },
+  <% end %>
+  ];
+  $.plot('#user-roles-distribution-chart', data, {
+    series: {
+      pie: {
+        show: true,
+        innerRadius: 0.5,
+        highlight: {
+          opacity: 0.3
+        },
+        stroke:{
+          width: 0
+        }
+      }
+    },
+    grid:{
+      hoverable: true
+    },
+    legend:{
+      container: $("#user-roles-distribution-chart").parent().next().find(".legend"),
+      labelFormatter: function(label, series) {
+        return '<a href="/users?q[roles_users_role_id_in]=' + series.role_id + '">' + label + '</a>';
+      }
+    },
+    colors: CHART_COLORS
+  });
+<% end -%>

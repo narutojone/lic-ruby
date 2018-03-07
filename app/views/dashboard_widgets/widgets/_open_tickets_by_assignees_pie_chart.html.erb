@@ -1,0 +1,59 @@
+<div class="widget-heading widget-primary">
+  <span class="call-center"><%= dashboard_widget_call_center_name(@data) %></span>
+  <span class="title">Open tickets by assignees</span>
+</div>
+<div class="widget-body widget-primary widget-pie">
+  <div class="row chart-container">
+    <div class="col-xs-12 col-md-6">
+      <div id="open-tickets-by-assignees-pie-chart-<%= @widget.id %>" class="chart"></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="legend"></div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do -%>
+  var data = [
+  <% @data[:tickets_by_assignees].each_with_index do |ticket, i| %>
+    {
+      label: "<%= ticket.first_name %> <%= ticket.last_name %> (<%= ticket.count %>)",
+      data: <%= ticket.count %>,
+      color: CHART_COLORS[<%= i %>],
+      user_id: <%= ticket.id %>
+    },
+  <% end %>
+  ];
+  var plotObj = $.plot($("#open-tickets-by-assignees-pie-chart-<%= @widget.id %>"), data, {
+    series: {
+      pie: {
+        show: true,
+        innerRadius: 0.5,
+        highlight: {
+          opacity: 0.3
+        },
+        stroke:{
+          width: 0
+        }
+      }
+    },
+    grid: {
+      hoverable: true
+    },
+    legend: {
+      container: $("#open-tickets-by-assignees-pie-chart-<%= @widget.id %>").parent().next().find(".legend"),
+      labelFormatter: function(label, series) {
+        return '<a href="<%= tickets_simple_search_path('status_in' => 'assigned', 'assignee_id_in' => 'ID_USER') %>">'.replace('ID_USER', series.user_id) + label + '</a>';
+      }
+    },
+    tooltip: true,
+    tooltipOpts: {
+      content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+      shifts: {
+        x: 20,
+        y: 0
+      },
+      defaultTheme: true
+    }
+  });
+<% end -%>

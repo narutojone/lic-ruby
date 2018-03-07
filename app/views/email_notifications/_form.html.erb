@@ -1,0 +1,72 @@
+<%= simple_form_for @notification do |f| %>
+  <div class="content-form">
+    <div class="form-group">
+      <div class="col-xs-12 col-sm-3">
+        <%= f.label :enabled, class: 'control-label' %>
+      </div>
+
+      <div class="col-xs-12 col-sm-9">
+        <div class="switch-button switch-button-sm">
+          <%= f.check_box :enabled %>
+          <span><label for="email_notification_enabled"></label></span>
+        </div>
+      </div>
+    </div>
+
+    <% unless @notification.excavator_notification_after_ticket_close? || EmailNotification::USER_TEMPLATES.include?(@notification.template.to_sym) %>
+      <%= f.input :notifiable_role_id, label: 'Role to be notified', collection: current_account.roles, input_html: {class: 'select2', 'data-placeholder' => 'Select roles'} %>
+      <%= f.input :notifiable_user_id, label: 'User to be notified', collection: current_account.users, input_html: {class: 'select2', 'data-placeholder' => 'Select users'} %>
+
+      <% unless EmailNotification::AUDIT_TEMPLATES.include?(@notification.template.to_sym) %>
+        <div class="form-group">
+          <div class="col-xs-12 col-sm-3">
+            <%= f.label :notify_assignee, class: 'control-label' %>
+          </div>
+          <div class="col-xs-12 col-sm-9">
+            <div class="switch-button switch-button-sm">
+              <%= f.check_box :notify_assignee %>
+              <span><label for="email_notification_notify_assignee"></label></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= render 'common/placeholder_list' do %>
+      <div>
+        <h5>E-mail Recipient</h5>
+        <input class="btn btn-default btn-sm" value="Recipient first name" data-placeholder="{{recipient.first_name}}" type="button">
+        <input class="btn btn-default btn-sm" type="button" value="Recipient full name" data-placeholder="{{recipient.name}}">
+        <% if @notification.template.include?('user') %>
+          <input class="btn btn-default btn-sm" type="button" value="Create password web address" data-placeholder="{{recipient.create_password_url}}">
+          <input class="btn btn-default btn-sm" type="button" value="Reset password web address" data-placeholder="{{recipient.reset_password_url}}">
+        <% elsif @notification.template.include?('ticket') %>
+          <h5>Ticket</h5>
+          <input class="btn btn-default btn-sm" type="button" value="Ticket number" data-placeholder="{{ticket.ticket_number}}">
+          <input class="btn btn-default btn-sm" type="button" value="Ticket assignee name" data-placeholder="{{ticket.assignee.name}}">
+          <input class="btn btn-default btn-sm" type="button" value="Ticket web address" data-placeholder="{{ticket.url}}">
+          <input class="btn btn-default btn-sm" type="button" value="Ticket response codes" data-placeholder="{{ticket.response_codes}}">
+          <input class="btn btn-default btn-sm" type="button" value="Ticket work address" data-placeholder="{{ticket.work_address}}">
+          <input class="btn btn-default btn-sm" type="button" value="Ticket caller name" data-placeholder="{{ticket.caller.name}}">
+          <input class="btn btn-default btn-sm" type="button" value="Ticket caller phone" data-placeholder="{{ticket.caller.phone}}">
+          <input class="btn btn-default btn-sm" type="button" value="Ticket locate instructions" data-placeholder="{{ticket.locate_instructions}}">
+        <% elsif @notification.template.include?('audit') %>
+          <h5>Audit</h5>
+          <input class="btn btn-default btn-sm" type="button" value="Missed tickets numbers" data-placeholder="{{audit.missed_ticket_numbers}}">
+          <input class="btn btn-default btn-sm" type="button" value="Audit web address" data-placeholder="{{audit.url}}">
+        <% end %>
+
+        <h5>Company</h5>
+        <input class="btn btn-default btn-sm" type="button" value="Company name" data-placeholder="{{company.name}}">
+        <input class="btn btn-default btn-sm" type="button" value="Company BOSS811 web address" data-placeholder="{{company.boss811_url}}">
+      </div>
+    <% end %>
+
+    <%= f.input :subject, label: 'E-mail subject' %>
+    <%= f.input :text,    label: 'E-mail body', input_html: {class: 'summernote'} %>
+  </div>
+
+  <div class="content-form-footer">
+    <%= save_and_cancel %>
+  </div>
+<% end %>
