@@ -256,8 +256,8 @@ end
 
 # ==> Layouts
 Rails.application.config.to_prepare do
-  Devise::SessionsController.layout 'splash'
-  Devise::PasswordsController.layout 'splash'
+  Devise::SessionsController.layout 'application'
+  Devise::PasswordsController.layout 'application'
   Devise::Mailer.layout              'system_mailer'
 #    Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "devise" }
 #    Devise::ConfirmationsController.layout "devise"

@@ -1,6 +1,6 @@
 <div class="panel-heading">
-  <%= image_tag account_logo_with_branding_restrictions, alt: 'logo', class: 'logo-img' %>
-  <h4>Welcome to <%= current_account.name %></h4>
+  <!--%= image_tag account_logo_with_branding_restrictions, alt: 'logo', class: 'logo-img' %-->
+  <!--h4>Welcome to <!--%= current_account.name %--></h4-->
   <p>Please enter your user information</p>
 </div>
 
@@ -8,7 +8,7 @@
   <%= render 'layouts/flash' %>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <%= f.hidden_field :account_id, value: current_account.id %>
+    <!--%= f.hidden_field :account_id, value: current_account.id %-->
 
     <div class="login-form">
       <div class="form-group form-md-line-input form-md-floating-label">
