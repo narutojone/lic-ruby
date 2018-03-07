@@ -3,10 +3,10 @@ require 'spec_helper'
 describe RolePolicy do
 
   before(:each) do
-    @account = FactoryGirl.create(:account)
-    @user = FactoryGirl.create(:user, account: @account)
-    @role = FactoryGirl.create(:role, account: @account)
-    @admin_role = FactoryGirl.create(:role, account: @account, admin: true)
+    @account = FactoryBot.create(:account)
+    @user = FactoryBot.create(:user, account: @account)
+    @role = FactoryBot.create(:role, account: @account)
+    @admin_role = FactoryBot.create(:role, account: @account, admin: true)
   end
 
   subject { described_class }

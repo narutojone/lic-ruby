@@ -24,9 +24,9 @@ RSpec.describe DashboardWidgetsController do
   #----------------------------------------------------------------------------
   describe '#dashboard' do
     it 'loads user widgets ordered by position' do
-      w1 = FactoryGirl.create(:dashboard_widget, user: @admin, settings: {x: 1, y: 1})
-      w2 = FactoryGirl.create(:dashboard_widget, user: @admin, settings: {x: 0, y: 1})
-      w3 = FactoryGirl.create(:dashboard_widget, user: @admin, settings: {x: 1, y: 2})
+      w1 = FactoryBot.create(:dashboard_widget, user: @admin, settings: {x: 1, y: 1})
+      w2 = FactoryBot.create(:dashboard_widget, user: @admin, settings: {x: 0, y: 1})
+      w3 = FactoryBot.create(:dashboard_widget, user: @admin, settings: {x: 1, y: 2})
       get :dashboard
       expect(assigns(:widgets)).to eq([w2, w1, w3])
     end
@@ -35,7 +35,7 @@ RSpec.describe DashboardWidgetsController do
   #----------------------------------------------------------------------------
   describe '#show' do
     before do
-      @widget = FactoryGirl.create(:dashboard_widget, user: @admin)
+      @widget = FactoryBot.create(:dashboard_widget, user: @admin)
     end
 
     it 'gathers data based on the widget' do
@@ -77,7 +77,7 @@ RSpec.describe DashboardWidgetsController do
     end
 
     it 'sets the position as the last widget' do
-      FactoryGirl.create(:dashboard_widget, user: @admin, settings: {x: 0, y: 2})
+      FactoryBot.create(:dashboard_widget, user: @admin, settings: {x: 0, y: 2})
       post :create, params: {dashboard_widget: {type_id: 2}, format: :js}
       widget = @admin.dashboard_widgets.order(:id).last
       expect(widget.settings).to eq({'x' => 0, 'y' => 3})
@@ -90,7 +90,7 @@ RSpec.describe DashboardWidgetsController do
     end
 
     it 'does not set call center if the user belongs to multiple call centers' do
-      call_center2 = FactoryGirl.create(:call_center, account: @account)
+      call_center2 = FactoryBot.create(:call_center, account: @account)
       @admin.call_centers << call_center2
 
       post :create, params: {dashboard_widget: {type_id: 2}, format: :js}
@@ -107,8 +107,8 @@ RSpec.describe DashboardWidgetsController do
   #----------------------------------------------------------------------------
   describe '#update_positions' do
     before do
-      @w1 = FactoryGirl.create(:dashboard_widget, user: @admin, settings: {x: 0, y: 0})
-      @w2 = FactoryGirl.create(:dashboard_widget, user: @admin, settings: {x: 1, y: 0})
+      @w1 = FactoryBot.create(:dashboard_widget, user: @admin, settings: {x: 0, y: 0})
+      @w2 = FactoryBot.create(:dashboard_widget, user: @admin, settings: {x: 1, y: 0})
     end
 
     it 'updates widget positions' do
@@ -131,8 +131,8 @@ RSpec.describe DashboardWidgetsController do
   #----------------------------------------------------------------------------
   describe '#update' do
     before do
-      @w = FactoryGirl.create(:dashboard_widget, user: @admin, call_center: @call_center, settings: {period: 'last_week', x: 2, y: 1})
-      @call_center2 = FactoryGirl.create(:call_center, account: @account)
+      @w = FactoryBot.create(:dashboard_widget, user: @admin, call_center: @call_center, settings: {period: 'last_week', x: 2, y: 1})
+      @call_center2 = FactoryBot.create(:call_center, account: @account)
     end
 
     it 'updates params and widget settings via merge' do
@@ -157,7 +157,7 @@ RSpec.describe DashboardWidgetsController do
   #----------------------------------------------------------------------------
   describe '#destroy' do
     it 'deletes the widget' do
-      w = FactoryGirl.create(:dashboard_widget, user: @admin)
+      w = FactoryBot.create(:dashboard_widget, user: @admin)
       expect {
         delete :destroy, params: {id: w.id, format: :js}
       }.to change { @admin.dashboard_widgets.count }.by(-1)

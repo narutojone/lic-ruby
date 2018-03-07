@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe EmailNotificationsCreationJob do
   before do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @call_center = @account.call_centers.first
     @call_center.email_notifications.delete_all
   end

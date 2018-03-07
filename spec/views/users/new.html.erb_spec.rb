@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe '/users/new.html.erb' do
   before do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @policy = Helpers::View::PolicyMock.new(:index?)
 
     assign(:user, User.new)

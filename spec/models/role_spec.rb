@@ -14,7 +14,7 @@
 require 'spec_helper'
 
 RSpec.describe Role do
-  let(:role) { FactoryGirl.create(:role) }
+  let(:role) { FactoryBot.create(:role) }
 
   #----------------------------------------------------------------------------
   describe 'validations' do
@@ -41,7 +41,7 @@ RSpec.describe Role do
 
     describe 'destroy' do
       it 'does not destroy role when a user has this role' do
-        user = FactoryGirl.create(:user, account: role.account)
+        user = FactoryBot.create(:user, account: role.account)
         user.roles << role
         expect {
           expect(role.destroy).to eq(false)
@@ -50,7 +50,7 @@ RSpec.describe Role do
       end
 
       it 'destroys the role when no user has this role' do
-        role = FactoryGirl.create(:role)
+        role = FactoryBot.create(:role)
         expect {
           expect(role.destroy).to be_truthy
         }.to change { Role.count }.by(-1)

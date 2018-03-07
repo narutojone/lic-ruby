@@ -53,6 +53,7 @@ group :test do
   gem 'rspec-rails',       '3.7.2'
   gem 'factory_bot_rails', '4.8.2'
   gem 'capybara', '~> 2.13'
+  gem 'capybara-screenshot'
 
   gem 'timecop', '>= 0.9.1'
 
@@ -60,4 +61,6 @@ group :test do
   gem 'vcr',     '>= 3.0.1'
 
   gem 'poltergeist', '>= 1.15.0'
+  gem 'simplecov', require: false
+  gem 'database_cleaner'
 end

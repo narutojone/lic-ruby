@@ -15,7 +15,7 @@ module Helpers
 
     #--------------------------------------------------------------------------
     def create_account(account_params = {})
-      @account = FactoryGirl.create(:account, account_params)
+      @account = FactoryBot.create(:account, account_params)
       @admin = account_admin(@account)
 
       @request.host = "#{@account.domain}.#{Saas::Config.base_domain}"

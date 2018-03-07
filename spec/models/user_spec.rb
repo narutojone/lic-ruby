@@ -29,7 +29,7 @@ describe User do
   #----------------------------------------------------------------------------
   describe 'eventlogging' do
     before do
-      @user = FactoryGirl.build(:user, account: @account)
+      @user = FactoryBot.build(:user, account: @account)
     end
 
     it 'logs its changes' do
@@ -45,7 +45,7 @@ describe User do
 
     it 'records roles_user removal in event log when a role is removed from the user' do
       @user.save!
-      @role = FactoryGirl.create(:role, account: @account)
+      @role = FactoryBot.create(:role, account: @account)
       @user.roles << @role
 
       expect {
@@ -57,18 +57,18 @@ describe User do
   #----------------------------------------------------------------------------
   describe 'validations' do
     it 'is valid with valid attributes' do
-      expect(FactoryGirl.build(:user)).to be_valid
+      expect(FactoryBot.build(:user)).to be_valid
     end
 
     it 'password should be at least 8 characters' do
-      user = FactoryGirl.build(:user, account: @account, password: '1234567', password_confirmation: '1234567')
+      user = FactoryBot.build(:user, account: @account, password: '1234567', password_confirmation: '1234567')
       expect(user.valid?).to eq(false)
       expect(user.errors.messages[:password]).not_to be_nil
       expect(user.errors.messages[:password]).to eq(['is too short (minimum is 8 characters)'])
     end
 
     it 'must have an email' do
-      user = FactoryGirl.build(:user, email: nil)
+      user = FactoryBot.build(:user, email: nil)
       expect(user).not_to be_valid
 
       user.email = ''
@@ -79,21 +79,21 @@ describe User do
     end
 
     it 'must have time zone set' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
 
       user.time_zone = ''
       expect(user).not_to be_valid
     end
 
     it 'must have a unique email per account' do
-      FactoryGirl.create(:user, account: @account, email: 'email@example.com')
-      user = FactoryGirl.build(:user, account: @account, email: 'email@example.com')
+      FactoryBot.create(:user, account: @account, email: 'email@example.com')
+      user = FactoryBot.build(:user, account: @account, email: 'email@example.com')
 
       expect(user).to_not be_valid
       expect(user.errors[:email]).to include('has already been taken')
 
-      other_account = FactoryGirl.create(:account)
-      user = FactoryGirl.build(:user, account: other_account, email: 'email@example.com')
+      other_account = FactoryBot.create(:account)
+      user = FactoryBot.build(:user, account: other_account, email: 'email@example.com')
       expect(user).to be_valid
     end
 
@@ -109,7 +109,7 @@ describe User do
       end
 
       it 'should let remove the admin role when there are other admins present' do
-        second_admin = FactoryGirl.create(:user, account: @account)
+        second_admin = FactoryBot.create(:user, account: @account)
         second_admin.roles << @admin_role
 
         @admin.update(role_ids: [])
@@ -117,7 +117,7 @@ describe User do
       end
 
       it 'should not be run when the record is new' do
-        user = FactoryGirl.build(:user, account: @account)
+        user = FactoryBot.build(:user, account: @account)
         expect(user).to_not receive(:check_account_admin_count)
         user.valid?
       end
@@ -126,12 +126,12 @@ describe User do
     describe 'check_user_limit' do
       before do
         # 3 users total, with the limit as 3
-        2.times { FactoryGirl.create(:user, account: @account) }
+        2.times { FactoryBot.create(:user, account: @account) }
       end
 
       it 'should check if active flag changed to true' do
         # 4 users total, over the limit
-        FactoryGirl.create(:user, account: @account)
+        FactoryBot.create(:user, account: @account)
         user = @account.users.order(:id).last
         user.first_name = 'New name'
         expect(user).to be_valid
@@ -146,7 +146,7 @@ describe User do
 
       it 'should add an error when user limit is exceeded' do
         # 4 users total, 1 inactive, not over the limit
-        FactoryGirl.create(:user, account: @account, active: false)
+        FactoryBot.create(:user, account: @account, active: false)
         user = @account.users.order(:id).last
         user.active = true
         expect(user).to_not be_valid
@@ -156,7 +156,7 @@ describe User do
 
     describe 'active flag' do
       it 'should not allow nil' do
-        user = FactoryGirl.build(:user, account: @account)
+        user = FactoryBot.build(:user, account: @account)
         user.active = nil
         expect(user).to_not be_valid
         expect(user.errors[:active]).to eq(['is not included in the list'])
@@ -165,27 +165,27 @@ describe User do
 
     describe 'tickets' do
       it 'should not allow the deletion of user when the user is an assignee of a ticket' do
-        user = FactoryGirl.create(:user, account: @account)
-        ticket = FactoryGirl.create(:ticket, account: @account, assignee: user)
+        user = FactoryBot.create(:user, account: @account)
+        ticket = FactoryBot.create(:ticket, account: @account, assignee: user)
         expect(user.destroy).to eq(false)
         expect(user.errors[:base]).to include('Cannot delete record because dependent tickets exist')
       end
     end
 
     describe '#check_users_associations' do
-      let(:user) { FactoryGirl.create(:user, account: @account) }
+      let(:user) { FactoryBot.create(:user, account: @account) }
 
       it 'should not allow the deletion of user when the user is a notificable user of an email notification' do
-        FactoryGirl.create(:email_notification, account: @account, notifiable_user: user)
+        FactoryBot.create(:email_notification, account: @account, notifiable_user: user)
         expect(user.destroy).to eq(false)
         expect(user.errors[:base]).to include('Cannot delete the user because the user is a notifiable user of an email notification')
       end
 
       it 'should not allow the deletion of user when the user is a creator of a note' do
-        ticket = FactoryGirl.create(:ticket, account: @account)
+        ticket = FactoryBot.create(:ticket, account: @account)
 
         Thread.current[:current_user] = user
-        FactoryGirl.create(:note, ticket: ticket)
+        FactoryBot.create(:note, ticket: ticket)
         EventLog.delete_all
 
         expect(user.destroy).to eq(false)
@@ -193,8 +193,8 @@ describe User do
       end
 
       it 'should not allow the deletion of user when the user has created ticket responses' do
-        ticket = FactoryGirl.create(:ticket, account: @account)
-        response = FactoryGirl.create(:ticket_response, ticket: ticket)
+        ticket = FactoryBot.create(:ticket, account: @account)
+        response = FactoryBot.create(:ticket_response, ticket: ticket)
         response.update!(respondent: user)
         expect(user.destroy).to eq(false)
         expect(user.errors[:base]).to include('Cannot delete the user because the user has already created ticket responses')
@@ -208,17 +208,17 @@ describe User do
 
   #----------------------------------------------------------------------------
   describe 'deletion' do
-    let(:user) { FactoryGirl.create(:user, account: @account) }
+    let(:user) { FactoryBot.create(:user, account: @account) }
 
     it 'nullifies feedback user ids on deletion' do
-      @feedback = FactoryGirl.create(:feedback, user: user)
+      @feedback = FactoryBot.create(:feedback, user: user)
       user.destroy
 
       expect(@feedback.reload.user_id).to be_nil
     end
 
     it 'nullifies event log user ids on delete' do
-      log = FactoryGirl.create(:event_log, account: @account, user: user)
+      log = FactoryBot.create(:event_log, account: @account, user: user)
       user.destroy
 
       expect(log.reload.user_id).to be_nil
@@ -228,7 +228,7 @@ describe User do
   #----------------------------------------------------------------------------
   describe '#generate_api_key' do
     it 'should generate an api key' do
-      user = FactoryGirl.create(:user, account: @account, api_key: nil)
+      user = FactoryBot.create(:user, account: @account, api_key: nil)
 
       user.generate_api_key
       user.reload
@@ -237,7 +237,7 @@ describe User do
     end
 
     it 'should overwrite the existing api key' do
-      user = FactoryGirl.create(:user, account: @account, api_key: 'current api key')
+      user = FactoryBot.create(:user, account: @account, api_key: 'current api key')
 
       user.generate_api_key
       user.reload
@@ -245,17 +245,17 @@ describe User do
     end
 
     it 'should generate a unique api key' do
-      FactoryGirl.create(:user, account: @account, api_key: 'key')
+      FactoryBot.create(:user, account: @account, api_key: 'key')
       allow(SecureRandom).to receive(:hex).and_return('key', 'key', 'another key', 'key')
 
-      user = FactoryGirl.create(:user, api_key: nil)
+      user = FactoryBot.create(:user, api_key: nil)
       user.generate_api_key
       user.reload
       expect(user.api_key).to eq('another key')
     end
 
     it 'shouldnt leave a event log entry' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       expect {
         user.generate_api_key
       }.not_to change { EventLog.count }
@@ -265,9 +265,9 @@ describe User do
   #----------------------------------------------------------------------------
   describe '#permission_marks' do
     before do
-      @role1 = FactoryGirl.create(:role, account: @account, permissions: [1, 2])
-      @role2 = FactoryGirl.create(:role, account: @account, permissions: [2, 3])
-      @user = FactoryGirl.create(:user, account: @account)
+      @role1 = FactoryBot.create(:role, account: @account, permissions: [1, 2])
+      @role2 = FactoryBot.create(:role, account: @account, permissions: [2, 3])
+      @user = FactoryBot.create(:user, account: @account)
 
       @user.roles << @role1
       @user.roles << @role2
@@ -288,12 +288,12 @@ describe User do
   #----------------------------------------------------------------------------
   describe '#has_permission?' do
     before do
-      @role1 = FactoryGirl.create(:role, account: @account, permissions: [1])
-      @role2 = FactoryGirl.create(:role, account: @account, permissions: [2])
+      @role1 = FactoryBot.create(:role, account: @account, permissions: [1])
+      @role2 = FactoryBot.create(:role, account: @account, permissions: [2])
     end
 
     it 'checks for permission from each of users roles' do
-      user = FactoryGirl.create(:user, account: @account)
+      user = FactoryBot.create(:user, account: @account)
       user.roles << @role1
       expect(user.has_permission?('role', 'index')).to eq(true)
       expect(user.has_permission?('role', 'create')).to eq(false)
@@ -315,7 +315,7 @@ describe User do
     end
 
     it 'always returns false for a non-admin without a role' do
-      user = FactoryGirl.create(:user, account: @account)
+      user = FactoryBot.create(:user, account: @account)
       PERMISSIONS.each_pair do |resource, attrs|
         attrs[:activities].each_key do |activity|
           expect(user.has_permission?(resource, activity)).to eq(false)
@@ -327,12 +327,12 @@ describe User do
   #----------------------------------------------------------------------------
   describe '#name, #to_s' do
     it 'should return users full name' do
-      user = FactoryGirl.build(:user, account: @account, first_name: 'Leopold', last_name: 'Xavier')
+      user = FactoryBot.build(:user, account: @account, first_name: 'Leopold', last_name: 'Xavier')
       expect(user.to_s).to eq('Leopold Xavier')
     end
 
     it 'should return only first name if last name is blank' do
-      user = FactoryGirl.build(:user, account: @account, first_name: 'Leopold', last_name: nil)
+      user = FactoryBot.build(:user, account: @account, first_name: 'Leopold', last_name: nil)
       expect(user.to_s).to eq('Leopold')
     end
   end
@@ -354,7 +354,7 @@ describe User do
     end
 
     it 'requires password when the user is created as the first user along with the account' do
-      plan = FactoryGirl.create(:advanced_subscription_plan)
+      plan = FactoryBot.create(:advanced_subscription_plan)
       account = Account.create(
         domain: 'mynewaccount',
         users_attributes: {
@@ -378,20 +378,20 @@ describe User do
     end
 
     it 'doesnt require password when creating a new user to an existing account' do
-      user = FactoryGirl.build(:user, account: @account, password: '', password_confirmation: '')
+      user = FactoryBot.build(:user, account: @account, password: '', password_confirmation: '')
       expect(user.send(:password_required?)).to eq(false)
     end
   end
 
   describe '#tickets' do
     it 'should be possible to delete user without assigned tickets' do
-      user = FactoryGirl.create(:user, account: @account)
+      user = FactoryBot.create(:user, account: @account)
       expect{ user.destroy }.to change{ User.count }.by(-1)
     end
 
     it 'shouldnt be possible to delete user with tickets' do
-      user   = FactoryGirl.create(:user, account: @account)
-      ticket = FactoryGirl.create(:ticket, account: @account, assignee: user)
+      user   = FactoryBot.create(:user, account: @account)
+      ticket = FactoryBot.create(:ticket, account: @account, assignee: user)
 
       expect{ user.destroy }.not_to change{ User.count }
       expect(user.errors.messages[:base]).not_to be_nil
@@ -400,14 +400,14 @@ describe User do
 
   describe '#time_entries' do
     it 'should be possible to delete user without assigned time entries' do
-      user = FactoryGirl.create(:user, account: @account)
+      user = FactoryBot.create(:user, account: @account)
       expect{ user.destroy }.to change{ User.count }.by(-1)
     end
 
     it 'shouldnt be possible to delete user with time entries' do
-      user = FactoryGirl.create(:user, account: @account)
-      ticket = FactoryGirl.create(:ticket, account: @account)
-      time_entry = FactoryGirl.create(:time_entry, user: user, ticket: ticket)
+      user = FactoryBot.create(:user, account: @account)
+      ticket = FactoryBot.create(:ticket, account: @account)
+      time_entry = FactoryBot.create(:time_entry, user: user, ticket: ticket)
 
       expect{ user.destroy }.not_to change{ User.count }
       expect(user.errors.messages[:base]).not_to be_nil
@@ -418,8 +418,8 @@ describe User do
   describe 'scopes' do
     describe 'is_active' do
       before do
-        @active_user = FactoryGirl.create(:user, account: @account, active: true)
-        @inactive_user = FactoryGirl.create(:user, account: @account, active: false)
+        @active_user = FactoryBot.create(:user, account: @account, active: true)
+        @inactive_user = FactoryBot.create(:user, account: @account, active: false)
       end
 
       it 'loads active users by default' do
@@ -440,11 +440,11 @@ describe User do
 
     describe '.order_by_name' do
       before do
-        @benjamin = FactoryGirl.create :user, account: @account,
+        @benjamin = FactoryBot.create :user, account: @account,
                                        first_name: 'Benjamin', last_name: 'Waldron'
-        @adam = FactoryGirl.create :user, account: @account,
+        @adam = FactoryBot.create :user, account: @account,
                                    first_name: 'Adam', last_name: 'Waldron'
-        @christie = FactoryGirl.create :user, account: @account,
+        @christie = FactoryBot.create :user, account: @account,
                                        first_name: 'Christie', last_name: 'Salas'
       end
 
@@ -467,14 +467,14 @@ describe User do
   #----------------------------------------------------------------------------
   describe '#set_initial_time_zone' do
     it 'should set users time zone to that of its accounts' do
-      account = FactoryGirl.create(:account, time_zone: 'Bangkok')
-      new_user = FactoryGirl.create(:user, account: account, time_zone: nil)
+      account = FactoryBot.create(:account, time_zone: 'Bangkok')
+      new_user = FactoryBot.create(:user, account: account, time_zone: nil)
       expect(new_user.reload.time_zone).to eq('Bangkok')
     end
 
     it 'should not override the time zone when it is already set' do
-      account = FactoryGirl.create(:account, time_zone: 'Bangkok')
-      new_user = FactoryGirl.create(:user, account: account, time_zone: 'Vanuatu')
+      account = FactoryBot.create(:account, time_zone: 'Bangkok')
+      new_user = FactoryBot.create(:user, account: account, time_zone: 'Vanuatu')
       expect(new_user.reload.time_zone).to eq('Vanuatu')
     end
   end
@@ -482,9 +482,9 @@ describe User do
   #----------------------------------------------------------------------------
   describe '#admin?' do
     before do
-      @user   = FactoryGirl.create(:user, account: @account)
-      @role1 = FactoryGirl.create(:role, account: @account, name: 'Admin 1', admin: true)
-      @role2 = FactoryGirl.create(:role, account: @account)
+      @user   = FactoryBot.create(:user, account: @account)
+      @role1 = FactoryBot.create(:role, account: @account, name: 'Admin 1', admin: true)
+      @role2 = FactoryBot.create(:role, account: @account)
     end
 
     it 'always returns true for admins' do

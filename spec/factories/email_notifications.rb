@@ -15,7 +15,7 @@
 #  text               :text             not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :email_notification do
     association :account
     call_center { account.call_centers.first }

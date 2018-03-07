@@ -4,8 +4,8 @@ describe ApplicationPolicy do
   subject { described_class }
 
   before(:each) do
-    @account = FactoryGirl.create(:account)
-    @user = FactoryGirl.create(:user, account: @account)
+    @account = FactoryBot.create(:account)
+    @user = FactoryBot.create(:user, account: @account)
   end
 
   permissions :index?, :show?, :edit?, :update?, :create?, :destroy? do

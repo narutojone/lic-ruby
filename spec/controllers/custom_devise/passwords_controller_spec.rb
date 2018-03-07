@@ -6,7 +6,7 @@ describe CustomDevise::PasswordsController do
   before do
     create_account
 
-    @user = FactoryGirl.create(:user, account: @account, email: 'jack.pot@example.com')
+    @user = FactoryBot.create(:user, account: @account, email: 'jack.pot@example.com')
     @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
@@ -29,7 +29,7 @@ describe CustomDevise::PasswordsController do
     end
 
     it 'does not try to send a password reset email to a user from another account' do
-      other_user = FactoryGirl.create(:user, email: 'al.dente@example.com')
+      other_user = FactoryBot.create(:user, email: 'al.dente@example.com')
 
       expect(EmailNotifierJob).not_to receive(:perform_later)
       post :create, params: {user: {account_id: @account.id, email: 'al.dente@example.com'}}

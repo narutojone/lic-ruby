@@ -4,7 +4,7 @@ describe '/roles/new.html.erb' do
   helper(SettingsHelper)
 
   before(:each) do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @policy = Helpers::View::PolicyMock.new
 
     assign(:role, Role.new)

@@ -3,9 +3,9 @@ require 'spec_helper'
 describe EmailNotificationPolicy do
 
   before(:each) do
-    @account = FactoryGirl.create(:account)
-    @user = FactoryGirl.create(:user, account: @account)
-    @email_notification = FactoryGirl.create(:email_notification, account: @account, template: 0)
+    @account = FactoryBot.create(:account)
+    @user = FactoryBot.create(:user, account: @account)
+    @email_notification = FactoryBot.create(:email_notification, account: @account, template: 0)
   end
 
   subject { described_class }
@@ -37,6 +37,6 @@ describe EmailNotificationPolicy do
     it 'grants access if users role has email_notification:update permission' do
       grant_permission(@user, 35)
       expect(subject).to permit(@user, @email_notification)
-    end 
+    end
   end
 end

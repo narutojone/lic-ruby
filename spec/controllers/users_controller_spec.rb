@@ -25,7 +25,7 @@ describe UsersController do
 
   before do
     create_account_and_login(time_zone: 'Eastern Time (US & Canada)')
-    @user = FactoryGirl.create :user,
+    @user = FactoryBot.create :user,
                                account: @account,
                                first_name: 'Account',
                                last_name: 'User'
@@ -34,9 +34,9 @@ describe UsersController do
   #----------------------------------------------------------------------------
   describe '#index' do
     before do
-      @bill = FactoryGirl.create(:user, account: @account, first_name: 'Billy', last_name: 'Baaaaaaaa')
-      @joe =  FactoryGirl.create(:user, account: @account, first_name: 'Joe', last_name: 'Schmoe')
-      @jill = FactoryGirl.create(:user, account: @account, first_name: 'Jilly', last_name: 'Abbbbbbbb')
+      @bill = FactoryBot.create(:user, account: @account, first_name: 'Billy', last_name: 'Baaaaaaaa')
+      @joe =  FactoryBot.create(:user, account: @account, first_name: 'Joe', last_name: 'Schmoe')
+      @jill = FactoryBot.create(:user, account: @account, first_name: 'Jilly', last_name: 'Abbbbbbbb')
     end
 
     it 'uses ransack search for @users' do
@@ -48,14 +48,14 @@ describe UsersController do
   #----------------------------------------------------------------------------
   describe '#show' do
     it 'loads users assigned tickets' do
-      t1 = FactoryGirl.create(:ticket, account: @account)
-      t2 = FactoryGirl.create(:assigned_ticket, account: @account, assignee: @user)
+      t1 = FactoryBot.create(:ticket, account: @account)
+      t2 = FactoryBot.create(:assigned_ticket, account: @account, assignee: @user)
       t2.update_column(:response_due_at, Time.now + 1.day)
-      t3 = FactoryGirl.create(:assigned_ticket, account: @account)
+      t3 = FactoryBot.create(:assigned_ticket, account: @account)
       t3.update_column(:response_due_at, Time.now + 2.day)
-      t4 = FactoryGirl.create(:assigned_ticket, account: @account, assignee: @user)
+      t4 = FactoryBot.create(:assigned_ticket, account: @account, assignee: @user)
       t4.update_column(:response_due_at, Time.now + 1.hour)
-      t5 = FactoryGirl.create(:closed_ticket, account: @account, assignee: @user)
+      t5 = FactoryBot.create(:closed_ticket, account: @account, assignee: @user)
 
       get :show, params: {id: @user.id}
       tickets = assigns(:tickets)
@@ -90,31 +90,31 @@ describe UsersController do
   describe '#create' do
     it 'creates the user under the current account' do
       expect {
-        post :create, params: {user: FactoryGirl.attributes_for(:user)}
+        post :create, params: {user: FactoryBot.attributes_for(:user)}
       }.to change{ @account.users.count }.by(1)
     end
 
     it 'sends :user_welcome email notification to the new user' do
       expect(EmailNotifierJob).to receive(:perform_later).with(an_instance_of(User), EmailNotification.templates[:user_welcome])
 
-      post :create, params: {user: FactoryGirl.attributes_for(:user)}
+      post :create, params: {user: FactoryBot.attributes_for(:user)}
     end
 
     it 'flash message shows users name' do
-      post :create, params: {user: FactoryGirl.attributes_for(:user, first_name: 'Bob', last_name: 'Rob')}
+      post :create, params: {user: FactoryBot.attributes_for(:user, first_name: 'Bob', last_name: 'Rob')}
       expect(flash[:notice]).to eq('Bob Rob added!')
     end
 
     it 'uses user_params' do
       expect(controller).to receive(:user_params)
-      post :create, params: {user: FactoryGirl.attributes_for(:user)}
+      post :create, params: {user: FactoryBot.attributes_for(:user)}
     end
   end
 
   #----------------------------------------------------------------------------
   describe '#edit' do
     before do
-      @user = FactoryGirl.create(:user, account: @account)
+      @user = FactoryBot.create(:user, account: @account)
     end
 
     it 'loads user through set_user' do
@@ -126,7 +126,7 @@ describe UsersController do
   #----------------------------------------------------------------------------
   describe '#update' do
     before(:each) do
-      @user = FactoryGirl.create(:user, account: @account)
+      @user = FactoryBot.create(:user, account: @account)
     end
 
     it 'should update user record' do
@@ -152,19 +152,19 @@ describe UsersController do
   #----------------------------------------------------------------------------
   describe '#bulk_update' do
     before do
-      @user1 = FactoryGirl.create(:user, account: @account)
-      @user2 = FactoryGirl.create(:user, account: @account)
-      @user3 = FactoryGirl.create(:user, account: @account)
+      @user1 = FactoryBot.create(:user, account: @account)
+      @user2 = FactoryBot.create(:user, account: @account)
+      @user3 = FactoryBot.create(:user, account: @account)
 
-      @role1 = FactoryGirl.create(:role, account: @account)
-      @role2 = FactoryGirl.create(:role, account: @account)
-      @role3 = FactoryGirl.create(:role, account: @account)
+      @role1 = FactoryBot.create(:role, account: @account)
+      @role2 = FactoryBot.create(:role, account: @account)
+      @role3 = FactoryBot.create(:role, account: @account)
 
       @user1.update_attribute(:role_ids, [@role1.id, @role2.id])
       @user3.update_attribute(:role_ids, [@role3.id])
 
-      @account2 = FactoryGirl.create(:account)
-      @user_of_other_account = FactoryGirl.create(:user, account: @account2)
+      @account2 = FactoryBot.create(:account)
+      @user_of_other_account = FactoryBot.create(:user, account: @account2)
       set_http_referer(users_path(q_status_eq: 1))
     end
 
@@ -215,7 +215,7 @@ describe UsersController do
   #----------------------------------------------------------------------------
   describe '#destroy' do
     before(:each) do
-      @user = FactoryGirl.create(:user, account: @account)
+      @user = FactoryBot.create(:user, account: @account)
       set_http_referer(users_path(q_role_id_eq: 2))
     end
 
@@ -255,7 +255,7 @@ describe UsersController do
   #----------------------------------------------------------------------------
   describe '#set_user' do
     before do
-      @user = FactoryGirl.create(:user, account: @account)
+      @user = FactoryBot.create(:user, account: @account)
       allow(controller).to receive(:params).and_return({id: @user.id})
     end
 
@@ -286,7 +286,7 @@ describe UsersController do
       expect_any_instance_of(Account).to receive(:reached_user_limit?).and_return(true)
 
       expect {
-        post :create, params: {user: FactoryGirl.attributes_for(:user)}
+        post :create, params: {user: FactoryBot.attributes_for(:user)}
       }.not_to change(User, :count)
       expect(response).to redirect_to(new_user_url)
     end

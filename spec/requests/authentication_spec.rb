@@ -3,9 +3,9 @@ require 'spec_helper'
 RSpec.describe 'Authentication' do
 
   before(:each) do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @admin = account_admin(@account)
-    @user = FactoryGirl.create(:user, account: @account, active: true, password: '123123123', password_confirmation: '123123123')
+    @user = FactoryBot.create(:user, account: @account, active: true, password: '123123123', password_confirmation: '123123123')
   end
 
   it 'successfully logs in an active user' do

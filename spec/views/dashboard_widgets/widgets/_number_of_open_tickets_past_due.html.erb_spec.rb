@@ -5,9 +5,9 @@ describe '/dashboard_widgets/widgets/_number_of_open_tickets_past_due.html.erb' 
   helper(DashboardWidgetsHelper)
 
   before do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @call_center1 = @account.call_centers.first
-    @call_center2 = FactoryGirl.create(:call_center, account: @account, settings: {})
+    @call_center2 = FactoryBot.create(:call_center, account: @account, settings: {})
 
     @user = account_admin(@account)
     @user.call_centers << @call_center1

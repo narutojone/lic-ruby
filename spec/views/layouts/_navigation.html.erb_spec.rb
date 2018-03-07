@@ -4,8 +4,8 @@ describe 'layouts/_navigation' do
   helper(SettingsHelper)
 
   before do
-    @account = FactoryGirl.create(:account)
-    @user = FactoryGirl.create(:user, account: @account)
+    @account = FactoryBot.create(:account)
+    @user = FactoryBot.create(:user, account: @account)
     @policy = Helpers::View::PolicyMock.new
 
     allow(view).to receive(:current_account).and_return(@account)

@@ -5,9 +5,9 @@ describe '/roles/index.html.erb' do
   helper(ConfirmableActionHelper)
 
   before(:each) do
-    @account = FactoryGirl.create(:account)
-    @role = FactoryGirl.create(:role, account: @account)
-    @user = FactoryGirl.create(:user, account: @account)
+    @account = FactoryBot.create(:account)
+    @role = FactoryBot.create(:role, account: @account)
+    @user = FactoryBot.create(:user, account: @account)
     @policy = Helpers::View::PolicyMock.new
 
     assign(:user, @user)

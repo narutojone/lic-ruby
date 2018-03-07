@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe ApplicationRecord do
   before do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @admin   = account_admin(@account)
-    @ticket  = FactoryGirl.create(:ticket, account: @account)
-    @note    = FactoryGirl.build(:note, ticket: @ticket)
+    @ticket  = FactoryBot.create(:ticket, account: @account)
+    @note    = FactoryBot.build(:note, ticket: @ticket)
   end
 
   #----------------------------------------------------------------------------

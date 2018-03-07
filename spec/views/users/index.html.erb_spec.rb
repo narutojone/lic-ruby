@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe '/users/index.html.erb' do
-  helper(RolesHelper)
-  helper(ConfirmableActionHelper)
+  # helper(RolesHelper)
+  # helper(ConfirmableActionHelper)
 
   before do
-    @account = FactoryGirl.create(:account)
-    @user = FactoryGirl.create(:user, account: @account)
+    @account = FactoryBot.create(:account)
+    @user = FactoryBot.create(:user, account: @account)
     @policy = Helpers::View::PolicyMock.new
 
     assign(:user, @user)

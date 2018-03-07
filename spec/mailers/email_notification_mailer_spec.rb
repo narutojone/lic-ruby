@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe EmailNotificationMailer do
-  let(:recipient) { FactoryGirl.create(:user) }
+  let(:recipient) { FactoryBot.create(:user) }
 
   describe '#notification' do
     before do

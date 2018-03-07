@@ -48,7 +48,7 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run_excluding(disabled: true)
 
-  config.include SampleDocuments
+  # config.include SampleDocuments
   config.include Helpers::Model,                  type: :model
 
   config.include Devise::Test::ControllerHelpers, type: :controller
@@ -135,12 +135,12 @@ RSpec.configure do |config|
   end
 
   def valid_user(attributes = {})
-    FactoryGirl.build(:user, attributes).attributes
+    FactoryBot.build(:user, attributes).attributes
   end
 
   def valid_subscription(attributes = {})
-    { :plan => FactoryGirl.create(:basic_subscription_plan),
-      :account => FactoryGirl.create(:account)
+    { :plan => FactoryBot.create(:basic_subscription_plan),
+      :account => FactoryBot.create(:account)
     }.merge(attributes)
   end
 
@@ -157,7 +157,7 @@ RSpec.configure do |config|
         permission
       end
 
-    role = FactoryGirl.create(:role, account: user.account, permissions: [permission_id])
+    role = FactoryBot.create(:role, account: user.account, permissions: [permission_id])
     user.roles << role
   end
 

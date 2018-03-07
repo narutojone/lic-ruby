@@ -4,9 +4,9 @@ describe UserPolicy do
   subject { described_class }
 
   before do
-    @account = FactoryGirl.create(:account)
-    @user = FactoryGirl.create(:user, account: @account)
-    @other_user = FactoryGirl.create(:user, account: @account)
+    @account = FactoryBot.create(:account)
+    @user = FactoryBot.create(:user, account: @account)
+    @other_user = FactoryBot.create(:user, account: @account)
   end
 
   #----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ describe UserPolicy do
   #----------------------------------------------------------------------------
   permissions :edit?, :update? do
     before do
-      @other_user = FactoryGirl.create(:user, account: @account)
+      @other_user = FactoryBot.create(:user, account: @account)
     end
 
     it 'denies access if users role does not have user:update permission' do
@@ -90,7 +90,7 @@ describe UserPolicy do
   #----------------------------------------------------------------------------
   permissions :destroy? do
     before do
-      @other_user = FactoryGirl.create(:user, account: @account)
+      @other_user = FactoryBot.create(:user, account: @account)
     end
 
     it 'denies access if users role does not have user:destroy permission' do

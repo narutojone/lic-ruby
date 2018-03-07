@@ -23,8 +23,8 @@ RSpec.describe EmailNotificationsController do
   before(:each) do
     create_account_and_login
 
-    @role = FactoryGirl.create(:role, account: @account)
-    @email_notification = FactoryGirl.create :email_notification,
+    @role = FactoryBot.create(:role, account: @account)
+    @email_notification = FactoryBot.create :email_notification,
                                              account: @account,
                                              notifiable_role: @role,
                                              notifiable_user: @admin

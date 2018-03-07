@@ -6,8 +6,8 @@ describe Devise::SessionsController do
   before do
     create_account
 
-    @user_with_pw    = FactoryGirl.create(:user, account: @account, active: true, password: '123123123', password_confirmation: '123123123')
-    @user_without_pw = FactoryGirl.create(:user, account: @account, active: true, password: nil, password_confirmation: nil)
+    @user_with_pw    = FactoryBot.create(:user, account: @account, active: true, password: '123123123', password_confirmation: '123123123')
+    @user_without_pw = FactoryBot.create(:user, account: @account, active: true, password: nil, password_confirmation: nil)
 
     @request.env['devise.mapping'] = Devise.mappings[:user]
     @request.host = "#{@account.domain}.#{Saas::Config.base_domain}"

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :email, class: OpenStruct do
     # Assumes Griddler.configure.to is :hash (default)
     from({ token: 'from_user',

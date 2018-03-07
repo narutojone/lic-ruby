@@ -15,10 +15,10 @@ require 'spec_helper'
 RSpec.describe DashboardWidget do
 
   before do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @admin = account_admin(@account)
 
-    @widget = FactoryGirl.create(:dashboard_widget, user: @admin)
+    @widget = FactoryBot.create(:dashboard_widget, user: @admin)
   end
 
   #----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ RSpec.describe DashboardWidget do
       end
 
       it 'must belong to the same account' do
-        other_call_center = FactoryGirl.create(:call_center)
+        other_call_center = FactoryBot.create(:call_center)
         @widget.call_center = other_call_center
         expect(@widget).to_not be_valid
         expect(@widget.errors[:call_center_id]).to be_present

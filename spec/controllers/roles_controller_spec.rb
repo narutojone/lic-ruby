@@ -46,21 +46,21 @@ RSpec.describe RolesController do
   describe '#create' do
     it 'should create the role under the current account' do
       expect {
-        post :create, params: {role: FactoryGirl.attributes_for(:role)}
+        post :create, params: {role: FactoryBot.attributes_for(:role)}
       }.to change{ @account.roles.count }.by(1)
       expect(flash[:notice]).to eq('Role added!')
     end
 
     it 'should use role_params' do
       expect(controller).to receive(:role_params)
-      post :create, params: {role: FactoryGirl.attributes_for(:role)}
+      post :create, params: {role: FactoryBot.attributes_for(:role)}
     end
   end
 
   #----------------------------------------------------------------------------
   describe '#edit' do
     before(:each) do
-      @role = FactoryGirl.create(:role, account: @account)
+      @role = FactoryBot.create(:role, account: @account)
     end
 
     it 'loads role through set_role' do
@@ -72,7 +72,7 @@ RSpec.describe RolesController do
   #----------------------------------------------------------------------------
   describe '#update' do
     before(:each) do
-      @role = FactoryGirl.create(:role, account: @account, permissions: [1])
+      @role = FactoryBot.create(:role, account: @account, permissions: [1])
     end
 
     it 'should update permissions, set notice and redirect user' do
@@ -101,8 +101,8 @@ RSpec.describe RolesController do
   #----------------------------------------------------------------------------
   describe '#edit_all' do
     it 'should load all roles except admin role' do
-      role1 = FactoryGirl.create(:role, account: @account)
-      role2 = FactoryGirl.create(:role, account: @account)
+      role1 = FactoryBot.create(:role, account: @account)
+      role2 = FactoryBot.create(:role, account: @account)
 
       get :edit_all
       roles = assigns(:roles)
@@ -114,8 +114,8 @@ RSpec.describe RolesController do
   #----------------------------------------------------------------------------
   describe '#update_all' do
     before(:each) do
-      @role1 = FactoryGirl.create(:role, account: @account, permissions: [7, 8])
-      @role2 = FactoryGirl.create(:role, account: @account, permissions: [2, 6])
+      @role1 = FactoryBot.create(:role, account: @account, permissions: [7, 8])
+      @role2 = FactoryBot.create(:role, account: @account, permissions: [2, 6])
     end
 
     it 'should update all roles, set notice and redirect user' do
@@ -152,8 +152,8 @@ RSpec.describe RolesController do
     end
 
     it 'should not modify roles that are not from this account' do
-      other_account = FactoryGirl.create(:account)
-      other_role = FactoryGirl.create(:role, account: other_account)
+      other_account = FactoryBot.create(:account)
+      other_role = FactoryBot.create(:role, account: other_account)
 
       patch :update_all, params: {
             permissions: {other_role.id.to_s => {permissions_attributes: {
@@ -168,7 +168,7 @@ RSpec.describe RolesController do
   #----------------------------------------------------------------------------
   describe '#destroy' do
     before(:each) do
-      @role = FactoryGirl.create(:role, account: @account)
+      @role = FactoryBot.create(:role, account: @account)
     end
 
     it 'should destroy the role' do
@@ -179,7 +179,7 @@ RSpec.describe RolesController do
     end
 
     it 'should show an error message when the role can not be destroyed' do
-      user = FactoryGirl.create(:user, account: @account)
+      user = FactoryBot.create(:user, account: @account)
       user.roles << @role
 
       delete :destroy, params: {id: @role.id}
@@ -196,7 +196,7 @@ RSpec.describe RolesController do
   #----------------------------------------------------------------------------
   describe '#set_role' do
     before(:each) do
-      role = FactoryGirl.create(:role, account: @account)
+      role = FactoryBot.create(:role, account: @account)
       allow(controller).to receive(:params).and_return({:id => role.id})
     end
 

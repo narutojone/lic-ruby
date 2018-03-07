@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe '/users/edit.html.erb' do
   before do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @admin = account_admin(@account)
-    @role = FactoryGirl.create(:role, account: @account)
+    @role = FactoryBot.create(:role, account: @account)
     @policy = Helpers::View::PolicyMock.new
 
     assign(:user, @admin)

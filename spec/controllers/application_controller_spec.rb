@@ -14,7 +14,7 @@ describe ApplicationController do
   before(:each) do
     create_account_and_login(domain: 'company')
 
-    FactoryGirl.create(:ticket, account: @account)
+    FactoryBot.create(:ticket, account: @account)
 
     Rails.application.routes.draw do
       root to: 'application#show'

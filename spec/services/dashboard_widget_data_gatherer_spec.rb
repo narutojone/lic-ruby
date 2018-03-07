@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe DashboardWidgetDataGatherer do
   before do
-    @account = FactoryGirl.create(:account)
+    @account = FactoryBot.create(:account)
     @call_center1 = @account.call_centers.first
-    @call_center2 = FactoryGirl.create(:call_center, account: @account)
+    @call_center2 = FactoryBot.create(:call_center, account: @account)
 
     @admin = account_admin(@account)
     @admin.call_centers << @call_center1 << @call_center2
-    @locator = FactoryGirl.create(:user, account: @account)
+    @locator = FactoryBot.create(:user, account: @account)
     @locator.call_centers << @call_center1
   end
 
@@ -21,20 +21,20 @@ describe DashboardWidgetDataGatherer do
 
   it ':user_roles_pie_chart' do
     roles = []
-    3.times { |i| roles << FactoryGirl.create(:role, account: @account, name: "Role #{i}") }
+    3.times { |i| roles << FactoryBot.create(:role, account: @account, name: "Role #{i}") }
     4.times do |i|
-      FactoryGirl.create(:user, account: @account).roles << roles[0]
+      FactoryBot.create(:user, account: @account).roles << roles[0]
     end
     3.times do |i|
-      FactoryGirl.create(:user, account: @account).roles << roles[1]
+      FactoryBot.create(:user, account: @account).roles << roles[1]
     end
     2.times do |i|
-      user = FactoryGirl.create(:user, account: @account)
+      user = FactoryBot.create(:user, account: @account)
       user.roles << roles[2]
       user.roles << roles[1]
     end
     2.times do |i|
-      FactoryGirl.create(:user, account: @account)
+      FactoryBot.create(:user, account: @account)
     end
     gatherer = DashboardWidgetDataGatherer.new(@account, @admin, get_widget(:user_roles_pie_chart, nil))
     role_dist = gatherer.data[:roles]
@@ -51,15 +51,15 @@ describe DashboardWidgetDataGatherer do
   end
 
   it ':number_of_tickets_assigned_to_me' do
-    user1 = FactoryGirl.create(:user, account: @account)
-    user2 = FactoryGirl.create(:user, account: @account)
-    FactoryGirl.create(:ticket, account: @account)
-    FactoryGirl.create(:assigned_ticket, account: @account, assignee: user1)
-    FactoryGirl.create(:assigned_ticket, account: @account, assignee: user1)
-    FactoryGirl.create(:assigned_ticket, account: @account, assignee: user2)
-    FactoryGirl.create(:closed_ticket, account: @account, assignee: user1)
-    FactoryGirl.create(:closed_ticket, account: @account, assignee: user2)
-    FactoryGirl.create(:closed_ticket, account: @account, assignee: user2)
+    user1 = FactoryBot.create(:user, account: @account)
+    user2 = FactoryBot.create(:user, account: @account)
+    FactoryBot.create(:ticket, account: @account)
+    FactoryBot.create(:assigned_ticket, account: @account, assignee: user1)
+    FactoryBot.create(:assigned_ticket, account: @account, assignee: user1)
+    FactoryBot.create(:assigned_ticket, account: @account, assignee: user2)
+    FactoryBot.create(:closed_ticket, account: @account, assignee: user1)
+    FactoryBot.create(:closed_ticket, account: @account, assignee: user2)
+    FactoryBot.create(:closed_ticket, account: @account, assignee: user2)
 
     gatherer = DashboardWidgetDataGatherer.new(@account, user1, get_widget(:number_of_tickets_assigned_to_me, nil))
     expect(gatherer.data[:number_of_tickets]).to eq(2)
@@ -70,14 +70,14 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_assigned_tickets' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @locator)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @locator)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center2, assignee: @admin)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @locator)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @locator)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center2, assignee: @admin)
     end
 
     it 'returns number of assigned tickets within the call center' do
@@ -95,13 +95,13 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_incoming_tickets' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center2)
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center2)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @locator)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center2)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center2)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @locator)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin)
     end
 
     it 'returns number of incoming tickets within the call center' do
@@ -119,12 +119,12 @@ describe DashboardWidgetDataGatherer do
 
   describe ':open_ticket_types_pie_chart' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center2, ticket_type: 'Normal')
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Emergency')
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Design')
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center2, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Emergency')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Design')
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
     end
 
     it 'returns open ticket types within the call center' do
@@ -164,13 +164,13 @@ describe DashboardWidgetDataGatherer do
 
   describe ':my_ticket_types_pie_chart' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, assignee: nil, ticket_type: 'Normal')
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, ticket_type: 'Normal')
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @locator, ticket_type: 'NORMAL')
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin, ticket_type: 'Damage')
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin, ticket_type: 'Emergency')
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, ticket_type: 'Design')
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @locator, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, assignee: nil, ticket_type: 'Normal')
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, ticket_type: 'Normal')
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @locator, ticket_type: 'NORMAL')
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin, ticket_type: 'Damage')
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin, ticket_type: 'Emergency')
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, ticket_type: 'Design')
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @locator, ticket_type: 'Normal')
     end
 
     it 'returns my ticket types across all call centers' do
@@ -190,17 +190,17 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_tickets_due_today' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 19, 9))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30, 16, 59))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30, 17))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30, 18))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, nil)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 1, 16, 59))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center2).update_column(:response_due_at, Time.utc(2015, 12, 1, 16, 59))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 1, 17))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30, 18))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 1, 10))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 19, 9))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30, 16, 59))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30, 17))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30, 18))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, nil)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 1, 16, 59))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center2).update_column(:response_due_at, Time.utc(2015, 12, 1, 16, 59))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 1, 17))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30, 18))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 1, 10))
     end
 
     it 'returns number of tickets due today within the call center' do
@@ -230,14 +230,14 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_tickets_created_today' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 11, 30, 16, 59))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 11, 30, 17))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 1, 16, 59))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center2, created_at: Time.utc(2015, 12, 1, 16, 59))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 1, 17))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 1, 18))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 11, 30, 12))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 1, 12))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 11, 30, 16, 59))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 11, 30, 17))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 1, 16, 59))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center2, created_at: Time.utc(2015, 12, 1, 16, 59))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 1, 17))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 1, 18))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 11, 30, 12))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 1, 12))
     end
 
     it 'returns number of tickets created today within the call center' do
@@ -267,15 +267,15 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_tickets_closed_today' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, closed_at: nil)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, closed_at: nil)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 1, 16, 59))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 1, 17))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 2, 16, 59))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 2, 17))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center2).update_column(:closed_at, Time.utc(2015, 12, 2, 17))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 2, 18))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 3, 12))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, closed_at: nil)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, closed_at: nil)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 1, 16, 59))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 1, 17))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 2, 16, 59))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 2, 17))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center2).update_column(:closed_at, Time.utc(2015, 12, 2, 17))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 2, 18))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:closed_at, Time.utc(2015, 12, 3, 12))
     end
 
     it 'returns number of tickets closed today within the call center' do
@@ -305,12 +305,12 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_open_tickets_past_due' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 13, 29))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center2).update_column(:response_due_at, Time.utc(2015, 12, 2, 13, 29))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 13, 31))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 3))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 13, 29))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center2).update_column(:response_due_at, Time.utc(2015, 12, 2, 13, 29))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 13, 31))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 11, 30))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 3))
     end
 
     it 'returns number of tickets past due within the call center' do
@@ -340,12 +340,12 @@ describe DashboardWidgetDataGatherer do
 
   describe ':open_ticket_types' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center2, ticket_type: 'Normal')
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Emergency')
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Design')
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center2, ticket_type: 'Normal')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Emergency')
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, ticket_type: 'Design')
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, ticket_type: 'Normal')
     end
 
     it 'returns counts of open ticket types within the call center' do
@@ -370,12 +370,12 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_open_tickets_by_assignees_pie_chart' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @admin)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @admin)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @admin)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin)
     end
 
     it 'returns counts of open tickets by assignee within the call center' do
@@ -400,33 +400,33 @@ describe DashboardWidgetDataGatherer do
 
   describe 'ticket due times table' do
     before do
-      @user1 = FactoryGirl.create(:user, account: @account)
-      @user2 = FactoryGirl.create(:user, account: @account)
+      @user1 = FactoryBot.create(:user, account: @account)
+      @user2 = FactoryBot.create(:user, account: @account)
       # not assigned
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 14))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1).update_column(:response_due_at, Time.utc(2015, 12, 2, 14))
       # today
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 16, 59))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 17))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user2).update_column(:response_due_at, Time.utc(2015, 12, 2, 14))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 16, 59))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 17))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user2).update_column(:response_due_at, Time.utc(2015, 12, 2, 14))
       # tomorrow
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 3))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user2).update_column(:response_due_at, Time.utc(2015, 12, 3))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 3))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user2).update_column(:response_due_at, Time.utc(2015, 12, 3))
       # this week
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 5))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 6, 17))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 5))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 6, 17))
       # next week
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 9))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 10))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user2).update_column(:response_due_at, Time.utc(2015, 12, 10))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 9))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 10))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user2).update_column(:response_due_at, Time.utc(2015, 12, 10))
       # later
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 22))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2500, 1, 1))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 22))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2500, 1, 1))
       # closed tickets
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 14))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 5))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 10))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 2, 14))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @user1).update_column(:response_due_at, Time.utc(2015, 12, 5))
     end
 
     it ':my_tickets_due_times' do
@@ -494,35 +494,35 @@ describe DashboardWidgetDataGatherer do
 
   describe ':total_tickets_vs_closed_tickets' do
     before do
-      other_account = FactoryGirl.create(:account)
+      other_account = FactoryBot.create(:account)
 
       # last week
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 6, 17))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 6, 18))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 6, 17))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 6, 18))
 
       # this week
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 7, 16, 59))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 7, 16, 59)).update_column(:closed_at, Time.utc(2015, 12, 7, 16, 59))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 7, 17))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 7, 16, 59))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 7, 16, 59)).update_column(:closed_at, Time.utc(2015, 12, 7, 16, 59))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 7, 17))
 
-      FactoryGirl.create(:assigned_ticket, account: other_account, created_at: Time.utc(2015, 12, 9, 16, 59))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, created_at: Time.utc(2015, 12, 9, 16, 59))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @locator, created_at: Time.utc(2015, 12, 9, 16, 59))
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, created_at: Time.utc(2015, 12, 9, 17))
+      FactoryBot.create(:assigned_ticket, account: other_account, created_at: Time.utc(2015, 12, 9, 16, 59))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, created_at: Time.utc(2015, 12, 9, 16, 59))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center2, assignee: @locator, created_at: Time.utc(2015, 12, 9, 16, 59))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, created_at: Time.utc(2015, 12, 9, 17))
 
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, created_at: Time.utc(2015, 12, 10, 10))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 10, 10)).update_column(:closed_at, Time.utc(2015, 12, 10, 10))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, created_at: Time.utc(2015, 12, 10, 10))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 10, 10)).update_column(:closed_at, Time.utc(2015, 12, 10, 10))
 
-      FactoryGirl.create(:closed_ticket, account: other_account, created_at: Time.utc(2015, 12, 11, 16, 59)).update_column(:closed_at, Time.utc(2015, 12, 11, 16, 59))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 11, 16, 59)).update_column(:closed_at, Time.utc(2015, 12, 11, 16, 59))
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 11, 17))
+      FactoryBot.create(:closed_ticket, account: other_account, created_at: Time.utc(2015, 12, 11, 16, 59)).update_column(:closed_at, Time.utc(2015, 12, 11, 16, 59))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 11, 16, 59)).update_column(:closed_at, Time.utc(2015, 12, 11, 16, 59))
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, created_at: Time.utc(2015, 12, 11, 17))
 
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, created_at: Time.utc(2015, 12, 13, 16, 59))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 13, 16, 59)).update_column(:closed_at, Time.utc(2015, 12, 13, 16, 59))
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 13, 17)).update_column(:closed_at, Time.utc(2015, 12, 13, 17))
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, assignee: @locator, created_at: Time.utc(2015, 12, 13, 16, 59))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 13, 16, 59)).update_column(:closed_at, Time.utc(2015, 12, 13, 16, 59))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 13, 17)).update_column(:closed_at, Time.utc(2015, 12, 13, 17))
 
       # next week
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 14)).update_column(:closed_at, Time.utc(2015, 12, 14))
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, assignee: @admin, created_at: Time.utc(2015, 12, 14)).update_column(:closed_at, Time.utc(2015, 12, 14))
     end
 
     it 'gathers total vs closed ticket counts for this week within the call center' do
@@ -631,7 +631,7 @@ describe DashboardWidgetDataGatherer do
     end
 
     it 'calculates closed to total tickets percentage even if total ticket count is zero' do
-      account = FactoryGirl.create(:account)
+      account = FactoryBot.create(:account)
       user = account_admin(account)
       user.call_centers << account.call_centers.first
 
@@ -728,15 +728,15 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_closed_tickets_with_pending_or_failed_response' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, response_status: :pending)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, response_status: :pending)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :pending)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :sent)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :sent)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :failed)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :failed)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :failed)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center2, response_status: :failed)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, response_status: :pending)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, response_status: :pending)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :pending)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :sent)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :sent)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :failed)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :failed)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, response_status: :failed)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center2, response_status: :failed)
     end
 
     it 'returns count of closed tickets with pending or failed response within the call center' do
@@ -756,13 +756,13 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_revised_open_tickets' do
     before do
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, version_number: 0)
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1, version_number: 1)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, version_number: 0)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, version_number: 2)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center1, version_number: 3)
-      FactoryGirl.create(:assigned_ticket, account: @account, call_center: @call_center2, version_number: 3)
-      FactoryGirl.create(:closed_ticket, account: @account, call_center: @call_center1, version_number: 1)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, version_number: 0)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1, version_number: 1)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, version_number: 0)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, version_number: 2)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center1, version_number: 3)
+      FactoryBot.create(:assigned_ticket, account: @account, call_center: @call_center2, version_number: 3)
+      FactoryBot.create(:closed_ticket, account: @account, call_center: @call_center1, version_number: 1)
     end
 
     it 'returns count of open revised tickets within the call center' do
@@ -782,21 +782,21 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_open_tickets_with_attachments' do
     before do
-      ticket1 = FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      ticket2 = FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      ticket3 = FactoryGirl.create(:ticket, account: @account, call_center: @call_center2)
+      ticket1 = FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      ticket2 = FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      ticket3 = FactoryBot.create(:ticket, account: @account, call_center: @call_center2)
 
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center2)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center2)
 
       VCR.use_cassette_with_file('save sailormoon.jpg') do
-        FactoryGirl.create(:attachment, ticket: ticket1)
+        FactoryBot.create(:attachment, ticket: ticket1)
       end
       VCR.use_cassette_with_file('save sailormoon.jpg') do
-        FactoryGirl.create(:attachment, ticket: ticket2)
+        FactoryBot.create(:attachment, ticket: ticket2)
       end
       VCR.use_cassette_with_file('save sailormoon.jpg') do
-        FactoryGirl.create(:attachment, ticket: ticket3)
+        FactoryBot.create(:attachment, ticket: ticket3)
       end
     end
 
@@ -815,16 +815,16 @@ describe DashboardWidgetDataGatherer do
 
   describe ':number_of_open_tickets_with_notes' do
     before do
-      ticket1 = FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      ticket2 = FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      ticket3 = FactoryGirl.create(:ticket, account: @account, call_center: @call_center2)
+      ticket1 = FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      ticket2 = FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      ticket3 = FactoryBot.create(:ticket, account: @account, call_center: @call_center2)
 
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center1)
-      FactoryGirl.create(:ticket, account: @account, call_center: @call_center2)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center1)
+      FactoryBot.create(:ticket, account: @account, call_center: @call_center2)
 
-      FactoryGirl.create(:note, ticket: ticket1)
-      FactoryGirl.create(:note, ticket: ticket2)
-      FactoryGirl.create(:note, ticket: ticket3)
+      FactoryBot.create(:note, ticket: ticket1)
+      FactoryBot.create(:note, ticket: ticket2)
+      FactoryBot.create(:note, ticket: ticket3)
     end
 
     it 'returns number of open ticket with notes within call center' do

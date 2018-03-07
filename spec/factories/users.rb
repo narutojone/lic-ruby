@@ -18,7 +18,7 @@
 #  active                 :boolean          default(TRUE), not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user, aliases: [:assignee, :respondent] do
     first_name 'John'
     last_name 'Doe'

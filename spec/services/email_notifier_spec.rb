@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe EmailNotifier do
   before do
-    @account = FactoryGirl.create(:account, domain: 'yyy', email_header: 'Hello, Kitty', email_footer: 'BOSS811 Team')
+    @account = FactoryBot.create(:account, domain: 'yyy', email_header: 'Hello, Kitty', email_footer: 'BOSS811 Team')
     @admin = account_admin(@account)
-    @ticket = FactoryGirl.create(:ticket, account: @account)
-    @audit_with_missing = FactoryGirl.create(:audit, account: @account, missed_ticket_numbers: ['11205-246-008', '11205-400-004'])
+    @ticket = FactoryBot.create(:ticket, account: @account)
+    @audit_with_missing = FactoryBot.create(:audit, account: @account, missed_ticket_numbers: ['11205-246-008', '11205-400-004'])
 
-    @email_notification = FactoryGirl.create(:email_notification,
+    @email_notification = FactoryBot.create(:email_notification,
                                              account: @account,
                                              enabled: true,
                                              template: EmailNotification.templates[:new_ticket_when_assigned],
@@ -37,13 +37,13 @@ describe EmailNotifier do
       end
 
       it 'returns all role users when notifiable_role has been set' do
-        role1 = FactoryGirl.create(:role, account: @account)
-        role2 = FactoryGirl.create(:role, account: @account)
-        user1 = FactoryGirl.create(:user, account: @account)
+        role1 = FactoryBot.create(:role, account: @account)
+        role2 = FactoryBot.create(:role, account: @account)
+        user1 = FactoryBot.create(:user, account: @account)
         user1.roles << role1 << role2
-        user2 = FactoryGirl.create(:user, account: @account)
+        user2 = FactoryBot.create(:user, account: @account)
         user2.roles << role1
-        user3 = FactoryGirl.create(:user, account: @account)
+        user3 = FactoryBot.create(:user, account: @account)
         user3.roles << role2
 
         @email_notification.update_attribute(:notifiable_role, role1)
@@ -52,8 +52,8 @@ describe EmailNotifier do
       end
 
       it 'returns the user when notifiable_user has been set' do
-        user1 = FactoryGirl.create(:user, account: @account)
-        user2 = FactoryGirl.create(:user, account: @account)
+        user1 = FactoryBot.create(:user, account: @account)
+        user2 = FactoryBot.create(:user, account: @account)
 
         @email_notification.update_attribute(:notifiable_user, user2)
         notifier = EmailNotifier.new(@ticket, EmailNotification.templates[:new_ticket_when_assigned])
@@ -61,8 +61,8 @@ describe EmailNotifier do
       end
 
       it 'returns the ticket assignee when notify_assignee is true' do
-        user1 = FactoryGirl.create(:user, account: @account)
-        user2 = FactoryGirl.create(:user, account: @account)
+        user1 = FactoryBot.create(:user, account: @account)
+        user2 = FactoryBot.create(:user, account: @account)
 
         @email_notification.update_attribute(:notify_assignee, true)
         @ticket.assignee = user1
@@ -71,7 +71,7 @@ describe EmailNotifier do
       end
 
       it 'does not return the ticket assignee when notify_assignee is false' do
-        user1 = FactoryGirl.create(:user, account: @account)
+        user1 = FactoryBot.create(:user, account: @account)
 
         @email_notification.update_attribute(:notify_assignee, false)
         @ticket.assignee = user1
@@ -86,13 +86,13 @@ describe EmailNotifier do
       end
 
       it 'returns all users when multiple recipients are selected' do
-        role1 = FactoryGirl.create(:role, account: @account)
-        role2 = FactoryGirl.create(:role, account: @account)
-        user1 = FactoryGirl.create(:user, account: @account)
+        role1 = FactoryBot.create(:role, account: @account)
+        role2 = FactoryBot.create(:role, account: @account)
+        user1 = FactoryBot.create(:user, account: @account)
         user1.roles << role1 << role2
-        user2 = FactoryGirl.create(:user, account: @account)
+        user2 = FactoryBot.create(:user, account: @account)
         user2.roles << role1
-        user3 = FactoryGirl.create(:user, account: @account)
+        user3 = FactoryBot.create(:user, account: @account)
         user3.roles << role2
 
         @email_notification.update_attribute(:notifiable_role, role1)
@@ -104,8 +104,8 @@ describe EmailNotifier do
       end
 
       it 'does not return the same user twice' do
-        user1 = FactoryGirl.create(:user, account: @account)
-        user2 = FactoryGirl.create(:user, account: @account)
+        user1 = FactoryBot.create(:user, account: @account)
+        user2 = FactoryBot.create(:user, account: @account)
 
         @email_notification.update_attribute(:notifiable_user, user1)
         @email_notification.update_attribute(:notify_assignee, true)
@@ -115,11 +115,11 @@ describe EmailNotifier do
       end
 
       it 'does not return inactive users' do
-        role1 = FactoryGirl.create(:role, account: @account)
-        user1 = FactoryGirl.create(:user, account: @account, active: false)
+        role1 = FactoryBot.create(:role, account: @account)
+        user1 = FactoryBot.create(:user, account: @account, active: false)
         user1.roles << role1
-        user2 = FactoryGirl.create(:user, account: @account, active: false)
-        user3 = FactoryGirl.create(:user, account: @account, active: false)
+        user2 = FactoryBot.create(:user, account: @account, active: false)
+        user3 = FactoryBot.create(:user, account: @account, active: false)
 
         @email_notification.update_attribute(:notifiable_role, role1)
         @email_notification.update_attribute(:notifiable_user, user2)
@@ -132,7 +132,7 @@ describe EmailNotifier do
 
     context 'excavator as recipient' do
       before do
-        FactoryGirl.create(:email_notification,
+        FactoryBot.create(:email_notification,
           account: @account,
           enabled: true,
           template: EmailNotification.templates[:excavator_notification_after_ticket_close],
@@ -158,14 +158,14 @@ describe EmailNotifier do
 
     context 'user welcome notification' do
       before do
-        FactoryGirl.create(:email_notification,
+        FactoryBot.create(:email_notification,
           account: @account,
           enabled: true,
           template: EmailNotification.templates[:user_welcome],
           notifiable_role: nil,
           notifiable_user: @admin,
           notify_assignee: true)
-        @new_user = FactoryGirl.create(:user, account: @account)
+        @new_user = FactoryBot.create(:user, account: @account)
         @notifier = EmailNotifier.new(@new_user, EmailNotification.templates[:user_welcome])
       end
 
@@ -184,14 +184,14 @@ describe EmailNotifier do
 
     context 'user password reset notification' do
       before do
-        FactoryGirl.create(:email_notification,
+        FactoryBot.create(:email_notification,
           account: @account,
           enabled: true,
           template: EmailNotification.templates[:user_password_reset],
           notifiable_role: nil,
           notifiable_user: @admin,
           notify_assignee: true)
-        @new_user = FactoryGirl.create(:user, account: @account)
+        @new_user = FactoryBot.create(:user, account: @account)
         @notifier = EmailNotifier.new(@new_user, EmailNotification.templates[:user_password_reset])
       end
 
@@ -231,12 +231,12 @@ describe EmailNotifier do
     end
 
     it 'sends each email individually' do
-      role1 = FactoryGirl.create(:role, account: @account)
-      user1 = FactoryGirl.create(:user, account: @account)
+      role1 = FactoryBot.create(:role, account: @account)
+      user1 = FactoryBot.create(:user, account: @account)
       user1.roles << role1
-      user2 = FactoryGirl.create(:user, account: @account)
+      user2 = FactoryBot.create(:user, account: @account)
       user2.roles << role1
-      user3 = FactoryGirl.create(:user, account: @account)
+      user3 = FactoryBot.create(:user, account: @account)
 
       @email_notification.update_attribute(:notifiable_role, role1)
       @email_notification.update_attribute(:notifiable_user, user2)
@@ -257,7 +257,7 @@ describe EmailNotifier do
     describe 'creating EventLog records' do
       it 'creates an EventLog record when there are recipients' do
         @email_notification.update_attribute(:notify_assignee, true)
-        locator = FactoryGirl.create(:user, account: @account)
+        locator = FactoryBot.create(:user, account: @account)
         @ticket.update_attribute(:assignee_id, locator.id)
 
         notifier = EmailNotifier.new(@ticket, EmailNotification.templates[:new_ticket_when_assigned])
@@ -468,7 +468,7 @@ describe EmailNotifier do
 
   describe '#convert_placeholders_to_data' do
     let(:notifier) { EmailNotifier.new(@ticket, EmailNotification.templates[:ticket_closed]) }
-    let(:recipient) { FactoryGirl.create(:user, first_name: 'Jack', last_name: 'Pot') }
+    let(:recipient) { FactoryBot.create(:user, first_name: 'Jack', last_name: 'Pot') }
 
     it 'converts {{recipient.first_name}} to recipients first name' do
       expect(notifier.send(:convert_placeholders_to_data, recipient, 'Text {{recipient.first_name}} Text')).to eq('Text Jack Text')
@@ -534,7 +534,7 @@ describe EmailNotifier do
     end
 
     it 'converts {{ticket.assignee.name}} to ticket assignees full name' do
-      assignee = FactoryGirl.create(:user, account: @ticket.account, first_name: 'Phil', last_name: 'Bill')
+      assignee = FactoryBot.create(:user, account: @ticket.account, first_name: 'Phil', last_name: 'Bill')
       @ticket.assignee = assignee
       expect(notifier.send(:convert_placeholders_to_data, recipient, 'Text {{ticket.assignee.name}} Text')).to eq("Text Phil Bill Text")
     end
@@ -572,8 +572,8 @@ describe EmailNotifier do
     end
 
     it 'converts {{ticket.response_codes}} to a list of ticket response codes' do
-      @ticket.ticket_responses << FactoryGirl.create(:ticket_response, service_area: 'FOR104', code: '8A', comment: 'A comment here')
-      @ticket.ticket_responses << FactoryGirl.create(:ticket_response, service_area: 'FOR105', code: '1C')
+      @ticket.ticket_responses << FactoryBot.create(:ticket_response, service_area: 'FOR104', code: '8A', comment: 'A comment here')
+      @ticket.ticket_responses << FactoryBot.create(:ticket_response, service_area: 'FOR105', code: '1C')
 
       DefaultResponseCodesCreationJob.perform_now(@ticket.call_center)
 

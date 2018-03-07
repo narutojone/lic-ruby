@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe EmailNotifierJob do
 
   it 'should run the EmailNotifier on the ticket and template' do
-    ticket = FactoryGirl.create(:ticket)
+    ticket = FactoryBot.create(:ticket)
 
     expect(EmailNotifier).to receive_message_chain(:new, :notify)
 
