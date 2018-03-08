@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :dashboard_widgets,  -> { order("settings->'y', settings->'x', type_id") }, dependent: :delete_all
 
   validates_uniqueness_of :email
+  validates_presence_of     :email
 
   validates_presence_of     :password, if: :password_required?
   validates_confirmation_of :password, if: :password_required?

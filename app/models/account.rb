@@ -1,6 +1,7 @@
 class Account < ApplicationRecord
   has_many :users
   has_many :roles
+  has_many :email_notifications
 
   validates_presence_of :name
   validates_uniqueness_of :domain
@@ -13,6 +14,10 @@ class Account < ApplicationRecord
   end
 
   def reached_user_limit?
+    false
+  end
+
+  def reached_role_limit?
     false
   end
 
@@ -41,7 +46,7 @@ class Account < ApplicationRecord
 
     user = self.users.create!(
       email: "#{self.domain}@example.com",
-      active: false,
+      active: true,
       time_zone: self.time_zone,
       password: password,
       password_confirmation: password

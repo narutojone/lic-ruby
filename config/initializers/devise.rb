@@ -258,7 +258,7 @@ end
 Rails.application.config.to_prepare do
   Devise::SessionsController.layout 'application'
   Devise::PasswordsController.layout 'application'
-  Devise::Mailer.layout              'system_mailer'
+  Devise::Mailer.layout              'mailer'
 #    Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "devise" }
 #    Devise::ConfirmationsController.layout "devise"
 #    Devise::UnlocksController.layout "devise"

@@ -8,15 +8,15 @@ class UsersController < ApplicationController
 
     @q = current_account.users.ransack(params[:q])
     @users = @q.result
-               .includes(:roles, :call_centers, :current_user_location)
+               .includes(:roles)
                .order_by_name
                .paginate(page: params[:page], per_page: per_page('users'))
   end
 
-  def show
-    authorize @user
-    @tickets = @user.tickets.assigned.order(:response_due_at)
-  end
+  # def show
+  #   authorize @user
+  #   @tickets = @user.tickets.assigned.order(:response_due_at)
+  # end
 
   def new
     authorize User
@@ -25,7 +25,15 @@ class UsersController < ApplicationController
 
   def create
     authorize User
-    @user = current_account.users.create(user_params)
+
+    p = user_params || {}
+    if p.present? && p[:password].blank?
+      password = SecureRandom.hex(8)
+      p[:password] = password
+      p[:password_confirmation] = password
+    end
+
+    @user = current_account.users.create(p)
 
     if @user.new_record?
       render :new
@@ -54,16 +62,20 @@ class UsersController < ApplicationController
     authorize User
 
     begin
-      filtered_user_params = user_params.reject { |key, val| val.blank? }
+      # Rails rejects blank array from parameters
+      if params[:user].present?
+        filtered_user_params = user_params.reject { |key, val| val.blank? }
 
-      current_account.users.find(params[:user_ids]).each do |user|
-        authorize user, :update?
-        user.update_attributes!(filtered_user_params)
+        current_account.users.find(params[:user_ids]).each do |user|
+          authorize user, :update?
+          user.update_attributes!(filtered_user_params)
+        end
       end
       flash[:notice] = 'Users have been updated.'
     rescue ActiveRecord::RecordInvalid
       flash[:alert] = 'Update has failed. Please make sure you are entering valid values.'
     end
+
     redirect_back fallback_location: users_path
   end
 
@@ -92,7 +104,9 @@ class UsersController < ApplicationController
   end
 
   def user_params(object_or_class = User)
-    params.require(:user).permit(policy(object_or_class).permitted_attributes)
+    params.require(:user)
+          .permit(policy(object_or_class)
+          .permitted_attributes)
   end
 
   def check_user_limit

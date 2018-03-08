@@ -23,7 +23,11 @@ RSpec.describe RolesController do
   #----------------------------------------------------------------------------
   describe '#index' do
     it 'should scope the query to current account' do
-      expect(controller.send(:current_account)).to receive(:roles).and_call_original
+      current_account = double(:current_account)
+      allow(controller).to receive(:current_account).and_return(current_account)
+      allow(current_account).to receive(:roles).and_return([])
+
+      expect(current_account).to receive(:roles)
       get :index
     end
 
@@ -201,8 +205,10 @@ RSpec.describe RolesController do
     end
 
     it 'should scope the query to current account' do
-      expect(controller.send(:current_account)).to receive(:roles).and_call_original
       controller.send(:set_role)
+
+      expect(assigns(:role)).to be_a(Role)
+      expect(assigns(:role).account).to eql(controller.send(:current_account))
     end
 
     it 'should set role ivar' do

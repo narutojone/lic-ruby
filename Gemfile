@@ -66,3 +66,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'faker'
 end
+
+gem 'will_paginate'

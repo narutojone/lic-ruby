@@ -20,6 +20,7 @@ class EmailNotification < ApplicationRecord
 
   belongs_to :notifiable_role, class_name: 'Role', optional: true
   belongs_to :notifiable_user, class_name: 'User', optional: true
+  belongs_to :account
 
   validates :template, presence: true
   validates :subject,  presence: true
@@ -28,4 +29,11 @@ class EmailNotification < ApplicationRecord
 
   html_string :text
 
+  def notify_assignee
+    true
+  end
+
+  def excavator_notification_after_ticket_close?
+    true
+  end
 end

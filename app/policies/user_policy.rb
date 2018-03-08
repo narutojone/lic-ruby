@@ -32,7 +32,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def bulk_update?
-    has_permission?('update') && !user.account.subscription.bulk_actions_limit
+    has_permission?('update') # && !user.account.subscription.bulk_actions_limit
   end
 
   def permitted_attributes

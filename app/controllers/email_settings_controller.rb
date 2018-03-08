@@ -9,8 +9,9 @@ class EmailSettingsController < ApplicationController
 
   def update
     authorize @account, :update?
+    @account.assign_attributes(settings_params)
 
-    if @account.update(settings_params)
+    if @account.valid? && @account.save
       redirect_to edit_email_settings_path, notice: 'E-mail header and footer have been updated.'
     else
       render :edit

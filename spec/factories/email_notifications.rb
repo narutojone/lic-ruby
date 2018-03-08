@@ -18,12 +18,12 @@
 FactoryBot.define do
   factory :email_notification do
     association :account
-    call_center { account.call_centers.first }
+    # call_center { account.call_centers.first }
     template 0
     enabled true
     notifiable_role { account.roles.first }
     notifiable_user { account.users.first }
-    notify_assignee true
+    # notify_assignee true
     subject 'A notification'
     text 'Message text ahoi!'
   end
