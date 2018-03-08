@@ -50,26 +50,26 @@ describe RolesUser do
   end
 
   #----------------------------------------------------------------------------
-  describe 'event log change entry' do
-    it 'logs change events' do
-      expect {
-        @admin.roles << @role1
-      }.to change { EventLog.count }.by(1)
-    end
-
-    it 'nests new association attributes in the json root as roles_user' do
-      @admin.roles << @role1
-
-      log = EventLog.last
-      expect(log.data['roles_user']).to be_present
-    end
-
-    it 'sets the event log object to User' do
-      @admin.roles << @role1
-
-      log = EventLog.last
-      expect(log.object_id).to eq(@admin.id)
-      expect(log.object_type).to eq('User')
-    end
-  end
+  # describe 'event log change entry' do
+  #   it 'logs change events' do
+  #     expect {
+  #       @admin.roles << @role1
+  #     }.to change { EventLog.count }.by(1)
+  #   end
+  #
+  #   it 'nests new association attributes in the json root as roles_user' do
+  #     @admin.roles << @role1
+  #
+  #     log = EventLog.last
+  #     expect(log.data['roles_user']).to be_present
+  #   end
+  #
+  #   it 'sets the event log object to User' do
+  #     @admin.roles << @role1
+  #
+  #     log = EventLog.last
+  #     expect(log.object_id).to eq(@admin.id)
+  #     expect(log.object_type).to eq('User')
+  #   end
+  # end
 end

@@ -46,7 +46,7 @@ RSpec.describe Role do
         expect {
           expect(role.destroy).to eq(false)
         }.to_not change { Role.count }
-        expect(role.errors[:base]).to eq(['Can not delete a role when a user with this role exists!'])
+        expect(role.errors[:base]).to eq(['Can not delete a Role when a User with this Role exists!'])
       end
 
       it 'destroys the role when no user has this role' do
@@ -59,27 +59,27 @@ RSpec.describe Role do
   end
 
   #----------------------------------------------------------------------------
-  describe '#permission_marks' do
-    it 'returns permissions as a list' do
-      role.permissions = [4, 5, 9]
-      role.save
-
-      expect(role.permission_marks).to eq([{group: 'role', activity: 'destroy'}, {group: 'user', activity: 'index'}, {group: 'user', activity: 'destroy'}])
-    end
-
-    it 'returns all permissions for the admin role' do
-      role.permissions = []
-      role.admin = true
-      role.save
-
-      expect(role.permission_marks.length).to eq(PERMISSIONS_BY_ID.length)
-    end
-
-    it 'removes nulls from permissions' do
-      role.permissions = [4, 5, 9000]
-      expect(role.permission_marks).to eq([{group: 'role', activity: 'destroy'}, {group: 'user', activity: 'index'}])
-    end
-  end
+  # describe '#permission_marks' do
+  #   it 'returns permissions as a list' do
+  #     role.permissions = [4, 5, 9]
+  #     role.save
+  #
+  #     expect(role.permission_marks).to eq([{group: 'role', activity: 'destroy'}, {group: 'user', activity: 'index'}, {group: 'user', activity: 'destroy'}])
+  #   end
+  #
+  #   it 'returns all permissions for the admin role' do
+  #     role.permissions = []
+  #     role.admin = true
+  #     role.save
+  #
+  #     expect(role.permission_marks.length).to eq(PERMISSIONS_BY_ID.length)
+  #   end
+  #
+  #   it 'removes nulls from permissions' do
+  #     role.permissions = [4, 5, 9000]
+  #     expect(role.permission_marks).to eq([{group: 'role', activity: 'destroy'}, {group: 'user', activity: 'index'}])
+  #   end
+  # end
 
   #----------------------------------------------------------------------------
   describe 'clean_permissions' do

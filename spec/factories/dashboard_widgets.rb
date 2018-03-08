@@ -15,7 +15,7 @@
 FactoryBot.define do
   factory :dashboard_widget do
     association :user
-    type_id 1
+    type 1
     settings { {x: 0, y: 0} }
   end
 end
