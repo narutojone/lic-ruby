@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'layouts/_navigation' do
-  helper(SettingsHelper)
+  # helper(SettingsHelper)
 
   before do
     @account = FactoryBot.create(:account)

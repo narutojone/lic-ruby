@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe '/users/show.html.erb' do
-  helper(TicketsHelper)
+  # helper(TicketsHelper)
 
   before do
     @account = FactoryBot.create(:account)

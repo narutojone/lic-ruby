@@ -1,5 +1,5 @@
 class EmailNotifier
-  include ResponseCodesHelper
+  # include ResponseCodesHelper
   include ActionView::Helpers::OutputSafetyHelper
   include Rails.application.routes.url_helpers
 

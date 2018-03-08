@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe '/roles/new.html.erb' do
-  helper(SettingsHelper)
+  # helper(SettingsHelper)
 
   before(:each) do
     @account = FactoryBot.create(:account)

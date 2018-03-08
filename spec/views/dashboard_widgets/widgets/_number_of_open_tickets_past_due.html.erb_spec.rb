@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe '/dashboard_widgets/widgets/_number_of_open_tickets_past_due.html.erb' do
-  helper(TicketsUrlHelper)
-  helper(DashboardWidgetsHelper)
+  # helper(TicketsUrlHelper)
+  # helper(DashboardWidgetsHelper)
 
   before do
     @account = FactoryBot.create(:account)
