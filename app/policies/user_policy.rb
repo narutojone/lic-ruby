@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    has_permission?('index')
+    true || has_permission?('index')
   end
 
   def show?
@@ -16,7 +16,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    has_permission?('create')
+    true
   end
 
   def edit?
@@ -38,11 +38,12 @@ class UserPolicy < ApplicationPolicy
   def permitted_attributes
     attrs = %i(email remember_me first_name last_name time_zone)
 
-    if has_permission?('create') || has_permission?('update')
+    if user && (has_permission?('create') || has_permission?('update'))
       attrs << {role_ids: []}
       attrs << :active if (record.instance_of?(User) ? user.id != record.id : true)
     end
-    if record.instance_of?(User) && user.id == record.id
+
+    if user && record.instance_of?(User) && user.id == record.id
       attrs << :password << :password_confirmation
     end
 

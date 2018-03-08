@@ -2,6 +2,8 @@ class Role < ApplicationRecord
   has_many :roles_users, inverse_of: :role
   has_many :users, through: :roles_users
 
+  belongs_to :account
+
   validates_presence_of :name
   validates_length_of :permissions, minimum: 0, allow_nil: false
 

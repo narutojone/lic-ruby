@@ -18,8 +18,9 @@ module Helpers
       @account = FactoryBot.create(:account, account_params)
       @admin = account_admin(@account)
 
-      @request.host = "#{@account.domain}.#{Saas::Config.base_domain}"
+      @request.host = "#{@account.domain}.lvh.me"
       allow(@request).to receive(:subdomain).and_return(@account.domain)
+      @request.env["devise.mapping"] = Devise.mappings[:user]
 
       @account
     end

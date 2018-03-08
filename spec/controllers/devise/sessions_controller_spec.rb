@@ -10,7 +10,7 @@ describe Devise::SessionsController do
     @user_without_pw = FactoryBot.create(:user, account: @account, active: true, password: nil, password_confirmation: nil)
 
     @request.env['devise.mapping'] = Devise.mappings[:user]
-    @request.host = "#{@account.domain}.#{Saas::Config.base_domain}"
+    @request.host = "#{@account.domain}.lvh.me"
   end
 
   #----------------------------------------------------------------------------

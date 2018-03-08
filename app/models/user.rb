@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   attribute :time_zone, :string, default: 'Eastern Time (US & Canada)'
 
+  belongs_to :account
   has_many :roles_users,        inverse_of: :user, dependent: :destroy
   has_many :roles,              through: :roles_users, dependent: :destroy
   has_many :dashboard_widgets,  -> { order("settings->'y', settings->'x', type_id") }, dependent: :delete_all
