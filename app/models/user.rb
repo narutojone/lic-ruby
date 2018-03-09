@@ -6,7 +6,9 @@ class User < ApplicationRecord
   belongs_to :account
   has_many :roles_users,        inverse_of: :user, dependent: :destroy
   has_many :roles,              through: :roles_users, dependent: :destroy
-  has_many :dashboard_widgets,  -> { order("settings->'y', settings->'x', type_id") }, dependent: :delete_all
+  has_many :dashboard_widgets,  -> { order("settings->'y', settings->'x', widget_type") }, dependent: :delete_all
+  has_many :call_centers_users
+  has_many :call_centers, through: :call_centers_users
 
   validates_uniqueness_of :email, scope: :account_id
   validates_presence_of     :email

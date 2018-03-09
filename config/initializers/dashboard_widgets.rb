@@ -8,7 +8,7 @@ USER_DASHBOARD_WIDGETS = {
     policy_method: :index?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      false
   },
   2 => {

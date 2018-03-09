@@ -37,42 +37,42 @@ RSpec.describe DashboardWidget do
       expect(@widget).to_not be_valid
     end
 
-    # describe 'type_id' do
-    #   it 'must have type_id set' do
-    #     @widget.type_id = nil
-    #     expect(@widget).to_not be_valid
-    #   end
-    #
-    #   it 'must be included in the DASHBOARD_WIDGETS constant' do
-    #     @widget.type_id = 0
-    #     expect(@widget).to_not be_valid
-    #
-    #     max_id = DASHBOARD_WIDGETS.keys.max
-    #
-    #     @widget.type_id = max_id
-    #     expect(@widget).to be_valid
-    #
-    #     @widget.type_id = max_id + 1
-    #     expect(@widget).to_not be_valid
-    #   end
-    # end
+    describe 'widget_type' do
+      it 'must have type set' do
+        @widget.type = nil
+        expect(@widget).to_not be_valid
+      end
 
-    # describe '#call_center_id' do
-    #   it 'can be nil' do
-    #     @widget.call_center_id = nil
-    #     expect(@widget).to be_valid
-    #   end
-    #
-    #   it 'must belong to the same account' do
-    #     other_call_center = FactoryBot.create(:call_center)
-    #     @widget.call_center = other_call_center
-    #     expect(@widget).to_not be_valid
-    #     expect(@widget.errors[:call_center_id]).to be_present
-    #
-    #     @widget.call_center = @account.call_centers.first
-    #     expect(@widget).to be_valid
-    #   end
-    # end
+      it 'must be included in the DASHBOARD_WIDGETS constant' do
+        @widget.type = 0
+        expect(@widget).to_not be_valid
+
+        max_id = DASHBOARD_WIDGETS.keys.max
+
+        @widget.type = max_id
+        expect(@widget).to be_valid
+
+        @widget.type = max_id + 1
+        expect(@widget).to_not be_valid
+      end
+    end
+
+    describe '#call_center_id' do
+      it 'can be nil' do
+        @widget.call_center_id = nil
+        expect(@widget).to be_valid
+      end
+
+      it 'must belong to the same account' do
+        other_call_center = FactoryBot.create(:call_center)
+        @widget.call_center = other_call_center
+        expect(@widget).to_not be_valid
+        expect(@widget.errors[:call_center_id]).to be_present
+
+        @widget.call_center = @account.call_centers.first
+        expect(@widget).to be_valid
+      end
+    end
   end
 
 end

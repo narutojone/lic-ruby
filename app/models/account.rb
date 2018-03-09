@@ -2,12 +2,14 @@ class Account < ApplicationRecord
   has_many :users
   has_many :roles
   has_many :email_notifications
+  has_many :call_centers
+  has_one :subscription
 
   validates_presence_of :name
   validates_uniqueness_of :domain
 
   before_create :generate_subdomain, :set_default_time_zone
-  after_create :create_default_admin
+  after_create :create_default_admin, :create_default_subscription
 
   def self.find_by_subdomain(subdomain)
     self.where("LOWER(domain) = ?", subdomain.try(:downcase)).first
@@ -53,5 +55,9 @@ class Account < ApplicationRecord
     )
 
     user.roles_users.create!(role: role)
+  end
+
+  def create_default_subscription
+    self.create_subscription
   end
 end
