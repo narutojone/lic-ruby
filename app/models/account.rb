@@ -3,6 +3,7 @@ class Account < ApplicationRecord
   has_many :roles
   has_many :email_notifications
   has_many :call_centers
+  has_many :tickets
   has_one :subscription
 
   validates_presence_of :name

@@ -9,5 +9,6 @@ class Ticket < ApplicationRecord
 
   validates_presence_of :account, :call_center
 
-  scope :incoming, ->{where("response_status = ?", self.response_statuses[:pending])}
+  scope :incoming, ->{where("response_status = ?", self.class.response_statuses[:pending])}
+  scope :assigned, ->{where("assignee_id IS NOT NULL")}
 end

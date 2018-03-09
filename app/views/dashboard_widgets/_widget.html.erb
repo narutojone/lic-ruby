@@ -11,8 +11,13 @@
       <% if widget.has_settings? %>
         <a href="#" class="btn btn-clear btn-cogs" data-toggle="modal" data-target="#widget-settings-modal"><i class="md md-settings"></i></a>
       <% end %>
+
       <% data = DashboardWidgetDataGatherer.new(current_account, current_user, widget).data %>
-      <%= render partial: "dashboard_widgets/widgets/#{widget.partial}", locals: {widget: widget, data: data} %>
+      <% if data %>
+        <%= render partial: "dashboard_widgets/widgets/#{widget.partial}", locals: {widget: widget, data: data} %>
+      <% else %>
+        FIXME: <%= widget.partial %>
+      <% end %>
     </div>
   </div>
 </div>
