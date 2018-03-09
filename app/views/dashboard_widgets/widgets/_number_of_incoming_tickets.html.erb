@@ -1,12 +1,12 @@
-<a href="<%= tickets_incoming_path(call_center: @data[:call_center]) %>">
+<a href="<%= tickets_incoming_path(call_center: data[:call_center]) %>">
   <div class="widget-body widget-primary widget-number">
     <div class="data-info">
-      <div class="value"><%= @data[:number_of_tickets] %></div>
+      <div class="value"><%= data[:number_of_tickets] %></div>
       <div class="desc">New tickets</div>
     </div>
     <div class="icon icon-primary">
       <i class="fa fa-ticket"></i>
     </div>
-    <div class="call-center"><%= dashboard_widget_call_center_name(@data) %></div>
+    <div class="call-center"><%= dashboard_widget_call_center_name(data) %></div>
   </div>
 </a>

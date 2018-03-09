@@ -14,7 +14,7 @@
 
 <%= javascript_tag do -%>
   var data = [
-  <% @data[:roles].each do |role| %>
+  <% data[:roles].each do |role| %>
     {
       label: "<%= role.role_name %>  (<%= role.count %>)",
       data: <%= role.count %>,

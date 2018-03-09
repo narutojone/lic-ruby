@@ -1,12 +1,12 @@
-<a href="<%= tickets_closed_and_pending_path(call_center: @data[:call_center]) %>">
-  <div class="widget-body widget-<%= color_based_on_number(@data[:number_of_tickets], 0, 'primary', 'warning') %> widget-number">
+<a href="<%= tickets_closed_and_pending_path(call_center: data[:call_center]) %>">
+  <div class="widget-body widget-<%= color_based_on_number(data[:number_of_tickets], 0, 'primary', 'warning') %> widget-number">
     <div class="data-info">
-      <div class="value"><%= @data[:number_of_tickets] %></div>
+      <div class="value"><%= data[:number_of_tickets] %></div>
       <div class="desc">Tickets with pending or failed response</div>
     </div>
-    <div class="icon icon-<%= color_based_on_number(@data[:number_of_tickets], 0, 'primary', 'warning') %>">
+    <div class="icon icon-<%= color_based_on_number(data[:number_of_tickets], 0, 'primary', 'warning') %>">
       <i class="fa fa-ticket"></i>
     </div>
-    <div class="call-center"><%= dashboard_widget_call_center_name(@data) %></div>
+    <div class="call-center"><%= dashboard_widget_call_center_name(data) %></div>
   </div>
 </a>
