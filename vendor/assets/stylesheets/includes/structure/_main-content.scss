@@ -1,0 +1,224 @@
+//-----------------------------------------------------------------------------
+// Main content
+
+.overlay{
+  background: $dark-color;
+  opacity: 0.5;
+  position: absolute;
+  height: 100%;
+  z-index: 98;
+  left: 15px;
+  right: 15px;
+}
+
+.am-content {
+  position: relative;
+  left: 0;
+  margin-left: $left-sidebar-width;
+  min-height: 100%;
+
+  @media #{$phone} {
+    margin-left: 0;
+    @include sidebar-push-effect($sidebars-hardware-accelerated-animation);
+  }
+
+  .am-animate & {
+    transition: $sidebars-push-effect;
+  }
+
+  .am-nosidebar-left & {
+    margin-left: 0;
+  }
+}
+
+.main-content {
+
+  position: relative;
+
+  @media #{$tablet} {
+    
+  }
+
+  @media #{$phone} {
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .am-no-padding & {
+    padding: 0;
+  }
+
+  .content-block{
+    margin: 15px;
+    background: $light-color;
+    border: 1px solid $border-color;
+    @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+
+    &.content-block-padding{
+      padding: 15px;
+    }
+
+    &.content-block-primary{
+      border-left: 2px solid $primary-color;
+    }
+    &.content-block-warning{
+      border-left: 2px solid $warning-color;
+    }
+    &.content-block-danger{
+      border-left: 2px solid $danger-color;
+    }
+    &.content-block-success{
+      border-left: 2px solid $success-color;
+    }
+    &.content-block-widgets{
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    &.content-block-no-bg{
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    &.content-block-tabs{
+      .content{
+        background: $light-color;
+        border: 1px solid $border-color;
+        @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        min-height: 300px;
+      }
+    }
+
+    &.content-block-settings{
+      display: none;
+      @media #{$phone} {
+        .form-group{
+          margin-left: 0px;
+          margin-bottom: 0px;
+          .control-label{
+            margin-bottom: 0px;
+          }
+        }
+      }
+    }
+
+    @media #{$tablet} {
+      margin: 10px;
+    }
+
+    @media #{$phone} {
+      margin: 10px;
+    }
+
+  }
+
+  &.main-content-widgets{
+    .content-block{
+      &.content-block-settings{
+        margin: 15px 25px;
+      }
+    }
+  }
+
+  .content-heading{
+    padding: 10px 15px;
+    background: darken($light-color, 1.5%);
+    border-bottom: 1px solid $border-color;
+    min-height: 50px;
+    position: relative;
+    .caption, .tools{
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .caption{
+      .title{
+        h4{
+          margin: 0px;
+          font-size: 18px;
+          line-height: 30px;
+          span{
+            font-size: 16px;
+            color: $body-color;
+            &.label{
+              margin-left: 5px;
+              margin-top: 2px;
+              font-size: 14px;
+              color: $light-color;
+              display: inline-block;
+              vertical-align: top;
+              @include border-radius(2px);
+            }
+          }
+          i{
+            font-size: 20px;
+            color: $primary-color;
+            vertical-align: top;
+            margin-top: 4px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+    .tools{ 
+      float: right;
+      span{
+        margin-top: 5px;
+        display: inline-block;
+        vertical-align: top;
+        font-size: 16px;
+        color: $body-color;
+      }
+    }
+
+  }
+
+  .content-body{
+    padding: 15px;
+    @media #{$tablet} {
+      padding: 10px;
+    }
+    @media #{$phone} {
+      padding: 10px;
+    }
+  }
+
+  .content-detail{
+    h3, .h3{
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+  }
+
+  .content-form{
+    padding: 15px;
+    background: $form-color;
+    border: 1px solid $border-color;
+    h3, .h3{
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      &:first-of-type{
+        margin-top: 0px;
+      }
+    }
+    @media #{$tablet} {
+      padding: 10px;
+    }
+    @media #{$phone} {
+      padding: 10px;
+    }
+  }
+  .content-form-footer{
+    margin-top: 5px;
+    padding: 0 15px;
+    @media #{$tablet} {
+      padding: 0 10px;
+    }
+    @media #{$phone} {
+      padding: 0 10px;
+    }
+  }
+
+}

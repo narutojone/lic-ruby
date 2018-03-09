@@ -1,0 +1,17 @@
+//-----------------------------------------------------------------------------
+// Badges
+
+.badge {
+	font-size: 11px;
+}
+
+.badge-primary { background-color: $primary-color; }
+.badge-success { background-color: $success-color; }
+.badge-info    { background-color: $info-color; }
+.badge-warning { background-color: $warning-color; }
+.badge-danger  { background-color: $danger-color; }
+.badge-alt1    { background-color: $alt-color1; }
+.badge-alt2    { background-color: $alt-color2; }
+.badge-alt3    { background-color: $alt-color3; }
+.badge-alt4    { background-color: $alt-color4; }
+.badge-gray    { background-color: $light-gray-color; color: $dark-color; }

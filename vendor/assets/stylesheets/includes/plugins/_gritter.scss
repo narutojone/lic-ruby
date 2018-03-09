@@ -1,0 +1,14 @@
+//-----------------------------------------------------------------------------
+// Gritter
+
+#gritter-notice-wrapper{
+  top: 75px;
+  right: 25px;
+  .gritter-item-wrapper{
+    box-shadow: none;
+    &.clean{
+      border: 1px solid darken($light-gray-color, 10%);
+    }
+  }
+}
+

@@ -1,0 +1,18 @@
+//-----------------------------------------------------------------------------
+// gridstack
+
+.grid-stack{
+  .grid-stack-item{
+    .grid-stack-item-content{
+
+    }
+    &.ui-draggable-dragging{
+      .grid-stack-item-content{
+        box-shadow: none!important;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+

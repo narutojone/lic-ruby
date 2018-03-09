@@ -1,0 +1,93 @@
+//-----------------------------------------------------------------------------
+// List group
+
+.list-group{
+	margin: 0px;
+}
+
+.list-group-item{
+	position: relative;
+	display: block;
+	padding: 10px 0px;
+	margin-bottom: 0;
+	background-color: $light-color;
+	border: none;
+	border-bottom: 1px solid $border-color;
+
+	.caption, .tools{
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	.caption{
+		.icon, p{
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.icon{
+			text-align: center;
+			width: 50px;
+			i{
+				color: $primary-color;
+				font-size: 22px;
+				line-height: 26px;
+			}
+		}
+		p{
+			margin: 0px;
+			font-size: 16px;
+		}
+	}
+
+	.tools{
+		margin-right: 12px;
+		float: right;
+	}
+
+	&:hover{
+		background: $light-gray-color;
+	}
+
+	&:not(:hover){
+		.tools{
+			.btn{
+				background: transparent;
+				border-color: transparent;
+				box-shadow: none;
+				color: $light-gray-color2;
+			}
+		}
+	}
+	&:last-child{
+		border-bottom: 0;
+	}
+
+}
+
+.list-reports{
+	margin: 10px 0px 0px;
+	li{
+		margin: 0px 0px 20px;
+		.icon, p{
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.icon{
+			width: 50px;
+			text-align: center;
+			i{
+				font-size: 34px;
+				line-height: 34px;
+				color: $primary-color;
+			}
+		}
+		p{
+			margin: 0px;
+			font-size: 16px;
+			small{
+				display: block;
+				color: $body-color;
+			}
+		}
+	}
+}

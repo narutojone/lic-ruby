@@ -1,0 +1,46 @@
+//-----------------------------------------------------------------------------
+// Fonts - Segoe
+
+// Light 300
+@font-face {
+    font-family: "Segoe";
+    src: asset-url("segoe/SegoeUILight/SegoeUILight.eot");
+    src: asset-url("segoe/SegoeUILight/SegoeUILight.eot?#iefix")format("embedded-opentype"),
+    asset-url("segoe/SegoeUILight/SegoeUILight.woff") format("woff"),
+    asset-url("segoe/SegoeUILight/SegoeUILight.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 300;
+}
+
+// Regular 400
+@font-face {
+    font-family: "Segoe";
+    src: asset-url("segoe/SegoeUIRegular/SegoeUIRegular.eot");
+    src: asset-url("segoe/SegoeUIRegular/SegoeUIRegular.eot?#iefix")format("embedded-opentype"),
+    asset-url("segoe/SegoeUIRegular/SegoeUIRegular.woff") format("woff"),
+    asset-url("segoe/SegoeUIRegular/SegoeUIRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+// Semibold 700
+@font-face {
+    font-family: "Segoe";
+    src: asset-url("segoe/SegoeUISemiBold/SegoeUISemiBold.eot");
+    src: asset-url("segoe/SegoeUISemiBold/SegoeUISemiBold.eot?#iefix")format("embedded-opentype"),
+    asset-url("segoe/SegoeUISemiBold/SegoeUISemiBold.woff") format("woff"),
+    asset-url("segoe/SegoeUISemiBold/SegoeUISemiBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 700;
+}
+
+// Semibold 800
+@font-face {
+    font-family: "Segoe";
+    src: asset-url("segoe/SegoeUIBold/SegoeUIBold.eot");
+    src: asset-url("segoe/SegoeUIBold/SegoeUIBold.eot?#iefix")format("embedded-opentype"),
+    asset-url("segoe/SegoeUIBold/SegoeUIBold.woff") format("woff"),
+    asset-url("segoe/SegoeUIBold/SegoeUIBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 800;
+}

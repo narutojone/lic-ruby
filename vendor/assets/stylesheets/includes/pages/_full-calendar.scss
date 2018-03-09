@@ -1,0 +1,190 @@
+//-----------------------------------------------------------------------------
+// Full Calendar
+
+.full-calendar{
+
+  .fc-toolbar{
+    .fc-center{
+      h2{
+        margin: 0px;
+        font: 300 22px $open-sans;
+      }
+    }
+    .fc-right, .fc-left{
+      .fc-button{
+        margin: 0 10px 0px 0px;
+        vertical-align: middle;
+        padding: 0px 10px;
+        display: inline-block !important;
+        border-radius: 0;
+        height: 30px;
+        line-height: 30px;
+
+        &.fc-state-default{
+          background: none;
+          box-shadow: none;
+          text-shadow: none;
+          color: $primary-color;
+          border: 0;
+        }
+
+        &.fc-corner-right{
+          border-right: 0;
+        }
+
+        &.fc-state-active, &.fc-state-hover{
+          background: $primary-color;
+          color: $light-color;
+          box-shadow: none;
+          text-shadow: none;
+        }
+
+        &.fc-prev-button, &.fc-next-button{
+          padding: 0px 10px;
+          .fc-arrow{
+            font-size: 22px;
+            line-height: 30px;
+          }
+        }
+
+        &.fc-next-button{
+          margin-right: 0px;
+        }
+
+        &:first-letter{
+          text-transform: uppercase;
+        }
+
+        @media #{$phone}{
+          padding: 5px;
+        }
+      }
+
+      @media #{$phone}{
+        padding-top: 0;
+      }
+    }
+
+    @media #{$phone}{
+      text-align: center;
+    }
+  }
+
+  .fc-view-container{
+
+    .fc-view{
+        .fc-day-header, .fc-widget-header{
+          font: 300 14px/40px $open-sans;
+          text-align: center;
+        }
+    }
+
+    .fc-event-container{
+      .fc-event{
+        background: $primary-color;
+        border-color: $primary-color;
+        color: $light-color;
+        border-radius: 0;
+        .fc-content{
+          padding: 3px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          .fc-type-icon{
+            padding: 0px 1px;
+            margin-right: 2px;
+          }
+          .fc-time{
+            text-transform: uppercase;
+            font-weight: 600;
+          }
+        }
+        &.fc-event-ad-import{
+          background: #4B7CB7;
+          border-color: #4B7CB7;
+        }
+        &.fc-event-network-scanning{
+          background: $warning-color;
+          border-color: $warning-color;
+        }
+        &.fc-event-software-scanning{
+          background: #907ED1;
+          border-color: #907ED1;
+        }
+        &.fc-event-ci-scanning{
+          background: #69D167;
+          border-color: #69D167;
+        }
+        &.fc-event-create-ticket{
+          background: $primary-color;
+          border-color: $primary-color;
+        }
+        &.fc-event-email-report{
+          background: #FF8C68;
+          border-color: #FF8C68;
+        }
+        &.fc-event-warranty-collection{
+          background: $danger-color;
+          border-color: $danger-color;
+        }
+        
+      }
+    }
+
+    .fc-more-cell{
+      .fc-more{
+        color: $primary-color;
+      }
+    }
+
+    .fc-today{
+      background-color: darken($light-color, 3%);
+    }
+
+    .fc-cell-overlay{
+      background-color: fade($primary-color, 50%);
+    }
+  }
+
+  #external-events{
+
+    .external-event{
+      margin: 2px 0;
+      padding: 5px;
+      background: $primary-color;
+      color: $light-color;
+      font-size: .85em;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    p{
+      input{
+        margin-top: 15px;
+      }
+
+      label{
+        font-weight: 300;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  @media #{$phone}{
+    max-width: 767px;
+
+    .fc-header{
+
+      .fc-header-left, .fc-header-center, .fc-header-right{
+        text-align: center;
+        display: block;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .fc-header-center{
+        padding: 0;
+      }
+    }
+  }
+}

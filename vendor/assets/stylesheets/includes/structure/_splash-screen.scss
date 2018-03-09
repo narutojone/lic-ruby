@@ -1,0 +1,20 @@
+//-----------------------------------------------------------------------------
+// Splash screen
+
+.am-splash-screen{
+  background-color: $light-gray-color;
+  .am-wrapper{
+    padding-top: 0;
+    .am-content{
+      margin: 0;
+      .am-content{
+        a{
+          color: lighten($dark-color, 30%);
+          &:hover, &:focus, &:active{
+            color: lighten($dark-color, 20%);
+          }
+        }
+      }
+    }
+  }
+}

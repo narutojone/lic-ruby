@@ -1,0 +1,100 @@
+//-----------------------------------------------------------------------------
+// Second Level Menu
+.second-level-menu {
+	padding: 0px 15px;
+    position: relative;
+	background: $light-color;
+	border-bottom: 1px solid darken($light-gray-color, 5%);
+	border-top: none;
+	ul{
+		margin: 0px;
+		li{
+			display: inline-block;
+			vertical-align: top;
+			a{
+				padding: 10px 10px;
+				display: block;
+				position: relative;
+				color: $dark-color;
+				text-align: center;
+				font-size: 13px;
+				i, span{
+					display: block;
+					position: relative;
+				}
+				i{
+					font-size: 28px;
+					line-height: 30px;
+				}
+			}
+			&:hover, &.active{
+				a{
+					color: $primary-color;
+				}
+			}
+			&.active{
+				a:after{
+					content: "";
+					position: absolute;
+					left: 0px;
+					bottom: 0px;
+					width: 100%;
+					height: 2px;
+					background: $primary-color;
+				}
+			}
+			&.divider{
+				padding: 10px;
+				span{
+					display: block;
+					width: 1px;
+					height: 48px;
+					background: darken($light-gray-color, 5%);
+				}
+			}
+		}
+	}
+	@media #{$tablet} {
+		padding: 0px;
+		ul{
+			li{
+				a{
+					padding: 10px 5px;
+					font-size: 12px;
+					i{
+						font-size: 24px;
+					}
+				}
+			}
+		}
+	}
+	@media #{$phone} {
+		padding: 0px;
+		ul{
+			margin: 0px;
+			li{
+				padding: 0px;
+				display: block;
+				border-left: 3px solid $light-color;
+				a{
+					padding: 5px 0px;
+					text-align: left;
+					i, span{
+						display: inline-block;
+						vertical-align: middle;
+					}
+					i, .icon{
+						width: 50px;
+						text-align: center;
+					}
+				}
+				&.active{
+					border-left: 3px solid $primary-color;
+					a:after{
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}

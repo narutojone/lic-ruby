@@ -1,0 +1,221 @@
+//-----------------------------------------------------------------------------
+// Reports
+
+.report-numbers{
+  margin: 20px 0px;
+  .report-numbers-list{
+    margin: 0px;
+    font-size: 0px;
+    li{
+      margin: 0px 0px 20px;
+      width: calc(100%/8);
+      vertical-align: top;
+      font-size: 14px;
+      @media #{$tablet}{
+        width: calc(100%/4);
+      }
+      @media #{$phone}{
+        width: calc(100%/2);
+      }
+      p{
+        margin: 0px;
+        &.number{
+          span{
+            font: 300 40px/40px $lato;
+          }
+          i{
+            font-size: 16px;
+            line-height: 40px;
+            color: $primary-color;
+            vertical-align: top;
+            &.fa-angle-down, &.fa-angle-double-down{
+              color: $danger-color;
+            }
+          }
+        }
+      }
+    }
+  }
+  .chart-container {
+      display: table;
+      width: 100%;
+      margin: 0;
+
+      > div {
+        display: table-cell;
+        float: none;
+        vertical-align: middle;
+
+        @media #{$phone} {
+          display: block;
+
+          &:first-child {
+            margin-bottom: 25px;
+          }
+        }
+      }
+      &.chart-container-2{
+        > div{
+          display: inline-block;
+          text-align: center;
+        }
+        .legend{
+          margin: 10px 0px 0px;
+          display: inline-block;
+          text-align: left;
+        }
+      }
+
+      .chart {
+        min-height: 125px;
+      }
+
+      .legend {
+        > div {
+          background-color: transparent !important;
+        }
+
+        table {
+          width: 100%;
+
+          tr {
+            td {
+              padding-bottom: 7px;
+              font-size: 12px;
+            }
+
+            .legendColorBox {
+              width: 1%;
+
+              > div {
+                border: 0 !important;
+              }
+            }
+
+            .legendLabel {
+              padding-left: 8px;
+              font-size: 12px;
+            }
+
+            .legendData {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+
+    .chart-info {
+      border-top: 1px solid darken($light-color, 12%);
+      margin: 0;
+      margin-top: 30px;
+      text-align: center;
+
+      span {
+        display: block;
+
+        &.title {
+          margin-bottom: 3px;
+          text-transform: uppercase;
+          color: lighten($text-color, 36.5%);
+          font-size: 12px;
+        }
+
+        &.number {
+          font-size: 18px;
+          font-weight: 300;
+        }
+      }
+
+      > div {
+        padding-top: 20px;
+      }
+
+      > div:first-child {
+        text-align: left;
+        padding-left: 0;
+      }
+
+      > div:last-child {
+        text-align: right;
+        padding-right: 0;
+      }
+
+      @media #{$small-phone} {
+        padding-top: 15px;
+
+        > div {
+          float: none;
+          text-align: left !important;
+          width: 100%;
+          line-height: 40px;
+          padding-right: 0;
+          padding-left: 0;
+          padding-top: 0;
+
+          span {
+            display: inline-block;
+
+            &.title {
+              margin: 0;
+            }
+
+            &.number {
+              float: right;
+            }
+          }
+        }
+      }
+    }
+  .chart-info{
+    margin: 15px 0px 0px;
+    padding: 10px 0px 0px;
+    .title{
+      margin: 0px;
+      font-size: 18px;
+      color: $dark-color;
+      text-transform: none;
+    }
+  }
+  .legendColorBox{
+    div{
+      @include border-radius(50%);
+    }
+  }
+  .chart-container{
+    margin: 23px 0px 24px;
+    .chart {
+        min-height: 125px;
+    }
+    .legend{
+      table{
+        tr{
+          td{
+            padding-top: 1px;
+            padding-bottom: 1px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+  
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px){
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+
+}

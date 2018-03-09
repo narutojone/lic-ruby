@@ -1,0 +1,424 @@
+//-----------------------------------------------------------------------------
+// Widgets
+
+.widget {
+  background: $light-color;
+  border: 1px solid $border-color;
+  @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  @include border-radius(0);
+  padding: 0;
+  position: relative;
+
+  &:hover{
+    @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+    > .btn{
+      opacity: 1;
+    }
+  }
+
+  > a{
+    color: $dark-color;
+  }
+
+  > .btn{
+    position: absolute;
+    padding: 0px 3px;
+    font-size: 14px;
+    color: darken($light-gray-color, 25%);
+    z-index: 100;
+    opacity: 0;
+    &:hover{
+      color: darken($light-gray-color, 50%);
+    }
+    &.btn-delete{
+      right: 0px;
+      top: 0px;
+    }
+    &.btn-cogs{
+      right: 0px;
+      bottom: 0px;
+    }
+  }
+
+  > .widget-head {
+    margin-bottom: 20px;
+    display: block;
+
+    .title {
+      font-size: $widget-heading-font-size;
+      font-weight: $widget-heading-font-weight;
+    }
+
+    .tools {
+      float: right;
+
+      > .icon {
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 21px;
+        line-height: 23px;
+        vertical-align: middle;
+        cursor: pointer;
+
+        &:hover {
+          color: $primary-color;
+        }
+
+        //Icon exceptions
+        &.s7-close{ font-size: 27px; margin-left: 1px; position: relative; top: 1px; }
+      }
+
+      .value {
+        font-size: 24px;
+        line-height: 22px;
+      }
+    }
+  }
+
+  .loading{
+    padding-top: 44px;
+    text-align: center;
+    min-height: 112px;
+    max-height: 112px;
+    border-left: 2px solid $primary-color;
+  }
+
+  .widget-heading{
+    margin: 0;
+    padding: 15px;
+    background: darken($light-color, 1.5%);
+    border-bottom: 1px solid darken($light-color, 3%);
+    &.widget-primary{
+      border-left: 2px solid $primary-color;
+    }
+    &.widget-warning{
+      border-left: 2px solid $warning-color;
+    }
+    &.widget-danger{
+      border-left: 2px solid $danger-color;
+    }
+    &.widget-success{
+      border-left: 2px solid $success-color;
+    }
+    .title{
+      font: 300 16px $lato;
+      color: $dark-color;
+    }
+    .call-center{
+      font: 16px $lato;
+      color: $dark-color;
+      text-transform: uppercase;
+    }
+  }
+  .widget-footer{
+    background: #f7f7f7;
+    border-top-color: #e0e0e0;
+    &.widget-primary{
+      border-left: 2px solid $primary-color;
+    }
+    &.widget-warning{
+      border-left: 2px solid $warning-color;
+    }
+    &.widget-danger{
+      border-left: 2px solid $danger-color;
+    }
+    &.widget-success{
+      border-left: 2px solid $success-color;
+    }
+    p{
+      margin: 0px 10px 0px 0px;
+      display: inline-block;
+      vertical-align: middle;
+      i{
+        color: $primary-color;
+      }
+    }
+  }
+  .widget-body{
+    &.widget-primary{
+      border-left: 2px solid $primary-color;
+    }
+    &.widget-warning{
+      border-left: 2px solid $warning-color;
+    }
+    &.widget-danger{
+      border-left: 2px solid $danger-color;
+    }
+    &.widget-success{
+      border-left: 2px solid $success-color;
+    }
+    /*&:before{
+      content: "";
+      width: 2px;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background: $primary-color;
+    }
+    &.widget-primary{
+      &:before{
+        background: $primary-color;
+      }
+    }
+    &.widget-warning{
+      &:before{
+        background: $warning-color;
+      }
+    }
+    &.widget-danger{
+      &:before{
+        background: $danger-color;
+      }
+    }
+    &.widget-success{
+      &:before{
+        background: $success-color;
+      }
+    }*/
+    .data-info, .icon{
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .data-info{
+      width: 100%;
+      padding: 15px 122px 15px 15px;
+      font-family: $lato;
+      font-weight: 300;
+      .desc{
+        font-weight: 300;
+        .form-control{
+          margin-left: 10px;
+          display: inline-block;
+          vertical-align: middle;
+          width: auto;
+          height: 20px;
+          line-height: 20px;
+          font-size: 12px;
+          padding: 0px 4px;
+        }
+      }
+    }
+    &.widget-number{
+      min-height: 112px;
+      max-height: 112px;
+      .icon{
+        font-size: 44px;
+        line-height: 112px;
+        text-align: center;
+        width: 112px;
+        height: 112px;
+        background: darken($light-color, 1.5%);
+        border-left: 1px solid darken($light-color, 3%);
+        cursor: pointer;
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        right: 0px;
+        i{
+          color: $primary-color;
+        }
+        &.icon-primary{
+          i{
+            color: $primary-color;
+          }
+        }
+        &.icon-warning{
+          i{
+            color: $warning-color;
+          }
+        }
+        &.icon-danger{
+          i{
+            color: $danger-color;
+          }
+        }
+        &.icon-success{
+          i{
+            color: $success-color;
+          }
+        }
+        
+      }
+      .data-info{
+        font-size: 50px;
+        line-height: 58px;
+        text-align: left;
+        color: $dark-color;
+        .value{
+          font-size: 44px;
+          line-height: 50px;
+        }
+        .desc{
+          font-size: 14px;
+          line-height: 18px;
+        }
+      }
+      
+      &.widget-settings{
+        .data-info{
+          padding-top: 36px;
+          .desc{
+            font-size: 16px;
+            line-height: 20px;
+          }
+        }
+      }
+      &:hover{
+        .icon{
+          
+        }
+      }
+    }
+    &.widget-numbers{
+      width: 100%;
+      height: 190px;
+      display: table;
+      ul{
+        margin-top: 10px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        li{
+          font: 300 14px $lato;
+          .badge{
+            margin: 0 auto 5px;
+            padding: 0;
+            display: block;
+            font: 300 16px/40px $lato;
+            height: 40px;
+            width: 40px;
+            @include border-radius(50%);
+          }
+        }
+      }
+    }
+    &.widget-pie{
+      .chart-info{
+        margin: 15px 0px 0px;
+        padding: 10px 0px 0px;
+        .title{
+          margin: 0px;
+          font-size: 18px;
+          color: $dark-color;
+          text-transform: none;
+        }
+      }
+      .legendColorBox{
+        div{
+          @include border-radius(50%);
+        }
+      }
+      .chart-container{
+        padding: 32px 0px;
+        .legend{
+          table{
+            tr{
+              td{
+                padding-top: 1px;
+                padding-bottom: 1px;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.widget-table{
+      padding: 10px 15px;
+      table{
+        margin: 0px;
+        text-align: center;
+        th{
+          color: $body-color;
+          font-size: 13px;
+          font-weight: 300;
+          text-align: center;
+          &:first-child{
+            text-align: left;
+          }
+        }
+        td{
+          font-size: 14px;
+          .badge-circle{
+            padding: 0px;
+            @include border-radius(50%);
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+          }
+          &:first-child{
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+  .widget{
+    .widget-body{
+      &.widget-number{
+        .call-center{
+          width: 80px;
+        }
+        .icon{
+          width: 80px;
+        }
+        .data-info{
+          padding: 10px 80px 10px 10px;
+          .value{
+            font-size: 40px;
+            line-height: 44px;
+          }
+          .desc{
+            .form-control{
+              margin-top: 3px;
+              margin-left: 0px;
+              display: block;
+              height: 18px;
+              line-height: 18px;
+              font-size: 12px;
+              padding: 0px 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  .widget{
+    .widget-body{
+      &.widget-number{
+        .call-center{
+          width: 60px;
+        }
+        .icon{
+          width: 60px;
+        }
+        .data-info{
+          padding: 10px 60px 10px 10px;
+          .value{
+            font-size: 40px;
+            line-height: 44px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px){
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+
+}

@@ -1,0 +1,432 @@
+//-----------------------------------------------------------------------------
+// Buttons
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+.btn {
+  padding: 4px 12px;
+  border-radius: 0;
+  @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+
+  &:active,
+  &.active {
+    box-shadow: none;
+  }
+
+}
+
+.btn-xs {
+  font-size: $font-size-extra-small;
+  padding: 2px 6px;
+  i{
+    margin-right: 4px;
+  }
+}
+
+// Button with rounded borders
+.btn-rounded {
+  border-radius: 20px;
+}
+
+// Button circle
+.btn-circle{
+  @include border-radius(50%);
+}
+
+// Button clear
+.btn-clear{
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.sort-link{
+  font-size: 18px;
+}
+
+.btn-upload{
+  position: relative;
+  .attachment-upload{
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Button with icon
+.btn-icon{
+  i{
+    margin-right: 8px;
+  }
+  &.btn-xs{
+    i{
+      margin-right: 4px;
+    }
+  }
+}
+
+
+// Button with icon only
+.btn-icon-only{
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  text-align: center;
+  i{
+    margin: 0;
+  }
+  &.btn-icon-only-sm{
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 14px;
+  }
+  &.btn-icon-only-xs{
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 13px;
+  }
+}
+
+// Buton spacer helpers
+.btn-hspace {
+  margin-right: 5px;
+}
+
+.btn-vspace {
+  margin-bottom: 5px;
+}
+
+.btn-space {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.btn-default {
+  color: $btn-default-color;
+  background-color: $btn-default-bg;
+  border-color: $btn-default-border;
+  &:hover{
+    background-color: darken($btn-default-bg, 5%);
+  }
+}
+
+// Alternative color styles
+.btn-primary {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+}
+
+.btn-dark {
+  @include button-variant($btn-dark-color, $btn-dark-bg, $btn-dark-border);
+}
+
+.btn-success {
+  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+}
+
+.btn-info {
+  @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+}
+
+.btn-warning {
+  @include button-variant($btn-warning-color, $btn-warning-bg, $btn-warning-border);
+}
+
+.btn-danger {
+  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+}
+
+.btn-alt1{
+  @include button-variant($btn-alt1-color, $btn-alt1-bg, $btn-alt1-border);
+}
+
+.btn-alt2{
+  @include button-variant($btn-alt2-color, $btn-alt2-bg, $btn-alt2-border);
+}
+
+.btn-alt3{
+  @include button-variant($btn-alt3-color, $btn-alt3-bg, $btn-alt3-border);
+}
+
+.btn-alt4{
+  @include button-variant($btn-alt4-color, $btn-alt4-bg, $btn-alt4-border);
+}
+
+// Shade colors
+// Primary
+.btn-primary.btn-shade1 {
+  @include button-shade( darken($btn-primary-bg, 3%) );
+}
+
+.btn-primary.btn-shade2 {
+  @include button-shade( darken($btn-primary-bg, 5%) );
+}
+
+.btn-primary.btn-shade3 {
+  @include button-shade( darken($btn-primary-bg, 7%) );
+}
+
+.btn-primary.btn-shade4 {
+  @include button-shade( darken($btn-primary-bg, 9%) );
+}
+
+// Success
+.btn-success.btn-shade1 {
+  @include button-shade( darken($btn-success-bg, 3%) );
+}
+
+.btn-success.btn-shade2 {
+  @include button-shade( darken($btn-success-bg, 5%) );
+}
+
+.btn-success.btn-shade3 {
+  @include button-shade( darken($btn-success-bg, 7%) );
+}
+
+.btn-success.btn-shade4 {
+  @include button-shade( darken($btn-success-bg, 9%) );
+}
+
+// Info
+.btn-info.btn-shade1 {
+  @include button-shade( darken($btn-info-bg, 3%) );
+}
+
+.btn-info.btn-shade2 {
+  @include button-shade( darken($btn-info-bg, 5%) );
+}
+
+.btn-info.btn-shade3 {
+  @include button-shade( darken($btn-info-bg, 7%) );
+}
+
+.btn-info.btn-shade4 {
+  @include button-shade( darken($btn-info-bg, 9%) );
+}
+
+// Warning
+.btn-warning.btn-shade1 {
+  @include button-shade( darken($btn-warning-bg, 3%) );
+}
+
+.btn-warning.btn-shade2 {
+  @include button-shade( darken($btn-warning-bg, 5%) );
+}
+
+.btn-warning.btn-shade3 {
+  @include button-shade( darken($btn-warning-bg, 7%) );
+}
+
+.btn-warning.btn-shade4 {
+  @include button-shade( darken($btn-warning-bg, 9%) );
+}
+
+// Danger
+.btn-danger.btn-shade1 {
+  @include button-shade( darken($btn-danger-bg, 3%) );
+}
+
+.btn-danger.btn-shade2 {
+  @include button-shade( darken($btn-danger-bg, 5%) );
+}
+
+.btn-danger.btn-shade3 {
+  @include button-shade( darken($btn-danger-bg, 7%) );
+}
+
+.btn-danger.btn-shade4 {
+  @include button-shade( darken($btn-danger-bg, 9%) );
+}
+
+// Dark
+.btn-dark.btn-shade1 {
+  @include button-shade( darken($btn-dark-bg, 3%) );
+}
+
+.btn-dark.btn-shade2 {
+  @include button-shade( darken($btn-dark-bg, 5%) );
+}
+
+.btn-dark.btn-shade3 {
+  @include button-shade( darken($btn-dark-bg, 7%) );
+}
+
+.btn-dark.btn-shade4 {
+  @include button-shade( darken($btn-dark-bg, 9%) );
+}
+
+// Alt1
+.btn-alt1.btn-shade1 {
+  @include button-shade( darken($btn-alt1-bg, 3%) );
+}
+
+.btn-alt1.btn-shade2 {
+  @include button-shade( darken($btn-alt1-bg, 5%) );
+}
+
+.btn-alt1.btn-shade3 {
+  @include button-shade( darken($btn-alt1-bg, 7%) );
+}
+
+.btn-alt1.btn-shade4 {
+  @include button-shade( darken($btn-alt1-bg, 9%) );
+}
+
+// Alt2
+.btn-alt2.btn-shade1 {
+  @include button-shade( darken($btn-alt2-bg, 3%) );
+}
+
+.btn-alt2.btn-shade2 {
+  @include button-shade( darken($btn-alt2-bg, 5%) );
+}
+
+.btn-alt2.btn-shade3 {
+  @include button-shade( darken($btn-alt2-bg, 7%) );
+}
+
+.btn-alt2.btn-shade4 {
+  @include button-shade( darken($btn-alt2-bg, 9%) );
+}
+
+// Alt3
+.btn-alt3.btn-shade1 {
+  @include button-shade( darken($btn-alt3-bg, 3%) );
+}
+
+.btn-alt3.btn-shade2 {
+  @include button-shade( darken($btn-alt3-bg, 5%) );
+}
+
+.btn-alt3.btn-shade3 {
+  @include button-shade( darken($btn-alt3-bg, 7%) );
+}
+
+.btn-alt3.btn-shade4 {
+  @include button-shade( darken($btn-alt3-bg, 9%) );
+}
+
+// Alt4
+.btn-alt4.btn-shade1 {
+  @include button-shade( darken($btn-alt4-bg, 3%) );
+}
+
+.btn-alt4.btn-shade2 {
+  @include button-shade( darken($btn-alt4-bg, 5%) );
+}
+
+.btn-alt4.btn-shade3 {
+  @include button-shade( darken($btn-alt4-bg, 7%) );
+}
+
+.btn-alt4.btn-shade4 {
+  @include button-shade( darken($btn-alt4-bg, 9%) );
+}
+
+//Social buttons colors
+.btn-default.btn-facebook {
+  color: $facebook;
+  @include button-active-color($facebook)
+}
+
+.btn-default.btn-twitter {
+  color: $twitter;
+  @include button-active-color($twitter)
+}
+
+.btn-default.btn-google-plus {
+  color: $google-plus;
+  @include button-active-color($google-plus)
+}
+
+.btn-default.btn-dribbble {
+  color: $dribbble;
+  @include button-active-color($dribbble)
+}
+.btn-default.btn-flickr {
+  color: $flickr;
+  @include button-active-color($flickr)
+}
+.btn-default.btn-linkedin {
+  color: $linkedin;
+  @include button-active-color($linkedin)
+}
+.btn-default.btn-youtube {
+  color: $youtube;
+  @include button-active-color($youtube)
+}
+.btn-default.btn-pinterest {
+  color: $pinterest;
+  @include button-active-color($pinterest)
+}
+.btn-default.btn-github {
+  color: $github;
+  @include button-active-color($github)
+}
+.btn-default.btn-tumblr {
+  color: $tumblr;
+  @include button-active-color($tumblr)
+}
+
+//Social buttons
+.btn-social.btn-facebook{ @include button-variant($light-color, $facebook, $facebook); }
+.btn-social.btn-twitter{ @include button-variant($light-color, $twitter, $twitter);  }
+.btn-social.btn-google-plus{ @include button-variant($light-color, $google-plus, $google-plus); }
+.btn-social.btn-dribbble{ @include button-variant($light-color, $dribbble, $dribbble); }
+.btn-social.btn-flickr{ @include button-variant($light-color, $flickr, $flickr); }
+.btn-social.btn-linkedin{ @include button-variant($light-color, $linkedin, $linkedin); }
+.btn-social.btn-youtube{ @include button-variant($light-color, $youtube, $youtube); }
+.btn-social.btn-pinterest{ @include button-variant($light-color, $pinterest, $pinterest); }
+.btn-social.btn-github{ @include button-variant($light-color, $github, $github); }
+.btn-social.btn-tumblr{ @include button-variant($light-color, $tumblr, $tumblr); }
+
+// Icons inside buttons
+.btn {
+  .icon {
+    font-size: 19px;
+    vertical-align: middle;
+
+    &.icon-left {
+      margin-right: $btn-icon-margin;
+    }
+
+    &.icon-right {
+      margin-left: $btn-icon-margin;
+    }
+
+    &.fa {
+      font-size: 15px;
+    }
+  }
+
+  &.btn-lg .icon {
+    font-size: 23px;
+    line-height: 25px;
+  }
+
+  &.btn-sm .icon {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  &.btn-xs .icon {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+// The clickable button for toggling the menu
+// Remove the gradient and set the same inset shadow as the :active state
+.btn-group.open .dropdown-toggle {
+  box-shadow: none;
+}

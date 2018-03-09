@@ -1,0 +1,392 @@
+//
+// Tables
+// --------------------------------------------------
+
+.table{
+  border: none;
+  > thead{
+    > tr{
+      > th{
+        border: none;
+        border-bottom: 1px solid $light-gray-color2;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+  }
+  > tbody{
+    > tr{
+      > td{
+        border: none;
+        border-bottom: 1px solid $light-gray-color2;
+        position: relative;
+        vertical-align: middle;
+        .badge{
+          font-size: 9px;
+          margin-top: -3px;
+        }
+        .icon{
+          margin: 0px;
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          line-height: 42px;
+          font-size: 18px;
+          background: $alt-color4;
+          @include border-radius(50%);
+          text-align: center;
+          color: $light-color;
+          cursor: pointer;
+          font-style: normal;
+          font-weight: 300;
+          &.icon-primary{
+            background: $primary-color;
+          }
+          &.icon-warning{
+            background: $warning-color;
+          }
+          &.icon-danger{
+            background: $danger-color;
+          }
+          &.icon-success{
+            background: $success-color;
+          }
+          &.icon-sm{
+            background: transparent;
+            border: 1px solid $primary-color;
+            color: $primary-color;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            font-size: 18px;
+          }
+        }
+        .sort-link{
+          .icon{
+            background: transparent;
+            height: auto;
+            color: $primary-color;
+            line-height: 36px;
+          }
+        }
+        .icon-block, .info-block, .thumbnail-block{
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .icon-dot{
+          margin: 0px;
+          padding: 0px;
+          width: 9px;
+          height: 9px;
+          @include border-radius(50%);
+          background: $alt-color4;
+          position: absolute;
+          top: 25px;
+          left: 25px;
+          &.icon-primary{
+            background: $primary-color;
+          }
+          &.icon-warning{
+            background: $warning-color;
+          }
+          &.icon-danger{
+            background: $danger-color;
+          }
+          &.icon-success{
+            background: $success-color;
+          }
+        }
+        .icon-block{
+          margin: 0px 10px 0px 5px;
+          width: 35px;
+          height: 35px;
+          line-height: 35px;
+          font-size: 16px;
+          background: $alt-color4;
+          @include border-radius(50%);
+          text-align: center;
+          color: $light-color;
+          cursor: pointer;
+          font-style: normal;
+          font-weight: 300;
+          position: relative;
+          &.icon-primary{
+            background: $primary-color;
+          }
+          &.icon-warning{
+            background: $warning-color;
+          }
+          &.icon-danger{
+            background: $danger-color;
+          }
+          &.icon-success{
+            background: $success-color;
+          }
+          &.icon-info{
+            background: $info-color;
+          }
+          &.icon-alt{
+            background: $alt-color4;
+          }
+          &.icon-broadcast{
+            font-size: 26px;
+            background: transparent!important;
+            color: darken($light-gray-color2,10%);
+            &.icon-primary{
+              color: $primary-color;
+            }
+          }
+          &.icon-category{
+            width: 40px;
+            height: 40px;
+            line-height: 42px;
+            font-size: 18px;
+          }
+          &.icon-block-sm{
+            width: 30px;
+            height: 30px;
+            line-height: 32px;
+            font-size: 16px;
+          }
+        }
+        .info-block{
+          &.info-status{
+            margin: 0px;
+            line-height: 1.42857;
+            span:first-child{
+              font-weight: 600;
+            }
+          }
+        }
+        p{
+          margin: 0px;
+          line-height: auto;
+        }
+        @media #{$phone}{
+          .icon-block, .info-block{
+            display: block;
+          }
+          .icon-block{
+            position: absolute;
+            top: 50%;
+            margin-top: -17px;
+          }
+          .info-block{
+            padding-left: 55px;
+          }
+          }
+          @media #{$tablet}{
+            .icon-block, .info-block{
+            display: block;
+          }
+          .icon-block{
+            position: absolute;
+            top: 50%;
+            margin-top: -17px;
+          }
+          .info-block{
+            padding-left: 55px;
+          }
+          }
+      }
+    }
+  }
+
+  &.table-checks{
+    th{
+      .am-checkbox{
+        padding: 0px;
+      }
+    }
+    td:first-child{
+      width: 35px;
+    }
+  }
+
+  &.table-right-btns{
+    td:last-child{
+      text-align: right;
+      min-width: 110px;
+    }
+    tr:not(:hover){
+      td:last-child{
+        .btn{
+          background: transparent;
+          border-color: transparent;
+          box-shadow: none;
+          color: $light-gray-color2;
+        }
+      }
+    }
+  }
+  &.table-notifications{
+    tr{
+      td, th{
+        text-align: center;
+        &:first-child{
+          text-align: left;
+        }
+      }
+      td{
+        &:first-child{
+          padding-left: 20px;
+        }
+      }
+      &.title{
+        background: #fcfcfc;
+        font-weight: bold;
+        td{
+          font-weight: 600;
+          &:first-child{
+            padding-left: 8px;
+          }
+        }
+      }
+    }
+    .system{
+      display: block;
+      text-align: center;
+      text-transform: uppercase;
+      color: $primary-color;
+      font-weight: 600;
+    }
+  }
+
+  &.table-change-logs, &.table-attachments{
+    td{
+      p{
+        font-size: 13px;
+        i{
+          margin-left: 4px;
+          color: $body-color;
+          &:first-of-type{
+            margin-right: 6px;
+            margin-left: 0px;
+          }
+        }
+        &.comment{
+          color: $body-color;
+          font-style: italic;
+        }
+      }
+    }
+  }
+  &.table-broadcasts{
+    tr{
+      background: lighten($light-gray-color, 1%);
+      td{
+        border-bottom: 1px solid $border-color;
+        p{
+          &.date{
+            text-align: right;
+            i{
+              margin-right: 10px;
+              color: $body-light-color;
+            }
+            span{
+              display: inline-block;
+              width: 130px;
+              text-align: left;
+            }
+            @media #{$tablet} {
+              text-align: center;
+              font-size: 12px;
+              i{
+                margin-right: 0;
+              }
+              span{
+                width: 120px;
+                text-align: center;
+              }
+            }
+            @media #{$phone} {
+              text-align: center;
+              font-size: 12px;
+              i{
+                margin-right: 0;
+              }
+              span{
+                width: 60px;
+                text-align: center;
+              }
+            }
+          }
+        }
+        &:last-child{
+          vertical-align: top;
+        }
+      }
+      &.unread{
+        background: $light-color;
+        td{
+          &:first-child{
+            &:before{
+              content: "";
+              width: 2px;
+              height: 102%;
+              background: $primary-color;
+              border: none;
+              position: absolute;
+              left: 0;
+              top: 0;
+            }
+          }
+        }
+      }
+      &:hover{
+        background: $light-gray-color;
+      }
+    }
+    thead{
+      tr{
+        background: transparent;
+      }
+    }
+  }
+  &.table-no-head{
+    thead{
+      th{
+        .th-inner{
+          padding: 0px;
+        }
+      }
+    }
+  }
+  &.table-roles{
+    tr{
+      td, th{
+        text-align: center;
+        &:first-child{
+          text-align: left;
+        }
+      }
+      td{
+        &:first-child{
+          padding-left: 20px;
+        }
+      }
+      &.title{
+        background: #fcfcfc;
+        font-weight: bold;
+        td{
+          font-weight: 600;
+          &:first-child{
+            padding-left: 8px;
+          }
+        }
+      }
+    }
+    &.table-roles-wbg{
+      tr{
+        &.title{
+          background: #fdfdfd;
+        }
+      }
+    }
+  }
+}
+@media #{$phone}{
+  .table-responsive{
+    border: none;
+  }
+}

@@ -1,0 +1,21 @@
+//-----------------------------------------------------------------------------
+// Breadcrumb
+
+.breadcrumb {
+  margin: 0px;
+  padding: 0px;
+  background: none;
+  li{
+    font-size: 12px;
+    line-height: 14px;
+    a{
+      color: $primary-color;
+    }
+    &.active{
+      color: $body-light-color;
+    }
+    &+ li::before{
+      color: $body-light-color;
+    }
+  }
+}

@@ -1,0 +1,127 @@
+//-----------------------------------------------------------------------------
+// Custom pages: Login
+
+.am-login{
+  .am-content{
+    .main-content{
+      margin: 0px;
+      background: transparent;
+      border: 0px;
+    }
+  }
+
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 80px auto 0px;
+  padding: 10px;
+
+  .panel-default {
+    background: transparent;
+    padding:0;
+    border:0;
+    overflow:hidden;
+    margin-bottom:20px;
+
+    .panel-heading {
+      padding: 0;
+      background: transparent;
+      border: 0;
+      text-align: center;
+      margin-bottom: 10px;
+      .logo-img {
+        margin-bottom: 10px;
+        max-width: 300px;
+        max-height: 300px;
+      }
+      h4 {
+        margin: 10px 0px;
+        font: 600 22px/26px $lato;
+        color: $dark-color;
+      }
+      p {
+        margin: 10px 0px;
+        font: 18px/20px $lato;
+        color: $dark-color;
+      }
+    }
+
+    .panel-body {
+      .form-group {
+        .form-control{
+          border-color: $border-color;
+          font-weight: 400;
+          & ~ label{
+            font-weight: 400;
+          }
+        }
+        &.login-submit {
+          padding-top: 40px;
+          padding-bottom: 10px;
+
+          .btn {
+            padding: 8px 12px;
+            width: 100%;
+          }
+        }
+
+        &.footer {
+          margin-top: 3px;
+          line-height: 35px;
+          font-size: 14px;
+        }
+
+        //Remember me checkbox
+        .remember {
+          text-align: right;
+          color: lighten($dark-color, 30%);
+
+          label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+          }
+
+          .am-checkbox {
+            display: inline-block;
+            padding: 0px;
+            margin-left: 7px;
+
+            input[type="checkbox"] + label:before{
+              margin-right: 0px;
+              border-color: darken($light-gray-color, 10%);
+            }
+
+            input[type="checkbox"] + label:hover:before{
+              border-color: darken($light-gray-color, 15%);
+            }
+
+            input[type="checkbox"]:checked + label:before{
+              border-color: $primary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media #{$phone} {
+    margin-top: 50px;
+  }
+}
+
+@media #{$phone} {
+  .login-container{
+    .panel-default{
+      .panel-body{
+        .form-group.footer{
+          text-align: center;
+          .remember{
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

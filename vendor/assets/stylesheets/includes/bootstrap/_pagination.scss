@@ -1,0 +1,28 @@
+//-----------------------------------------------------------------------------
+.pagination{
+	margin: 10px 0px;
+	li{
+		a{
+			color: $dark-color;
+			border-color: $border-color;
+			box-shadow: none;
+		}
+		&.active, &.active:hover{
+			a{
+				color: $light-color;
+				background: $primary-color;
+			}
+		}
+		&:hover{
+			a{
+				color: $dark-color;
+				background: $light-gray-color;
+			}
+		}
+		&:first-child, &:last-child{
+			a{
+				border-radius: 0px;
+			}
+		}
+	}
+}
