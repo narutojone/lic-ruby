@@ -1,0 +1,95 @@
+//-----------------------------------------------------------------------------
+// Dropdown menu
+
+.dropdown-menu {
+  @include box-shadow(0 2px 4px rgba(0,0,0,.08));
+  border-color: rgba(0, 0, 0, 0.1);
+  @include border-radius(2px);
+
+  > li {
+    //First level
+    > a {
+      font-weight: 400;
+      color: $dropdown-text-color;
+      padding: 6px 12px;
+
+      .icon {
+        font-size: 17px;
+        line-height: 15px;
+        vertical-align: middle;
+        margin-right: 4px;
+      }
+
+      &:hover {
+        background-color: $primary-color;
+        color: $light-color;
+      }
+
+      &:focus, &:active {
+        background-color: transparent;
+        color: $dropdown-text-color;
+      }
+    }
+    &.active{
+      > a{
+        background-color: $primary-color;
+        color: $light-color;
+      }
+      &:focus, &:active {
+        background-color: transparent;
+        color: $dropdown-text-color;
+      }
+    }
+  }
+
+  .divider {
+    margin: 6px 0;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.dropdown-header {
+  padding: 5px 10px 1px;
+  font-weight: 600;
+  color: lighten($dropdown-text-color, 30%);
+  cursor: default;
+}
+
+.saved-searches-menu{
+  margin: 0px;
+  border-color: $light-gray-color;
+  border-radius: 0px;
+  left: 15px;
+  &::after{
+    border-bottom: 8px solid $light-gray-color;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    content: "";
+    display: inline-block;
+    margin-left: -6px;
+    position: absolute;
+    left: 13px;
+    top: -8px;
+  }
+  > li{
+    > a{
+      padding: 5px 10px;
+    }
+  }
+}
+
+.remote-tools-menu{
+  right: 0;
+  left: inherit;
+  &::after{
+    border-bottom: 8px solid $light-gray-color2;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    content: "";
+    display: inline-block;
+    margin-left: -6px;
+    position: absolute;
+    right: 26px;
+    top: -8px;
+  }
+}

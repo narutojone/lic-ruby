@@ -1,23 +1,12 @@
 <%= simple_form_for @account, url: email_settings_path do |f| %>
   <div class="content-form">
-    <%= render 'common/placeholder_list' do %>
-      <div>
-        <h5>E-mail Recipient</h5>
-        <input class="btn btn-default btn-sm" type="button" value="First name" data-placeholder="{{recipient.first_name}}">
-        <input class="btn btn-default btn-sm" type="button" value="Full name" data-placeholder="{{recipient.name}}">
-      </div>
-      <div>
-        <h5>Company</h5>
-        <input class="btn btn-default btn-sm" type="button" value="Name" data-placeholder="{{company.name}}">
-        <input class="btn btn-default btn-sm" type="button" value="Logo" data-placeholder="{{company.logo}}">
-      </div>
-    <% end %>
+    
 
     <%= f.input :email_header, label: 'E-mail header', input_html: {class: 'summernote'} %>
     <%= f.input :email_footer, label: 'E-mail footer', input_html: {class: 'summernote'} %>
   </div>
 
   <div class="content-form-footer">
-    <%= save_and_cancel %>
+    <button>Save</button>
   </div>
 <% end %>

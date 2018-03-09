@@ -1,0 +1,44 @@
+//-----------------------------------------------------------------------------
+// Lists
+
+.list-settings{
+	margin: 15px 0px 25px;
+	li{
+		width: 125px;
+		min-height: 110px;
+		text-align: center;
+		vertical-align: top;
+		a{
+			color: $dark-color;
+			.icon{
+				margin: 0px auto 5px;
+				text-align: center;
+				@include border-radius(50%);
+				transition: all 600ms ease 0s;
+				width: 60px;
+				height: 60px;
+				background: $primary-color;
+				display: block;
+				i{
+			    	color: $light-color;
+			    	font-size: 30px;
+			    	line-height: 60px;
+			    }
+			    &.icon-img{
+			    	line-height: normal;
+			    	background: none;
+			    	img{
+			    		@include border-radius(50%);
+			    		width: 60px;
+			    		height: 60px;
+			    	}
+			    }
+			}
+			&:hover{
+				.icon{
+					@include rotate(360deg);
+				}
+			}
+		}
+	}
+}

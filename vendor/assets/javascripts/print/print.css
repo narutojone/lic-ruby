@@ -1,0 +1,220 @@
+/*!
+
+Print styles
+
+*/
+
+body{
+	margin: 0px!important;
+	padding: 0px!important;
+	word-spacing: 1px!important;
+	letter-spacing: 0.2px!important;
+	font-family: Georgia, 'Times New Roman', serif!important;
+	font-size: 13px;
+	line-height: 18px!important;
+	color: #000!important;
+	background: none;
+}
+
+.print-container{
+	margin: 0px auto;
+	padding: 10px;
+	width: 595pt;
+}
+.print-container h2{
+	margin: 20px 0px;
+	font: 600 30px Georgia, 'Times New Roman', serif;
+}
+.print-container h2 span{
+	font: 16px Georgia, 'Times New Roman', serif;
+}
+.print-container h3{
+	margin: 0px 0px 10px;
+	font: 600 20px/28px Georgia, 'Times New Roman', serif;
+	border-bottom: 1px solid #000;
+}
+.print-container h3:after{
+	display: none;
+}
+.print-container h4{
+	margin: 0px 0px 10px;
+	font: 600 16px/26px Georgia, 'Times New Roman', serif;
+	border-bottom: 1px solid #000;
+}
+.print-container .table{
+
+}
+.print-container .table thead{
+
+}
+.print-container .table th{
+	padding: 5px;
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #000;
+	border-top: 1px solid #000;
+}
+.print-container .table th:last-child{
+	border-right: 1px solid #000;
+}
+.print-container .table td{
+	padding: 5px;
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #000;
+}
+.print-container .table td.text-right{
+	text-align: right;
+}
+.print-container .table td:last-child{
+	border-right: 1px solid #000;
+}
+.print-container ul{
+	margin: 0px 0px 10px;
+	padding: 0px;
+	list-style: none;
+}
+.print-container ul.inline-block{
+	width: 50%;
+	display: inline-block;
+	vertical-align: top;
+}
+.print-container ul li{
+	margin: 0px 0px 3px;
+	padding: 0px;
+	font: 13px/18px Georgia, 'Times New Roman', serif;
+}
+.print-container ul li span{
+	display: inline-block;
+	width: 175px;
+	font-weight: 600;
+}
+.print-container ul li p{
+	margin: 0px 0px 0px 180px;
+}
+.print-container div.inline-block{
+	width: 50%;
+	display: inline-block;
+	vertical-align: top;
+	box-sizing: border-box;
+}
+.print-container div.inline-block.inline-block-mr{
+	padding-right: 10px;
+}
+.print-container div.inline-block.w-70{
+	width: 70%;
+	padding-right: 10px;
+}
+.print-container div.inline-block.w-30{
+	width: 30%;
+}
+.print-container div.inline-block.w-30 p, .print-container div.inline-block.w-30 ul{
+	margin: 0px;
+}
+.print-container div.inline-block p{
+	margin: 0px 0px 10px;
+}
+.print-container div.comment{
+	margin: 0px 0px 15px;
+}
+.print-container div.comment p{
+	margin: 0px;
+}
+.print-container img{
+	max-width: 100% !important;
+}
+
+.print-container .chart-container{
+	display: table;
+	width: 100%;
+	margin: 0;
+}
+.print-container .chart-container > div {
+	display: table-cell;
+	float: none;
+	vertical-align: middle;
+}
+.print-container .chart-container .chart {
+ 	min-height: 125px;
+}
+.print-container .chart-container .legend  table {
+	width: 100%;
+}
+.print-container .chart-container .legend  table tr td {
+	padding-bottom: 7px;
+	font-size: 12px;
+}
+.print-container .chart-container .legend  table tr .legendColorBox {
+	width: 1%;
+}
+.print-container .chart-container .legend  table tr .legendColorBox > div {
+	border: 0 !important;
+}
+.print-container .chart-container .legend  table tr .legendLabel {
+	padding-left: 8px;
+	font-size: 12px;
+}
+.print-container .chart-container .legend  table tr .legendData {
+	text-align: right;
+}
+.print-container .chart-container  .chart-info {
+    border-top: 1px solid #ddd;
+    text-align: center;
+    margin: 15px 0px 0px;
+	padding: 10px 0px 0px;
+}
+
+.print-container .chart-container  .chart-info  span {
+  display: block;
+}
+
+.print-container .chart-container  .chart-info  span.title {
+	margin-bottom: 3px;
+	text-transform: uppercase;
+	color: #000;
+	font-size: 12px;
+}
+
+.print-container .chart-container  .chart-info  span.number {
+	font-size: 18px;
+	font-weight: 300;
+}
+
+.print-container .chart-container  .chart-info > div {
+	padding-top: 20px;
+}
+
+.print-container .chart-container  .chart-info > div:first-child {
+  text-align: left;
+  padding-left: 0;
+}
+
+.print-container .chart-container  .chart-info > div:last-child {
+  text-align: right;
+  padding-right: 0;
+}
+
+.print-container .chart-container  .chart-info .title{
+	margin: 0px;
+	font-size: 18px;
+	color: #333;
+	text-transform: none;
+}
+
+				
+.print-container .chart-container .legendColorBox div{
+	border-radius: 50%;
+}
+.print-container .chart-container{
+	margin: 23px 0px 24px;
+}
+.print-container .chart-container .chart {
+    min-height: 125px;
+}
+.print-container .chart-container .legend table tr td{
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline;
+}

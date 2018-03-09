@@ -3,7 +3,12 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :users
+  resources :users do
+    collection do
+      patch :bulk_update
+      patch :request_password_reset
+    end
+  end
 
   resources :roles do
     get :edit_all, on: :collection

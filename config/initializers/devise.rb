@@ -221,7 +221,7 @@ Devise.setup do |config|
   # config.navigational_formats = ['*/*', :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
@@ -256,9 +256,9 @@ end
 
 # ==> Layouts
 Rails.application.config.to_prepare do
-  Devise::SessionsController.layout 'application'
-  Devise::PasswordsController.layout 'application'
-  Devise::Mailer.layout              'system_mailer'
+  Devise::SessionsController.layout 'splash'
+  Devise::PasswordsController.layout 'splash'
+  Devise::Mailer.layout              'mailer'
 #    Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "devise" }
 #    Devise::ConfirmationsController.layout "devise"
 #    Devise::UnlocksController.layout "devise"

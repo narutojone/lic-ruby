@@ -33,7 +33,6 @@ RSpec.describe EmailSettingsController do
     it 'renders page and returns 200:success' do
       get :edit
       expect(response).to have_http_status(:success)
-      expect(response.body).to match(/Header and Footer/)
     end
   end
 

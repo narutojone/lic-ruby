@@ -63,4 +63,8 @@ group :test do
   gem 'poltergeist', '>= 1.15.0'
   gem 'simplecov', require: false
   gem 'database_cleaner'
+  gem 'rails-controller-testing'
+  gem 'faker'
 end
+
+gem 'will_paginate'

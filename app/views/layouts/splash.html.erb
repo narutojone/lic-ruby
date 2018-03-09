@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <title><%= yield(:page_title) || @page_title %></title>
+    <%= csrf_meta_tags %>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag "application" %>
+
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            height: 100%;
+            padding: 0;
+            color: #333333;
+            font-family: "Open Sans",sans-serif;
+        }
+        .btn-primary {
+            background-color: #25a0da;
+            border-color: #25a0da;
+            color: #fff;
+        }
+        .btn-primary:hover{
+            background-color: #3baade;
+            border-color: #3baade;
+        }
+        .btn {
+            background-image: none;
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857;
+            margin-bottom: 0;
+            padding: 6px 12px;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .am-splash-screen{
+            background: #f7f7f7;
+        }
+        .am-wrapper {
+            min-height: 100%;
+            overflow-x: hidden;
+            padding-top: 0px;
+        }
+        .am-content {
+            margin: 0px;
+            left: 0;
+            min-height: 100%;
+            position: relative;
+        }
+        .am-error .am-content .main-content{
+            margin: 0px;
+            background: none;
+            border: none;
+        }
+        .am-error .error-container{
+            margin: 0px auto;
+            padding-top: 70px;
+            max-width: 1000px;
+            min-height: 600px;
+            text-align: center;
+        }
+        .am-error .error-container h1{
+            margin: 0px;
+            font: 300 100px "Raleway",sans-serif;
+            width: auto;
+        }
+        .am-error .error-description{
+            margin: 20px 0px;
+            font: 36px "Raleway",sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .am-error .error-description span{
+            margin: 10px auto;
+            padding: 35px 0px 0px 0;
+            display: block;
+            width: 100%;
+            height: 140px;
+            background: url(assets/images/search.png) no-repeat 50% 0;
+            font: 40px "Raleway",sans-serif;
+            text-transform: none;
+            text-align: center;
+            letter-spacing: 0;
+        }
+        .am-error a{
+            color: $light-color!important;
+        }
+        .am-error-404 .error-container{
+            background: url(assets/images/404.png) no-repeat 50% 50%;
+            background-size: contain;
+        }
+        .am-error-404 .error-container .error-description span{
+            background: url(assets/images/search.png) no-repeat 50% 0;
+        }
+        .am-error-422 .error-container{
+            background: url(assets/images/422.png) no-repeat 50% 50%;
+            background-size: contain;
+        }
+        .am-error-422 .error-container .error-description span{
+            background: url(assets/images/sad.png) no-repeat 50% 0;
+        }
+        .am-error-500 .error-container{
+            background: url(assets/images/500.png) no-repeat 50% 50%;
+            background-size: contain;
+        }
+        .am-error-500 .error-container .error-description span{
+            background: url(assets/images/sad.png) no-repeat 50% 0;
+        }
+    </style>
+  </head>
+  <body class="boss811-default am-splash-screen">
+    <%= yield %>
+
+    <%= javascript_include_tag "app" %>
+    <%= yield(:js) %>
+  </body>
+</html>

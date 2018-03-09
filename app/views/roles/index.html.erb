@@ -1,12 +1,11 @@
 <% content_for(:subnav) { render 'roles/nav' } %>
-<% content_for(:page_head) { render 'layouts/page_head', icon: 'icon s7-lock', title: 'Roles' } %>
 
 <div class="content-block">
   <div class="content">
     <div class="content-heading">
       <div class="caption">
         <div class="title">
-          <h4><%= number_of_results(@roles.length) %></h4>
+          <h4><!--%= number_of_results(@roles.length) %--></h4>
         </div>
       </div>
       <div class="tools">
@@ -30,7 +29,7 @@
               <li class="list-group-item">
                 <div class="caption">
                   <div class="icon">
-                    <i class="fa <%= role_icon_class(role) %>"></i>
+                    <i class="fa"></i>
                   </div>
                   <p><%= role.name %></p>
                 </div>

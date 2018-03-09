@@ -1,0 +1,72 @@
+.am-wrapper {
+  .primary-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 25px;
+    background: $primary-color;
+    @include border-radius(50%);
+    text-align: center;
+    color: $light-color;
+    &.fc-event-ad-import{
+      background: #4B7CB7;
+    }
+    &.fc-event-network-scanning{
+      background: $warning-color;
+    }
+    &.fc-event-software-scanning{
+      background: #907ED1;
+    }
+    &.fc-event-ci-scanning{
+      background: #69D167;
+    }
+    &.fc-event-create-ticket{
+      background: $primary-color;
+    }
+    &.fc-event-email-report{
+      background: #FF8C68;
+    }
+    &.fc-event-warranty-collection{
+      background: $danger-color;
+    }
+  }
+
+  ul.list-icons {
+    margin: 0px;
+
+    li {
+      margin: 0px 5px 12px;
+      padding: 0px;
+
+      &:hover, &.active{
+        .primary-icon {
+          background: $success-color;
+        }
+      }
+    }
+  }
+
+  .content-heading {
+    .title-icon {
+      margin: 0px 10px 0px 0px;
+      
+      i:not(.primary-icon) {
+        font-size: 55px;
+        line-height: 55px;
+        color: $primary-color;
+      }
+    }
+
+    .content-heading-detail {
+      .title-icon {
+        margin: 0px 5px 0px 0px;
+
+        i {
+          font-size: 40px;
+          line-height: normal;
+        }
+      }
+    }
+  }
+}

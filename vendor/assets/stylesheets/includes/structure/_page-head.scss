@@ -1,0 +1,79 @@
+//-----------------------------------------------------------------------------
+// Page head
+
+// Page title
+.page-head {
+  background: transparent;
+  position: relative;
+  margin: 15px 17px 0;
+  padding: 0;
+  > div{
+    display: inline-block;
+    vertical-align: middle;
+    &.caption{
+      > div{
+        display: inline-block;
+        vertical-align: middle;
+        &.title-icon{
+          margin: 0px 10px 0px 0px;
+          i{
+            font-size: 50px;
+            line-height: 50px;
+            color: $primary-color;
+          }
+        }
+        &.title{
+          text-align: left;
+        }
+      }
+    }
+    &.tools{
+      margin: 10px 0px 0px;
+      float: right;
+    }
+  }
+  h2{
+    margin: 0px;
+    font-size: 22px;
+    font-weight: 400;
+    color: $body-color;
+  }
+
+  .breadcrumb {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    margin-bottom: 0;
+    padding: 0 2px;
+    font-size: 12px;
+  }
+
+  // White header style
+  .am-white-header & {
+    background-color: darken($light-color, 2.8%);
+  }
+
+  @media #{$tablet} {
+    margin: 10px 10px 0px;
+  }
+
+  @media #{$phone} {
+    margin: 10px 10px 0px;
+
+    h2 {
+      font-size: 24px;
+      line-height: 28px;
+    }
+    > div{
+      display: block;
+      &.caption{
+        > div{
+          display: inline-block;
+        }
+      }
+      &.tools{
+        margin: 10px 0px 0px;
+        float: none;
+        display: block;
+      }
+    }
+  }
+}

@@ -51,6 +51,7 @@ RSpec.configure do |config|
   # config.include SampleDocuments
   config.include Helpers::Model,                  type: :model
 
+  # config.include Devise::TestHelpers
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Helpers::Controller,             type: :controller
 

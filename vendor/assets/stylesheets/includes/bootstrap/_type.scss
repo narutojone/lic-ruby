@@ -1,0 +1,103 @@
+//-----------------------------------------------------------------------------
+// Contextual colors
+
+@include text-emphasis-variant('.text-primary', $primary-color);
+@include text-emphasis-variant('.text-success', $success-color);
+@include text-emphasis-variant('.text-info',    $info-color);
+@include text-emphasis-variant('.text-warning', $warning-color);
+@include text-emphasis-variant('.text-danger',  $danger-color);
+@include text-emphasis-variant('.text-dark',    $dark-color);
+@include text-emphasis-variant('.text-gray',    $body-light-color);
+@include text-emphasis-variant('.text-alt1',    $alt-color1);
+@include text-emphasis-variant('.text-alt2',    $alt-color2);
+@include text-emphasis-variant('.text-alt3',    $alt-color3);
+@include text-emphasis-variant('.text-alt4',    $alt-color4);
+
+.dl-horizontal{
+	dt, dd{
+		font-size: 13px;
+		line-height: 23px;
+	}
+	dt{
+		text-align: left;
+		font-weight: 600;
+		.btn-open-dt{
+			color: #333;
+		}
+	}
+	dd{
+		word-wrap: break-word;
+		span{
+			b{
+				font-weight: 600;
+			}
+		}
+	}
+	ul{
+		margin: 0px 0px 5px 12px;
+		li{
+			font-size: 13px;
+			line-height: 18px;
+		}
+	}
+	&.dl-memory{
+		dt{
+			small{
+				display: block;
+				color: $body-color;
+				font-size: 12px;
+				line-height: 16px;
+			}
+		}
+		dd{
+			.progress{
+				margin: 3px 0px 5px;
+				max-width: 400px;
+				height: 15px;
+			}
+			p{
+				display: block;
+				color: $body-color;
+				font-size: 12px;
+				line-height: 14px;
+			}
+		}
+	}
+	&.dl-horizontal-xs{
+		dt{
+			width: 100px;
+		}
+		dd{
+			margin-left: 100px;
+		}
+		@media #{$phone}{
+			dd{
+				margin-left: 0px;
+			}
+		}
+	}
+	&.dl-horizontal-md{
+		dt{
+			width: 260px;
+		}
+		dd{
+			margin-left: 260px;
+			i{
+				font-weight: 600;
+			}
+		}
+		@media #{$phone}{
+			dd{
+				margin-left: 0px;
+			}
+		}
+	}
+	&.dl-horizontal-nm{
+		margin-bottom: 5px;
+	}
+	&.dl-horizontal-wide{
+		> dt{
+		 	width: 100%;
+		}
+	}
+}

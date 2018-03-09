@@ -1,0 +1,58 @@
+//-----------------------------------------------------------------------------
+// ui slider
+
+/* Ширина слайдера */
+.slider {
+  margin: 5px auto 0px;
+  width: 97%;
+}
+/* Контейнер слайдера */
+.ui-slider {
+  position: relative;
+}
+/* Ползунок */
+.ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  width: 2px;   /* Задаем нужную ширину */
+  height: 20px;  /* и высоту */
+  background: $primary-color; /* картинка изображающая ползунок. Или можно залить цветом, задать бордюр и скругления */
+  cursor: pointer
+}
+.ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+  border: 0;
+  overflow: hidden;
+}
+/* горизонтальный слайдер (сама полоса по которой бегает ползунок) */
+.ui-slider-horizontal {
+   height: 10px; /* задаем высоту согласно дизайна */
+}
+/* позиционируем ползунки */
+.ui-slider-horizontal .ui-slider-handle { 
+  top: -5px;
+}
+.ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 100%;
+}
+.ui-slider-horizontal .ui-slider-range-min { 
+  left: 0;
+}
+.ui-slider-horizontal .ui-slider-range-max {
+  right: 0;
+}
+/* оформление полосы по которой ходит ползунок */
+.ui-widget-content { 
+  background: $light-gray-color;
+}
+/* оформление активного участка (между двумя ползунками) */
+.ui-widget-header { 
+  background: $primary-color;
+}
+
+
+

@@ -1,0 +1,27 @@
+//Colored panel heading
+
+@mixin panel-colored-heading($color, $heading: true) {
+  @if $heading == true {
+    .panel-heading {
+      background-color: $color;
+    }
+  }
+
+  .panel-heading {
+    .tools {
+      .icon:hover, > a:hover {
+        color: $color * 0.65;
+      }
+    }
+  }
+}
+
+//Full colored panel
+@mixin panel-full-color($color) {
+  background-color: $color;
+  color: $light-color;
+
+  .panel-heading {
+    border-color: $color * 0.9;
+  }
+}

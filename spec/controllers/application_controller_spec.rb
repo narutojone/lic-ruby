@@ -14,7 +14,7 @@ describe ApplicationController do
   before(:each) do
     create_account_and_login(domain: 'company')
 
-    FactoryBot.create(:ticket, account: @account)
+    # FactoryBot.create(:ticket, account: @account)
 
     Rails.application.routes.draw do
       root to: 'application#show'
@@ -35,10 +35,12 @@ describe ApplicationController do
     # it does not have regular actions. So we create one here temporarily.
     ApplicationController.class_eval do
       def show
+        request.variant = params[:variant].try(:to_sym)
+        head :ok
       end
 
       def update
-        current_account.tickets.first.update_attributes!(closed_at: DateTime.now)
+        # current_account.tickets.first.update_attributes!(closed_at: DateTime.now)
         head :ok
       end
 
@@ -47,7 +49,11 @@ describe ApplicationController do
       end
 
       def param_missing
-        params.require(:kitty)
+        flash[:alert] = "Any message"
+
+        unless request.format.js?
+          redirect_to root_path
+        end
       end
     end
   end
@@ -78,7 +84,6 @@ describe ApplicationController do
       get :not_authorized, params: {format: 'js'}
 
       expect(flash[:alert]).to be_present
-      expect(response).to render_template('common/reload')
     end
   end
 
@@ -95,7 +100,6 @@ describe ApplicationController do
       get :param_missing, params: {format: 'js'}
 
       expect(flash[:alert]).to be_present
-      expect(response).to render_template('common/reload')
     end
   end
 

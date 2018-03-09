@@ -13,6 +13,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def current_account
+    subdomain = request.subdomain
+
+    if subdomain
+      Account.find_by_subdomain(subdomain)
+    end
+  end
+  helper_method :current_account
+
   def per_page(type)
     cookies.permanent["#{type}_pp"] = params[:per_page] if params[:per_page].present?
     cookies["#{type}_pp"]

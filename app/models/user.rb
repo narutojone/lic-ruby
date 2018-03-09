@@ -3,11 +3,13 @@ class User < ApplicationRecord
 
   attribute :time_zone, :string, default: 'Eastern Time (US & Canada)'
 
+  belongs_to :account
   has_many :roles_users,        inverse_of: :user, dependent: :destroy
   has_many :roles,              through: :roles_users, dependent: :destroy
   has_many :dashboard_widgets,  -> { order("settings->'y', settings->'x', type_id") }, dependent: :delete_all
 
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, scope: :account_id
+  validates_presence_of     :email
 
   validates_presence_of     :password, if: :password_required?
   validates_confirmation_of :password, if: :password_required?
@@ -15,6 +17,8 @@ class User < ApplicationRecord
 
   validates_presence_of :time_zone
   validates_inclusion_of :active, in: [true, false], allow_nil: false
+
+  before_validation :set_default_time_zone, on: [:create]
 
   scope :is_active, ->(bool = true) { where(active: bool) }
   scope :order_by_name, -> { order(:last_name, :first_name) }
@@ -60,4 +64,7 @@ class User < ApplicationRecord
     %w(first_name last_name email active) + _ransackers.keys
   end
 
+  def set_default_time_zone
+    self.time_zone ||= self.account.time_zone
+  end
 end

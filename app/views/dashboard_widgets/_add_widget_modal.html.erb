@@ -22,22 +22,14 @@
                 <ul class="list-filter list-unstyled">
                   <li>
                     <a href="#" class="dashboard-widget-category-select-link">
-                      All <span class="badge badge-primary"><%= widget_count_by_policy_class(nil) %></span>
+                      All <span class="badge badge-primary"></span>
                     </a>
                   </li>
-
-                  <% if policy(Ticket).index? %>
-                    <li>
-                      <a href="#" class="dashboard-widget-category-select-link" data-category="Ticket">
-                        Tickets <span class="badge badge-primary"><%= widget_count_by_policy_class('Ticket') %></span>
-                      </a>
-                    </li>
-                  <% end %>
 
                   <% if policy(User).index? %>
                     <li>
                       <a href="#" class="dashboard-widget-category-select-link" data-category="User">
-                        Users <span class="badge badge-primary"><%= widget_count_by_policy_class('User') %></span>
+                        Users <span class="badge badge-primary"></span>
                       </a>
                     </li>
                   <% end %>
@@ -47,72 +39,29 @@
                 <ul class="list-filter list-unstyled">
                   <li>
                     <a href="#" class="dashboard-widget-kind-select-link">
-                      All <span class="badge badge-primary"><%= widget_count_by_kind(nil) %></span>
+                      All <span class="badge badge-primary"></span>
                     </a>
                   </li>
 
                   <li>
                     <a href="#" class="dashboard-widget-kind-select-link" data-kind="number">
-                      Numbers <span class="badge badge-primary"><%= widget_count_by_kind(:number) %></span>
+                      Numbers <span class="badge badge-primary"></span>
                     </a>
                   </li>
 
                   <li>
                     <a href="#" class="dashboard-widget-kind-select-link" data-kind="chart">
-                      Charts <span class="badge badge-primary"><%= widget_count_by_kind(:chart) %></span>
+                      Charts <span class="badge badge-primary"></span>
                     </a>
                   </li>
 
                   <li>
                     <a href="#" class="dashboard-widget-kind-select-link" data-kind="table">
-                      Table <span class="badge badge-primary"><%= widget_count_by_kind(:table) %></span>
+                      Table <span class="badge badge-primary"></span>
                     </a>
                   </li>
                 </ul>
               </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-8 dashboard-widgets-list">
-              <ul class="list-widgets list-unstyled">
-                <% DASHBOARD_WIDGETS.each_pair do |widget_type, widget| %>
-                  <% if policy(widget[:policy_class].constantize).send(widget[:policy_method]) %>
-                    <li data-kind="<%= widget[:kind] %>"
-                        data-category="<%= widget[:policy_class] %>"
-                        data-type-id="<%= widget_type %>"
-                        data-multiple="<%= widget[:multiple] %>">
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-2">
-                          <div class="icon">
-                            <i class="s7-<%= widget_icon_by_kind(widget[:kind]) %>"></i>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-6 col-md-7">
-                          <p>
-                            <%= widget[:name] %>
-                            <small><%= widget[:description] %></small>
-                          </p>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-4 col-md-3 status-can-add">
-                          <div class="button">
-                            <%= link_to dashboard_widgets_path(dashboard_widget: {type_id: widget_type}), method: :post, remote: true,
-                            class: 'btn btn-sm btn-icon btn-primary' do %>
-                              <i class="fa fa-plus mr-5"></i>Add widget
-                            <% end %>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-4 col-md-3 status-can-not-add" style="display: none">
-                          <div class="button">
-                            <span class="label label-blue"><i class="fa fa-check mr-5"></i>On dashboard</span>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  <% end %>
-                <% end %>
-              </ul>
             </div>
           </div>
         </div>

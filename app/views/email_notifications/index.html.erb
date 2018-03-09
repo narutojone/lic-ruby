@@ -1,19 +1,17 @@
 <% content_for(:subnav) { render 'email_notifications/subnav' } %>
-<% content_for(:page_head) { render 'layouts/page_head', icon: 'icon s7-bell', title: 'Notifications' } %>
 
 <div class="content-block">
   <div class="content">
     <div class="content-heading">
       <div class="caption">
         <div class="title">
-          <h4><%= number_of_results(@data.grouped_objects.length) %></h4>
+          <h4></h4>
         </div>
       </div>
       <div class="tools"></div>
     </div>
     <div class="content-body">
       <div class="tabs-container">
-        <%= render partial: 'common/call_center_tabs' %>
 
         <div class="tab-content">
           <div class="tab-pane active" id="call-center-common">
@@ -30,39 +28,12 @@
                   </thead>
                   <tbody>
                     <tr class="title"><td colspan="4">User Notifications</td></tr>
-                    <%= render @data.common_objects.select { |en| EmailNotification::USER_TEMPLATES.keys.include?(en.template.to_sym) } %>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
 
-          <% @data.call_centers.each_with_index do |call_center, i| %>
-            <div class="tab-pane" id="call-center-<%= call_center.id %>">
-              <div class="content-body">
-                <div class="table-responsive">
-                  <table class="table table-hover table-right-btns table-checks table-notifications">
-                    <thead>
-                      <tr>
-                        <th>Notification</th>
-                        <th>&nbsp;</th>
-                        <th>Recipients</th>
-                        <th>&nbsp;</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="title"><td colspan="4">New Ticket Notifications</td></tr>
-                      <%= render @data.objects_for_call_center(call_center).select { |en| EmailNotification::NEW_TICKET_TEMPLATES.keys.include?(en.template.to_sym) } %>
-                      <tr class="title"><td colspan="4">Other Ticket Notifications</td></tr>
-                      <%= render @data.objects_for_call_center(call_center).select { |en| EmailNotification::OTHER_TICKET_TEMPLATES.keys.include?(en.template.to_sym) } %>
-                      <tr class="title"><td colspan="4">Audit Notifications</td></tr>
-                      <%= render @data.objects_for_call_center(call_center).select { |en| EmailNotification::AUDIT_TEMPLATES.keys.include?(en.template.to_sym) } %>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          <% end %>
         </div>
 
       </div>

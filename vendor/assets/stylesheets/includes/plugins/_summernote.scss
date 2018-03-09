@@ -1,0 +1,89 @@
+//-----------------------------------------------------------------------------
+// Summernote
+
+.note-editor {
+  margin-bottom: 10px;
+  background: none;
+  border-radius: 0px;
+  overflow: visible;
+
+  .note-toolbar {
+    margin: 0;
+    padding: 0 0 5px;
+    background: none;
+    border-bottom: 1px solid $light-gray-color2;
+    border-radius: 0px;
+
+    .btn {
+      box-shadow: none;
+      .fa {
+        font-size: 14px;
+      }
+    }
+
+    > .btn-group {
+      margin-left: 0;
+      margin-right: 5px;
+      margin-top: 5px;
+      .btn + .btn{
+        margin: 0px 0px 0px -1px;
+      }
+    }
+
+    .note-color .dropdown-toggle {
+      padding-left: 5px;
+      width: 20px;
+    }
+
+    .note-check{
+      > li{
+        > a{
+          padding: 3px 10px;
+        }
+      }
+    }
+  }
+
+  .note-statusbar {
+    background-color: $light-gray-color;
+
+    .note-resizebar {
+      height: auto;
+      padding-top: 3px;
+      padding-bottom: 4px;
+    }
+  }
+
+  .note-editable {
+    border: 1px solid $light-gray-color2;
+    padding: 10px 12px;
+    margin-top: 5px;
+  }
+
+  .note-editing-area {
+    .note-editable {
+      color: $text-color;
+    }
+  }
+
+  &.fullscreen{
+    background: $light-gray-color;
+  }
+}
+
+//-----------------------------------------------------------------------------
+// Ugly hack to display validation errors for summernote-powered textareas
+.field_with_errors {
+  .note-editable {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+}
+
+.summernote-error {
+  .help-block {
+    margin-top: -3px;
+    margin-left: 2px;
+  }
+}

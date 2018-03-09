@@ -1,0 +1,40 @@
+.barcode-print-container:not(:first-child) {
+  padding-top: 40px;
+}
+
+.barcode-container {
+  color: $dark-color;
+  display: inline-block;
+  text-align: center;
+
+  table.barby-barcode {
+    border-spacing: 0;
+    height: 60px;
+
+    // Browsers do not generally print backgrounds which is why
+    // we have to use borders and border widths to draw lines
+    .barby-cell {
+      width: 0;
+
+      &.on {
+        border-left: 1px solid $dark-color;
+      }
+      &.off {
+        border-left: 1px solid #FFF;
+      }
+    }
+
+    &.qr-code{
+      .barby-cell {
+        height: 3px;
+        border-left-width: 3px !important;
+      }
+    }
+  }
+
+  .barcode-error {
+    display: block;
+    text-align: left;
+    color: $danger-color;
+  }
+}

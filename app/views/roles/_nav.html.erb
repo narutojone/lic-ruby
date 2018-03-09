@@ -7,7 +7,7 @@
 <div id="am-navbar-collapse" class="second-level-menu collapse navbar-collapse">
   <ul class="list-inline">
     <% if policy(Role).index? %>
-      <li class="<%= active_when(true) %>">
+      <li class="">
         <%= link_to roles_path do %>
           <i class="icon s7-lock"></i><span>Roles</span>
         <% end %>
