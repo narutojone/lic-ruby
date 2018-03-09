@@ -1,12 +1,12 @@
-<a href="<%= tickets_due_path(:in_the_past, call_center: @data[:call_center]) %>">
-  <div class="widget-body widget-<%= color_based_on_number(@data[:number_of_tickets], 0, 'primary', 'danger') %> widget-number">
+<a href="#">
+  <div class="widget-body widget-<%= color_based_on_number(data[:number_of_tickets], 0, 'primary', 'danger') %> widget-number">
     <div class="data-info">
-      <div class="value"><%= @data[:number_of_tickets] %></div>
+      <div class="value"><%= data[:number_of_tickets] %></div>
       <div class="desc">Tickets past due</div>
     </div>
-    <div class="icon icon-<%= color_based_on_number(@data[:number_of_tickets], 0, 'primary', 'danger') %>">
+    <div class="icon icon-<%= color_based_on_number(data[:number_of_tickets], 0, 'primary', 'danger') %>">
       <i class="fa fa-ticket"></i>
     </div>
-    <div class="call-center"><%= dashboard_widget_call_center_name(@data) %></div>
+    <div class="call-center"><%= dashboard_widget_call_center_name(data) %></div>
   </div>
 </a>

@@ -1,10 +1,10 @@
 <div class="widget-heading widget-primary">
-  <span class="call-center"><%= dashboard_widget_call_center_name(@data) %></span>
+  <span class="call-center"><%= dashboard_widget_call_center_name(data) %></span>
   <span class="title">Open tickets</span>
 </div>
 <div class="widget-body widget-primary widget-numbers">
   <ul class="list-inline">
-    <% @data[:ticket_types].each do |ticket| %>
+    <% data[:ticket_types].each do |ticket| %>
       <li>
         <span class="badge badge-<%= ticket_type_color(ticket) %>">
           <%= ticket.count %>

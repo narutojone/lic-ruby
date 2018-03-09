@@ -1,10 +1,10 @@
 <a href="<%= users_path %>">
   <div class="widget-body widget-primary widget-number">
     <div class="data-info">
-      <div class="value"><%= @data[:number_of_users] %></div>
+      <div class="value"><%= data[:number_of_users] %></div>
       <div class="desc">Number of users</div>
-      <% if @data[:account_limit].present? && @data[:account_limit] == @data[:number_of_users] %>
-        <small class="text-warning">Account limit: <%= @data[:account_limit] %></small>
+      <% if data[:account_limit].present? && data[:account_limit] == data[:number_of_users] %>
+        <small class="text-warning">Account limit: <%= data[:account_limit] %></small>
       <% end %>
     </div>
     <div class="icon icon-primary">

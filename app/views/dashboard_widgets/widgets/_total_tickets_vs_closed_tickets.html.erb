@@ -1,24 +1,24 @@
 <div class="widget-heading widget-primary">
-  <span class="call-center"><%= dashboard_widget_call_center_name(@data) %></span>
+  <span class="call-center"><%= dashboard_widget_call_center_name(data) %></span>
   <span class="title">Total Tickets vs closed Tickets</span>
 </div>
 <div class="widget-body panel-body widget-primary">
   <div class="row chart-container">
     <div class="col-xs-12 col-sm-10">
-      <div id="total-tickets-vs-closed-tickets-chart-<%= @widget.id %>" class="total-tickets-vs-closed-tickets-chart"></div>
+      <div id="total-tickets-vs-closed-tickets-chart-<%= widget.id %>" class="total-tickets-vs-closed-tickets-chart"></div>
     </div>
     <div class="col-xs-12 col-sm-2">
-      <select id="total-tickets-vs-closed-tickets-period-select-<%= @widget.id %>" class="form-control mb-20">
+      <select id="total-tickets-vs-closed-tickets-period-select-<%= widget.id %>" class="form-control mb-20">
         <%= options_for_select([
           ['Last 30 days', 'last_30_days'],
           ['This week', 'this_week'],
           ['Last week', 'last_week'],
           ['This month', 'this_month'],
-          ['Last month', 'last_month']], @data[:period]) %>
+          ['Last month', 'last_month']], data[:period]) %>
       </select>
       <ul class="widget-stat-list">
         <li>
-          <h2><%= number_to_delimited(@data[:total_tickets_count]) %></h2>
+          <h2><%= number_to_delimited(data[:total_tickets_count]) %></h2>
           <small>Total tickets</small>
           <div class="percent">100%</div>
           <div class="progress">
@@ -26,11 +26,11 @@
           </div>
         </li>
         <li>
-          <h2><%= number_to_delimited(@data[:closed_tickets_count]) %></h2>
+          <h2><%= number_to_delimited(data[:closed_tickets_count]) %></h2>
           <small>Closed tickets</small>
-          <div class="percent"><%= @data[:closed_to_total_percentage] %>%</div>
+          <div class="percent"><%= data[:closed_to_total_percentage] %>%</div>
           <div class="progress">
-            <div style="width: <%= @data[:closed_to_total_percentage] %>%;" class="progress-bar"></div>
+            <div style="width: <%= data[:closed_to_total_percentage] %>%;" class="progress-bar"></div>
           </div>
         </li>
       </ul>
@@ -39,10 +39,10 @@
 </div>
 
 <%= javascript_tag do -%>
-  $('#total-tickets-vs-closed-tickets-period-select-<%= @widget.id %>').change(function(e) {
-    setWidgetStateToLoading(<%= @widget.id %>);
+  $('#total-tickets-vs-closed-tickets-period-select-<%= widget.id %>').change(function(e) {
+    setWidgetStateToLoading(<%= widget.id %>);
     $.post(
-      "<%= dashboard_widget_path(@widget) %>",
+      "<%= dashboard_widget_path(widget) %>",
       {
         '_method': 'patch',
         dashboard_widget: {
@@ -55,13 +55,13 @@
   });
 
   var total_tickets = [
-    <% @data[:total_tickets].each do |tt| %>
+    <% data[:total_tickets].each do |tt| %>
       [gt('<%= tt.created_at_date %>'), <%= tt.count %>],
     <% end %>
   ];
 
   var closed_tickets = [
-    <% @data[:closed_tickets].each do |ct| %>
+    <% data[:closed_tickets].each do |ct| %>
       [gt('<%= ct.closed_at_date %>'), <%= ct.count %>],
     <% end %>
   ];
@@ -103,7 +103,7 @@
   ];
 
   var tick_size = 3;
-  if (/week/.test('<%= @data[:period] %>'))
+  if (/week/.test('<%= data[:period] %>'))
     tick_size = 1;
 
   var options = {
@@ -142,5 +142,5 @@
     return new Date(date).getTime();
   }
 
-  $.plot($("#total-tickets-vs-closed-tickets-chart-<%= @widget.id %>"), dataset, options);
+  $.plot($("#total-tickets-vs-closed-tickets-chart-<%= widget.id %>"), dataset, options);
 <% end -%>

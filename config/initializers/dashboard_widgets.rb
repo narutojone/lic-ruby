@@ -8,7 +8,7 @@ USER_DASHBOARD_WIDGETS = {
     policy_method: :index?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      false
   },
   2 => {
@@ -34,7 +34,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      false
   },
 
@@ -46,7 +46,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
 
@@ -58,7 +58,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
 
@@ -92,7 +92,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
   9 => {
@@ -103,7 +103,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
   10 => {
@@ -114,7 +114,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
   11 => {
@@ -125,7 +125,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
   12 => {
@@ -136,7 +136,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 12, lg: 6},
-    height:        1,
+    height:        2,
     multiple:      true
   },
   13 => {
@@ -191,7 +191,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
   18 => {
@@ -202,7 +202,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
   19 => {
@@ -213,7 +213,7 @@ TICKET_DASHBOARD_WIDGETS = {
     policy_method: :index_cc?,
     kind:          :number,
     width:         {sm: 6, lg: 3},
-    height:        1,
+    height:        2,
     multiple:      true
   },
   20 => {
@@ -224,7 +224,7 @@ TICKET_DASHBOARD_WIDGETS = {
       policy_method: :index_cc?,
       kind:          :number,
       width:         {sm: 6, lg: 3},
-      height:        1,
+      height:        2,
       multiple:      true
   },
 }

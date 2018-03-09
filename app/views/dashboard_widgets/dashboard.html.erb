@@ -1,41 +1,28 @@
-<% content_for(:additional_content_classes) { 'main-content-widgets' } %>
-<% content_for(:tools)  { render 'dashboard_widgets/tools' } %>
-
-<div class="content-block content-block-warning content-block-settings">
-  <div class="content">
-    <div class="content-body settings-block">
-      <div class="form-inline">
-        <div class="form-group">
-          <label class="control-label">Auto-refresh in:</label>
-        </div>
-        <div class="form-group">
-
-        </div>
-        <%= javascript_tag do %>
-          //autorefreshInterval = <%= @autorefresh_interval %>;
+<div class="am-content">
+  <div class="page-head">
+    <div class="caption">
+      <div class="title-icon">
+        <i class="icon zmdi zmdi-view-dashboard"></i>
+      </div>
+      <div class="title">
+        <h2>Dashboard</h2>
+      </div>
+    </div>
+    <div class="tools"></div>
+  </div>
+  <div class="main-content main-content-widgets">
+    <div class="content-block content-block-widgets">
+      <div class="grid-stack">
+        <% if @widgets.any? %>
+          <%= render partial: 'widget', collection: @widgets, as: :widget %>
+        <% else %>
+          <div class="empty-block text-center">
+            <h4>No dashboard widgets...</h4>
+            <hr>
+            <p>Go ahead and add some relevant data to your dashboard.</p>
+          </div>
         <% end %>
       </div>
     </div>
   </div>
 </div>
-
-<% if @widgets.any? %>
-  <div class="content-block content-block-widgets">
-    <div class="grid-stack">
-      <%= render partial: 'widget', collection: @widgets, as: :widget %>
-    </div>
-  </div>
-<% else %>
-  <div class="empty-block text-center">
-    <h4>No dashboard widgets...</h4>
-    <hr>
-    <p>Go ahead and add some relevant data to your dashboard.</p>
-  </div>
-<% end %>
-
-<%= render 'dashboard_widgets/widget_settings_modal' %>
-<%= render 'dashboard_widgets/add_widget_modal' %>
-
-<!--% content_for(:js) do %-->
-  <!--%= javascript_include_tag 'flot.js' %-->
-<!--% end %-->

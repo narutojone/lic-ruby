@@ -7,9 +7,9 @@ class DashboardWidgetsController < ApplicationController
 
   def show
     if policy(@widget.policy_class.constantize).send(@widget.policy_method)
-      @data = DashboardWidgetDataGatherer.new(current_account, current_user, @widget).data
-      if @data
-        render partial: "dashboard_widgets/widgets/#{@widget.partial}"
+      data = DashboardWidgetDataGatherer.new(current_account, current_user, @widget).data
+      if data
+        render partial: "dashboard_widgets/widgets/#{@widget.partial}", locals: {data: data}
       else
         render partial: 'dashboard_widgets/unconfigured_widget'
       end
@@ -57,7 +57,7 @@ class DashboardWidgetsController < ApplicationController
   end
 
   def create_dashboard_widget_params
-    params.require(:dashboard_widget).permit(:type_id)
+    params.require(:dashboard_widget).permit(:widget_type)
   end
 
   def update_dashboard_widget_params
