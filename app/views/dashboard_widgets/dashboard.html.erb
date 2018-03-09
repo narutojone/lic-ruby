@@ -1,6 +1,5 @@
 <% content_for(:additional_content_classes) { 'main-content-widgets' } %>
 <% content_for(:tools)  { render 'dashboard_widgets/tools' } %>
-<% content_for(:page_head) { render 'layouts/page_head', icon: 'zmdi zmdi-view-dashboard', title: 'Dashboard' } %>
 
 <div class="content-block content-block-warning content-block-settings">
   <div class="content">
@@ -10,10 +9,10 @@
           <label class="control-label">Auto-refresh in:</label>
         </div>
         <div class="form-group">
-          <%= select_tag 'autorefresh', options_for_autorefresh_select('dashboard_widgets'), class: 'form-control form-control-sm autorefresh-settings-select' %>
+
         </div>
         <%= javascript_tag do %>
-          autorefreshInterval = <%= @autorefresh_interval %>;
+          //autorefreshInterval = <%= @autorefresh_interval %>;
         <% end %>
       </div>
     </div>
@@ -37,6 +36,6 @@
 <%= render 'dashboard_widgets/widget_settings_modal' %>
 <%= render 'dashboard_widgets/add_widget_modal' %>
 
-<% content_for(:js) do %>
-  <%= javascript_include_tag 'flot.js' %>
-<% end %>
+<!--% content_for(:js) do %-->
+  <!--%= javascript_include_tag 'flot.js' %-->
+<!--% end %-->
