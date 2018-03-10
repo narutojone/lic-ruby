@@ -1,25 +1,43 @@
-<h2>Change your password</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
+<%= content_for(:page_title) do %>
+  Change your password
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class="am-wrapper am-login">
+  <div class="am-content">
+    <div class="main-content">
+      <div class="login-container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <%= image_tag "logo_clr.png", height: "50px", class: "logo-img" %>
+            <p>Change your password</p>
+          </div>
+          <div class="panel-body">
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+              <div class="login-form">
+                <%= devise_error_messages! %>
+                <%= f.hidden_field :reset_password_token %>
+
+                <div class="form-group form-md-line-input form-md-floating-label">
+                  <%= f.password_field :password, class: "form-control", autofocus: true, autocomplete: "off" %>
+                  <i class="icon zmdi zmdi-email"></i>
+                  <label for="form_control_1">New password <%= @minimum_password_length && "(#{@minimum_password_length} characters minimum)" %></label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                  <%= f.password_field :password_confirmation, class: "form-control", autofocus: true, autocomplete: "off" %>
+                  <i class="icon zmdi zmdi-email"></i>
+                  <label for="form_control_1">Confirm new password</label>
+                </div>
+                <div class="form-group login-submit">
+                  <button data-dismiss="modal" type="submit" class="btn btn-primary btn-lg">Change</button>
+                </div>
+                <div class="form-group footer row">
+                  <div class="col-xs-12 text-center"><a href="<%= new_user_password_path %>">Sign in</a></div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

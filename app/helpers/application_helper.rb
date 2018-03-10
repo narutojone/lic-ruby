@@ -6,4 +6,8 @@ module ApplicationHelper
   def color_based_on_number(number, number_to_compare, value_if_true, value_if_false)
     number == number_to_compare ? value_if_true : value_if_false
   end
+
+  def active_when(path)
+    request.fullpath == path ? "active" : nil
+  end
 end

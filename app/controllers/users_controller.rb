@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :restore, :destroy, :request_password_reset]
   after_action  :verify_authorized
-  skip_before_action :authenticate_user!, only: [:new, :create, :index]
 
   def index
     authorize User
