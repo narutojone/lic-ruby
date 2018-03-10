@@ -33,3 +33,13 @@
 //= require gridstack/gridstack.jQueryUI.min
 //= require functions
 //= require bootstrap/dist/js/bootstrap.min
+
+jQuery(document).on("blur", "input, textarea, select", function(event) {
+  var value = jQuery(this).val();
+
+  if (value) {
+    jQuery(this).addClass("edited");
+  } else {
+    jQuery(this).removeClass("edited");
+  }
+});
