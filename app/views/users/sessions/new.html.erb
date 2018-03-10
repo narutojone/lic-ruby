@@ -13,6 +13,7 @@
             <p>Please enter your user information</p>
           </div>
           <div class="panel-body">
+            <%= render 'layouts/flash' %>
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
               <div class="login-form">
                 <div class="form-group form-md-line-input form-md-floating-label">
