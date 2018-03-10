@@ -1,161 +1,212 @@
+<%= render 'bulk_edit_modal' %>
 
-<div class="content-block content-block-warning content-block-settings">
-  <div class="content">
-    <div class="content-body settings-block">
-      <div class="form-inline">
-        <div class="form-group">
-          <label class="control-label">Users per page:</label>
-        </div>
-        <div class="form-group">
+<%= content_for(:page_title) do %>
+  Manage users
+<% end %>
 
+<div class="am-content">
+  <%= render "common/users_and_roles_nav" %>
+  <div class="page-head">
+    <div class="caption">
+      <div class="title-icon">
+        <i class="icon s7-users"></i>
+      </div>
+      <div class="title">
+        <h2>Users</h2>
+      </div>
+    </div>
+    <div class="tools"></div>
+  </div>
+  <div class="main-content">
+    <div class="content-block content-block-warning content-block-settings">
+      <div class="content">
+        <div class="content-body settings-block">
+          <div class="form-inline">
+            <div class="form-group">
+              <label class="control-label">Users per page:</label>
+            </div>
+            <div class="form-group">
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="content-block content-block-primary">
-  <div class="content">
-    <div class="content-body search-block">
-      <%= search_form_for @q, class: 'form-search form-search-multiple' do |f| %>
-        <div class="input-group-pull-left input-group-pull-left-sm">
-          <!--%= f.select :call_centers_users_call_center_id_eq, call_centers_for_select(blank_name: '- Call Center -'), {}, class: 'form-control' %-->
-        </div>
+    <div class="content-block content-block-primary">
+      <div class="content">
+        <div class="content-body search-block">
+          <%= search_form_for @q, class: 'form-search form-search-multiple' do |f| %>
+            <div class="input-group-pull-left input-group-pull-left-sm">
+              <%= f.select :call_centers_users_call_center_id_eq, options_from_collection_for_select(current_account.call_centers, :id, :name), {prompt: "--Call Center--"}, class: 'form-control' %>
+            </div>
 
-        <div class="multiselect-block input-group-pull-left input-group-pull-left-sm">
-          <!--%= f.select :roles_users_role_id_in, roles_for_select, {}, class: 'form-control form-control-multiple', multiple: true, 'data-placeholder' => 'Role' %-->
-        </div>
-        <div class="form-group form-group-search">
-          <div class="input-group">
-            <%= f.search_field :first_name_or_last_name_or_email_cont, placeholder: 'Search...', class: 'form-control' %>
-            <span class="input-group-btn">
-              <%= f.submit 'Go! ', class: 'btn btn-primary' %>
-            </span>
-          </div>
-        </div>
-        <div class="form-group form-group-search">
-          <div class="input-group">
-            <span class="input-group-btn">
-              <!--%= clear_search_button(users_path) %-->
-            </span>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<div class="content-block content-block-no-bg content-block-tabs">
-  <div class="tabs-container tabs-icons">
-    <% if policy(User).show_location? %>
-      <ul class="nav nav-tabs">
-        <li class="tab active">
-          <a href="#users-list-tab" data-toggle="tab" aria-expanded="true">
-            <span><i class="fa fa-list" data-tooltip="tooltip" data-placement="bottom" title="List View"></i></span>
-          </a>
-        </li>
-        <li class="tab">
-          <a href="#users-map-tab" data-toggle="tab" aria-expanded="false" class="map-view-button">
-            <span><i class="fa fa-globe" data-tooltip="tooltip" data-placement="bottom" title="Map View"></i></span>
-          </a>
-        </li>
-      </ul>
-    <% end %>
-    <div class="tab-content tab-content-np">
-      <div class="tab-pane active" id="users-list-tab">
-        <div class="content">
-          <div class="content-heading">
-            <div class="caption">
-              <div class="title">
-                <h4><!--%= number_of_results(@users.total_entries) %--></h4>
+            <div class="multiselect-block input-group-pull-left input-group-pull-left-sm">
+              <%= f.select :roles_users_role_id_in, options_from_collection_for_select(current_account.roles, :id, :name), {}, class: 'form-control form-control-multiple', multiple: true, 'data-placeholder' => 'Role' %>
+            </div>
+            <div class="form-group form-group-search">
+              <div class="input-group">
+                <%= f.search_field :first_name_or_last_name_or_email_cont, placeholder: 'Search...', class: 'form-control' %>
+                <span class="input-group-btn">
+                  <%= f.submit 'Go! ', class: 'btn btn-primary' %>
+                </span>
               </div>
             </div>
-            <div class="tools">
-              <% if policy(User).new? %>
-                <a class="btn btn-circle btn-icon-only btn-primary mr-10" href="<%= new_user_path %>" data-tooltip="tooltip" data-placement="bottom" title="New User">
-                  <i class="zmdi zmdi-playlist-plus"></i>
-                </a>
-              <% end %>
-              <% if policy(User).update? %>
-                <a id="bulk-edit-users-button" class="btn btn-circle btn-icon-only btn-primary disabled bulk-edit-buttons" data-toggle="modal" data-target="#bulk-edit-users-modal" data-tooltip="tooltip" data-placement="bottom" title="Bulk edit">
-                  <i class="fa fa-pencil"></i>
-                </a>
-              <% end %>
-            </div>
-          </div>
-          <div class="content-body">
-            <%= form_tag('', method: :patch, id: 'bulk_update_ids_form') do %>
-              <div class="table-responsive">
-                <table class="table table-hover table-right-btns table-checks">
-                  <thead>
-                    <tr>
-                      <th>
-                        <% if policy(User).update? %>
-                          <div class="am-checkbox" title="Select/unselect all">
-                            <%= check_box_tag 'select_all_check_boxes', 'user_ids', false %>
-                            <label for="select_all_check_boxes"></label>
-                          </div>
-                        <% end %>
-                      </th>
-                      <th>Name</th>
-                      <th>E-mail</th>
-                      <th>Roles</th>
-                      <th>Call Centers</th>
-                      <th>Active</th>
-                      <th>&nbsp;</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                  </tbody>
-                </table>
+            <div class="form-group form-group-search">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <!--%= clear_search_button(users_path) %-->
+                </span>
               </div>
-            <% end %>
-            <%= will_paginate @users %>
-          </div>
+            </div>
+          <% end %>
         </div>
       </div>
-      <div class="tab-pane" id="users-map-tab">
-        <div class="content">
-          <div class="content-heading">
-            <div class="caption">
-              <div class="title">
-                <h4><span>Map View</span></h4>
-              </div>
-            </div>
-            <div class="tools"></div>
-          </div>
-          <div class="content-body">
-            <div class="info-block info-block-map">
-              <form class="form-search">
-                <div class="row">
-                  <div class="col-xs-12 col-sm-12 text-right">
-                    <a class="btn btn-primary btn-circle btn-icon-only btn-map-popup" href="#" data-tooltip data-placement="left" title="Map Layers">
-                      <i class="zmdi zmdi-layers"></i>
-                    </a>
+    </div>
+
+    <div class="content-block content-block-no-bg content-block-tabs">
+      <div class="tabs-container tabs-icons">
+        <% if policy(User).show_location? %>
+          <ul class="nav nav-tabs">
+            <li class="tab active">
+              <a href="#users-list-tab" data-toggle="tab" aria-expanded="true">
+                <span><i class="fa fa-list" data-tooltip="tooltip" data-placement="bottom" title="List View"></i></span>
+              </a>
+            </li>
+            <li class="tab">
+              <a href="#users-map-tab" data-toggle="tab" aria-expanded="false" class="map-view-button">
+                <span><i class="fa fa-globe" data-tooltip="tooltip" data-placement="bottom" title="Map View"></i></span>
+              </a>
+            </li>
+          </ul>
+        <% end %>
+        <div class="tab-content tab-content-np">
+          <div class="tab-pane active" id="users-list-tab">
+            <div class="content">
+              <div class="content-heading">
+                <div class="caption">
+                  <div class="title">
+                    <h4><%= number_of_results(@users.total_entries) %></h4>
                   </div>
                 </div>
-              </form>
-              <div class="map-block">
-                <div class="map-popup-block">
-                  <a class="btn btn btn-icon-only btn-icon-only-sm btn-primary btn-delete">
-                    <i class="icon s7-close"></i>
-                  </a>
-                  <form class="form-horizontal">
-                    <h3><i class="zmdi zmdi-layers"></i> Layers</h3>
-                    <div class="form-group">
-                      <div class="col-xs-12" id="map-layers">
-                        <div class="am-checkbox am-checkbox-darken am-checkbox-sm">
-                          <input id="users-overview" checked type="checkbox" value="users-overview" />
-                          <label for="users-overview">Users Overview</label>
-                        </div>
+                <div class="tools">
+                  <% if policy(User).new? %>
+                    <a class="btn btn-circle btn-icon-only btn-primary mr-10" href="<%= new_user_path %>" data-tooltip="tooltip" data-placement="bottom" title="New User">
+                      <i class="zmdi zmdi-playlist-plus"></i>
+                    </a>
+                  <% end %>
+                  <% if policy(User).update? %>
+                    <a id="bulk-edit-users-button" class="btn btn-circle btn-icon-only btn-primary disabled bulk-edit-buttons" data-toggle="modal" data-target="#bulk-edit-users-modal" data-tooltip="tooltip" data-placement="bottom" title="Bulk edit">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                  <% end %>
+                </div>
+              </div>
+              <div class="content-body">
+                <%= form_tag('', method: :patch, id: 'bulk_update_ids_form') do %>
+                  <div class="table-responsive">
+                    <table class="table table-hover table-right-btns table-checks">
+                      <thead>
+                        <tr>
+                          <th>
+                            <% if policy(User).update? %>
+                              <div class="am-checkbox" title="Select/unselect all">
+                                <%= check_box_tag 'select_all_check_boxes', 'user_ids', false %>
+                                <label for="select_all_check_boxes"></label>
+                              </div>
+                            <% end %>
+                          </th>
+                          <th>Name</th>
+                          <th>E-mail</th>
+                          <th>Roles</th>
+                          <th>Call Centers</th>
+                          <th>Active</th>
+                          <th>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @users.each do |user| %>
+                          <tr>
+                            <td>
+                              <% if policy(User).update? %>
+                                <div class="am-checkbox">
+                                  <%= check_box_tag 'user_ids[]', user.id, false, id: "user_ids_#{user.id}" %>
+                                  <label for="user_ids_<%= user.id %>"></label>
+                                </div>
+                              <% end %>
+                            </td>
+                            <td><%= link_to_if(policy(user).show?, user.name, user) %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.roles.pluck(:name).join(", ") %></td>
+                            <td><%= user.call_centers.pluck(:name).join(", ") %></td>
+                            <td>
+                              <i class="fa <%= user.active ? "fa-check text-primary" : "fa-close text-danger" %>"></i>
+                            </td>
+                            <td>
+                              <% if policy(user).update? %>
+                                <a class="btn btn-primary btn-circle btn-icon-only btn-icon-only-sm" href="<%= edit_user_path(user) %>">
+                                  <i class="fa fa-pencil"></i>
+                                </a>
+                              <% end %>
+                              <% if policy(user).destroy? %>
+                                <%= link_to(user_path(user), data: {method: :delete, confirm: %Q[User record will be deleted permanently. Are you sure?], class: "btn btn-danger btn-icon-only-sm"} ) do %>
+                                  <i class='fa fa-trash-o'></i>
+                                <% end %>
+                              <% end %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                <% end %>
+                <%= will_paginate @users %>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="users-map-tab">
+            <div class="content">
+              <div class="content-heading">
+                <div class="caption">
+                  <div class="title">
+                    <h4><span>Map View</span></h4>
+                  </div>
+                </div>
+                <div class="tools"></div>
+              </div>
+              <div class="content-body">
+                <div class="info-block info-block-map">
+                  <form class="form-search">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12 text-right">
+                        <a class="btn btn-primary btn-circle btn-icon-only btn-map-popup" href="#" data-tooltip data-placement="left" title="Map Layers">
+                          <i class="zmdi zmdi-layers"></i>
+                        </a>
                       </div>
                     </div>
                   </form>
+                  <div class="map-block">
+                    <div class="map-popup-block">
+                      <a class="btn btn btn-icon-only btn-icon-only-sm btn-primary btn-delete">
+                        <i class="icon s7-close"></i>
+                      </a>
+                      <form class="form-horizontal">
+                        <h3><i class="zmdi zmdi-layers"></i> Layers</h3>
+                        <div class="form-group">
+                          <div class="col-xs-12" id="map-layers">
+                            <div class="am-checkbox am-checkbox-darken am-checkbox-sm">
+                              <input id="users-overview" checked type="checkbox" value="users-overview" />
+                              <label for="users-overview">Users Overview</label>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="map-view">
+                    <div class="map-inactive map-big" data-markers-layer-name="users-overview"></div>
+                  </div>
                 </div>
-              </div>
-              <div class="map-view">
-                <div class="map-inactive map-big" data-markers-layer-name="users-overview"></div>
               </div>
             </div>
           </div>
@@ -164,5 +215,3 @@
     </div>
   </div>
 </div>
-
-<%= render 'bulk_edit_modal' %>

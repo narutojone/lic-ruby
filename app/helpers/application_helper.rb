@@ -25,4 +25,8 @@ module ApplicationHelper
   def settings_icon_for(title: , icon: , url: )
     render partial: "common/setting_icon", locals: {title: title, icon: icon, url: url}
   end
+
+  def number_of_results(count)
+    content_tag(:span, pluralize(count, "result"))
+  end
 end

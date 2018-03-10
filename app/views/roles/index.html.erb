@@ -1,56 +1,74 @@
-<% content_for(:subnav) { render 'roles/nav' } %>
+<%= content_for(:page_title) do %>
+  Manage roles
+<% end %>
 
-<div class="content-block">
-  <div class="content">
-    <div class="content-heading">
-      <div class="caption">
-        <div class="title">
-          <h4><!--%= number_of_results(@roles.length) %--></h4>
-        </div>
+<div class="am-content">
+  <%= render "common/users_and_roles_nav" %>
+  <div class="page-head">
+    <div class="caption">
+      <div class="title-icon">
+        <i class="icon s7-lock"></i>
       </div>
-      <div class="tools">
-        <% if policy(Role).new? %>
-          <a class="btn btn-circle btn-icon-only btn-primary" href="<%= new_role_path %>" data-tooltip="tooltip" data-placement="bottom" data-original-title="New role">
-            <i class="zmdi zmdi-playlist-plus"></i>
-          </a>
-        <% end %>
-        <% if policy(Role).update_all? && @roles.count > 1 %>
-          <a class="btn btn-circle btn-icon-only btn-primary" href="<%= edit_all_roles_path %>" data-tooltip="tooltip" data-placement="bottom" data-original-title="Edit all roles">
-            <i class="fa fa-pencil"></i>
-          </a>
-        <% end %>
+      <div class="title">
+        <h2>Roles</h2>
       </div>
     </div>
-    <div class="content-body">
-      <div class="row">
-        <div class="col-xs-12 col-sm-6">
-          <ul class="list-group">
-            <% @roles.each do |role| %>
-              <li class="list-group-item">
-                <div class="caption">
-                  <div class="icon">
-                    <i class="fa"></i>
-                  </div>
-                  <p><%= role.name %></p>
-                </div>
-                <div class="tools">
-                  <% if policy(role).update? %>
-                    <a class="btn btn-circle btn-icon-only btn-icon-only-sm btn-primary" href="<%= edit_role_path(role) %>">
-                      <i class="fa fa-pencil"></i>
-                    </a>
-                  <% end %>
-                  <% if policy(role).destroy? %>
-                    <%= confirmable_action inner_html: "<i class='fa fa-trash-o'></i>",
-                                           url: role_path(role),
-                                           method: :delete,
-                                           type: 'danger',
-                                           message: %Q[Role "#{role.name}" will be deleted. Are you sure?],
-                                           additional_css: 'btn-icon-only-sm' %>
-                  <% end %>
-                </div>
-              </li>
+    <div class="tools"></div>
+  </div>
+  <div class="main-content">
+    <div class="content-block">
+      <div class="content">
+        <div class="content-heading">
+          <div class="caption">
+            <div class="title">
+              <h4><%= number_of_results(@roles.length) %></h4>
+            </div>
+          </div>
+          <div class="tools">
+            <% if policy(Role).new? %>
+              <a class="btn btn-circle btn-icon-only btn-primary" href="<%= new_role_path %>" data-tooltip="tooltip" data-placement="bottom" data-original-title="New role">
+                <i class="zmdi zmdi-playlist-plus"></i>
+              </a>
             <% end %>
-          </ul>
+            <% if policy(Role).update_all? && @roles.count > 1 %>
+              <a class="btn btn-circle btn-icon-only btn-primary" href="<%= edit_all_roles_path %>" data-tooltip="tooltip" data-placement="bottom" data-original-title="Edit all roles">
+                <i class="fa fa-pencil"></i>
+              </a>
+            <% end %>
+          </div>
+        </div>
+        <div class="content-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <ul class="list-group">
+                <% @roles.each do |role| %>
+                  <li class="list-group-item">
+                    <div class="caption">
+                      <div class="icon">
+                        <i class="fa"></i>
+                      </div>
+                      <p><%= role.name %></p>
+                    </div>
+                    <div class="tools">
+                      <% if policy(role).update? %>
+                        <a class="btn btn-circle btn-icon-only btn-icon-only-sm btn-primary" href="<%= edit_role_path(role) %>">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                      <% end %>
+                      <% if policy(role).destroy? %>
+                        <%= confirmable_action inner_html: "<i class='fa fa-trash-o'></i>",
+                                               url: role_path(role),
+                                               method: :delete,
+                                               type: 'danger',
+                                               message: %Q[Role "#{role.name}" will be deleted. Are you sure?],
+                                               additional_css: 'btn-icon-only-sm' %>
+                      <% end %>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
