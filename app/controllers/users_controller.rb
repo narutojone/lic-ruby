@@ -12,10 +12,10 @@ class UsersController < ApplicationController
                .paginate(page: params[:page], per_page: per_page('users'))
   end
 
-  # def show
-  #   authorize @user
-  #   @tickets = @user.tickets.assigned.order(:response_due_at)
-  # end
+  def show
+    authorize @user
+    @tickets = @user.tickets.assigned.order(:response_due_at)
+  end
 
   def new
     authorize User
