@@ -210,6 +210,16 @@
 
 <%= content_for(:js) do %>
   <script type="text/javascript">
+    function toggleBulkUpdateModal(checkedUserIds) {
+      if (checkedUserIds.length > 0) {
+        jQuery("#bulk-edit-users-button").removeClass("disabled");
+        jQuery("#bulk-edit-users-modal .user-ids").val(checkedUserIds.join(";"));
+      } else {
+        jQuery("#bulk-edit-users-button").addClass("disabled");
+        jQuery("#bulk-edit-users-modal .user-ids").val("");
+      }
+    }
+
     jQuery(document).on("click", ".table-users .btn-delete", function(event) {
       event.preventDefault();
       var message = jQuery(this).data("message") || "Are you sure to delete this user?";
@@ -225,7 +235,18 @@
     jQuery(document).on("change", ".toggle-all-users", function(event) {
       var isChecked = jQuery(this).is(":checked");
       jQuery(".toggle-user").prop("checked", isChecked);
-      console.log("Line 228", isChecked);
+
+      if (isChecked) {
+        var checkedUserIds = [];
+
+        jQuery(".toggle-user").each(function(index, element) {
+          checkedUserIds.push(jQuery(element).val());
+        });
+
+        toggleBulkUpdateModal(checkedUserIds);
+      } else {
+        toggleBulkUpdateModal([]);
+      }
     });
 
     jQuery(document).on("change", ".toggle-user", function(event) {
@@ -247,13 +268,7 @@
         jQuery(".toggle-all-users").prop("checked", false);
       }
 
-      if (checkedUserIds.length > 0) {
-        jQuery("#bulk-edit-users-button").removeClass("disabled");
-        jQuery("#bulk-edit-users-modal .user-ids").val(checkedUserIds.join(";"));
-      } else {
-        jQuery("#bulk-edit-users-button").addClass("disabled");
-        jQuery("#bulk-edit-users-modal .user-ids").val("");
-      }
+      toggleBulkUpdateModal(checkedUserIds);
     });
   </script>
 <% end %>
