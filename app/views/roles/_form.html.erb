@@ -8,13 +8,13 @@
       </div>
       <div class="col-xs-12 col-sm-9">
         <div class="table-responsive">
-          <table class="table table-roles table-roles-wbg">
+          <table class="table table-roles table-roles-wbg table-permissions">
             <thead>
               <tr>
                 <th></th>
                 <th width="10%">
                   <div class="am-checkbox">
-                    <input id="check-uncheck-column-<%= @role.id %>" type="checkbox" class="check-uncheck-column" data-action="check">
+                    <input id="check-uncheck-column-<%= @role.id %>" type="checkbox" class="check-uncheck-column toggle-all-permissions" data-action="check">
                     <label for="check-uncheck-column-<%= @role.id %>"></label>
                   </div>
                 </th>
@@ -32,7 +32,7 @@
                     <td><%= attrs[:label] %></td>
                     <td>
                       <div class="am-checkbox">
-                        <%= check_box_tag "role[permissions][]", attrs[:id], @role.permissions.include?(attrs[:id]), id: "role_permissions_#{attrs[:id]}" %>
+                        <%= check_box_tag "role[permissions][]", attrs[:id], @role.permissions.include?(attrs[:id]), id: "role_permissions_#{attrs[:id]}", class: "toggle-permission" %>
                         <label for="role_permissions_<%= attrs[:id] %>"></label>
                       </div>
                     </td>
@@ -45,7 +45,42 @@
       </div>
     </div>
   </div>
+
   <div class="content-form-footer">
-    <button>Save</button>
+    <div class="form-group">
+      <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <% if policy(Role).index? %>
+          <a href="<%= roles_path %>" class="btn btn-default">Cancel</a>
+        <% end %>
+      </div>
+    </div>
   </div>
+<% end %>
+
+<%= content_for(:js) do %>
+  <script type="text/javascript">
+    jQuery(document).on("change", ".toggle-all-permissions", function(event) {
+      var isChecked = jQuery(this).is(":checked");
+      jQuery(".toggle-permission").prop("checked", isChecked);
+    });
+
+    jQuery(document).on("change", ".toggle-permission", function(event) {
+      var hasUncheckedCheckbox = false;
+      var hasCheckedCheckbox = false;
+
+      jQuery(".toggle-permission").each(function(index, element) {
+        var isChecked = jQuery(element).is(":checked");
+
+        hasCheckedCheckbox = hasCheckedCheckbox || isChecked;
+        hasUncheckedCheckbox = hasUncheckedCheckbox || !isChecked;
+      });
+
+      if (hasUncheckedCheckbox) {
+        jQuery(".toggle-all-permissions").prop("checked", false);
+      } else if (hasCheckedCheckbox) {
+        jQuery(".toggle-all-permissions").prop("checked", true);
+      }
+    });
+  </script>
 <% end %>

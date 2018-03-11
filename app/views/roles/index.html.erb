@@ -40,7 +40,7 @@
         <div class="content-body">
           <div class="row">
             <div class="col-xs-12 col-sm-6">
-              <ul class="list-group">
+              <ul class="list-group list-roles">
                 <% @roles.each do |role| %>
                   <li class="list-group-item">
                     <div class="caption">
@@ -56,12 +56,9 @@
                         </a>
                       <% end %>
                       <% if policy(role).destroy? %>
-                        <%= confirmable_action inner_html: "<i class='fa fa-trash-o'></i>",
-                                               url: role_path(role),
-                                               method: :delete,
-                                               type: 'danger',
-                                               message: %Q[Role "#{role.name}" will be deleted. Are you sure?],
-                                               additional_css: 'btn-icon-only-sm' %>
+                        <%= link_to(role_path(role), data: {message: %Q[Role "#{role.name}" will be deleted. Are you sure?]}, class: "btn btn-danger btn-circle btn-icon-only btn-icon-only-sm btn-delete" ) do %>
+                          <i class='fa fa-trash-o'></i>
+                        <% end %>
                       <% end %>
                     </div>
                   </li>
@@ -74,3 +71,21 @@
     </div>
   </div>
 </div>
+
+<%= render "common/confirm_modal" %>
+
+<%= content_for(:js) do %>
+  <script type="text/javascript">
+    jQuery(document).on("click", ".list-roles .btn-delete", function(event) {
+      event.preventDefault();
+      var message = jQuery(this).data("message") || "Are you sure to delete this role?";
+      var url = jQuery(this).attr("href");
+
+      jQuery("#modal_warning .confirm-text").html(message);
+      jQuery("#modal_warning .confirm-form").attr("action", url);
+      jQuery("#modal_warning .confirm-form").attr("method", "post");
+      jQuery("#modal_warning .confirm-form .method").val("delete");
+      jQuery("#modal_warning").modal("show");
+    });
+  </script>
+<% end %>
