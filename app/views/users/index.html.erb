@@ -95,7 +95,7 @@
               <div class="content-body">
                 <%= form_tag('', method: :patch, id: 'bulk_update_ids_form') do %>
                   <div class="table-responsive">
-                    <table class="table table-hover table-right-btns table-checks">
+                    <table class="table table-hover table-right-btns table-checks table-users">
                       <thead>
                         <tr>
                           <th>
@@ -139,7 +139,7 @@
                                 </a>
                               <% end %>
                               <% if policy(user).destroy? %>
-                                <%= link_to(user_path(user), data: {method: :delete, confirm: %Q[User record will be deleted permanently. Are you sure?], class: "btn btn-danger btn-icon-only-sm"} ) do %>
+                                <%= link_to(user_path(user), data: {message: %Q[User record will be deleted permanently. Are you sure?]}, class: "btn btn-danger btn-circle btn-icon-only btn-icon-only-sm btn-delete" ) do %>
                                   <i class='fa fa-trash-o'></i>
                                 <% end %>
                               <% end %>
@@ -205,3 +205,21 @@
     </div>
   </div>
 </div>
+
+<%= render "common/confirm_modal" %>
+
+<%= content_for(:js) do %>
+  <script type="text/javascript">
+    jQuery(document).on("click", ".table-users .btn-delete", function(event) {
+      event.preventDefault();
+      var message = jQuery(this).data("message") || "Are you sure to delete this user?";
+      var url = jQuery(this).attr("href");
+
+      jQuery("#modal_warning .confirm-text").html(message);
+      jQuery("#modal_warning .confirm-form").attr("action", url);
+      jQuery("#modal_warning .confirm-form").attr("method", "post");
+      jQuery("#modal_warning .confirm-form .method").val("delete");
+      jQuery("#modal_warning").modal("show");
+    });
+  </script>
+<% end %>
