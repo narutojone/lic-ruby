@@ -64,8 +64,9 @@ class UsersController < ApplicationController
       # Rails rejects blank array from parameters
       if params[:user].present?
         filtered_user_params = user_params.reject { |key, val| val.blank? }
+        user_ids = (params[:user_ids] || "").split(/;/).reject(&:blank?)
 
-        current_account.users.find(params[:user_ids]).each do |user|
+        current_account.users.find(user_ids).each do |user|
           authorize user, :update?
           user.update_attributes!(filtered_user_params)
         end

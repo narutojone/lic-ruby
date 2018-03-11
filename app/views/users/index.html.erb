@@ -101,7 +101,7 @@
                           <th>
                             <% if policy(User).update? %>
                               <div class="am-checkbox" title="Select/unselect all">
-                                <%= check_box_tag 'select_all_check_boxes', 'user_ids', false %>
+                                <%= check_box_tag 'select_all_check_boxes', 'user_ids', false, class: "toggle-all-users" %>
                                 <label for="select_all_check_boxes"></label>
                               </div>
                             <% end %>
@@ -120,7 +120,7 @@
                             <td>
                               <% if policy(User).update? %>
                                 <div class="am-checkbox">
-                                  <%= check_box_tag 'user_ids[]', user.id, false, id: "user_ids_#{user.id}" %>
+                                  <%= check_box_tag 'user_ids[]', user.id, false, id: "user_ids_#{user.id}", class: "toggle-user" %>
                                   <label for="user_ids_<%= user.id %>"></label>
                                 </div>
                               <% end %>
@@ -220,6 +220,40 @@
       jQuery("#modal_warning .confirm-form").attr("method", "post");
       jQuery("#modal_warning .confirm-form .method").val("delete");
       jQuery("#modal_warning").modal("show");
+    });
+
+    jQuery(document).on("change", ".toggle-all-users", function(event) {
+      var isChecked = jQuery(this).is(":checked");
+      jQuery(".toggle-user").prop("checked", isChecked);
+      console.log("Line 228", isChecked);
+    });
+
+    jQuery(document).on("change", ".toggle-user", function(event) {
+      var hasUncheckedCheckbox = false;
+      var checkedUserIds = [];
+
+      jQuery(".toggle-user").each(function(index, element) {
+        var isChecked = jQuery(element).is(":checked")
+        hasUncheckedCheckbox = hasUncheckedCheckbox || !isChecked;
+
+        if (isChecked) {
+          checkedUserIds.push(jQuery(element).val());
+        }
+      });
+
+      if (!hasUncheckedCheckbox) {
+        jQuery(".toggle-all-users").prop("checked", true);
+      } else if (checkedUserIds.length == 0) {
+        jQuery(".toggle-all-users").prop("checked", false);
+      }
+
+      if (checkedUserIds.length > 0) {
+        jQuery("#bulk-edit-users-button").removeClass("disabled");
+        jQuery("#bulk-edit-users-modal .user-ids").val(checkedUserIds.join(";"));
+      } else {
+        jQuery("#bulk-edit-users-button").addClass("disabled");
+        jQuery("#bulk-edit-users-modal .user-ids").val("");
+      }
     });
   </script>
 <% end %>
