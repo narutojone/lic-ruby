@@ -16,7 +16,7 @@
           </div>
           <div class="tools">
             <% if policy(@user).edit? %>
-              <%= link_to(request_password_reset_user_path, data: {message: "Are you sure you want to send a password reset e-mail to #{@user.name}?"}, class: "btn btn-warning js-btn-forgot-password", tooltip: "Send password reset e-mail") do %>
+              <%= link_to(request_password_reset_user_path(@user), data: {message: "Are you sure you want to send a password reset e-mail to #{@user.name}?"}, class: "btn btn-warning js-btn-forgot-password", tooltip: "Send password reset e-mail") do %>
                 <i class="fa fa-envelope-o"></i>
               <% end %>
 
@@ -72,7 +72,6 @@
       var message = jQuery(this).data("message") || "Are you sure you want to send a password reset e-mail to this user?";
       var url = jQuery(this).attr("href");
 
-console.log("Line 75 ", message);
       jQuery("#modal_warning .js-confirm-text").html(message);
       jQuery("#modal_warning .js-confirm-form").attr("action", url);
       jQuery("#modal_warning .js-confirm-form").attr("method", "post");

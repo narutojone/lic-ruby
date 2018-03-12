@@ -34,6 +34,10 @@ class User < ApplicationRecord
     end
   end
 
+  def display_name
+    self.name || self.email
+  end
+
   def has_permission?(resource, activity)
     roles.each do |role|
       return true if role.admin? || role.permissions.include?(PERMISSIONS[resource][:activities][activity][:id])

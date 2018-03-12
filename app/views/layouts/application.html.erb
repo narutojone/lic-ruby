@@ -25,7 +25,7 @@
             </div>
             <ul class="nav navbar-nav navbar-right navbar-btns am-user-nav">
               <li class="dropdown">
-                <span class="user-name hidden-xs">Jonh Doe</span>
+                <span class="user-name hidden-xs"><%= current_user.display_name %></span>
               </li>
               <li>
                 <a href="<%= destroy_user_session_path %>" class="am-top-btns" data-tooltip="tooltip" data-placement="bottom" title="Sign Out"><span class="icon s7-power"></span></a>
@@ -43,9 +43,9 @@
                 <li class="<%= active_when("dashboard_widgets") %>">
                   <a href="<%= dashboard_dashboard_widgets_path %>"><i class="icon s7-monitor"></i><span>Dashboard</span></a>
                 </li>
-                <li class="<%= active_when("customers") %>">
+                <!--li class="<%= active_when("customers") %>">
                   <a href="#"><i class="icon s7-users"></i><span>Customers</span></a>
-                </li>
+                </li-->
                 <li class="<%= active_when("settings") || active_when("roles") || active_when("users") || active_when("email_settings") || active_when("email_notifications") %>">
                   <a href="<%= settings_path %>"><i class="icon s7-config"></i><span>Settings</span></a>
                 </li>
