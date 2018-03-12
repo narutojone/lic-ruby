@@ -95,13 +95,13 @@
               <div class="content-body">
                 <%= form_tag('', method: :patch, id: 'bulk_update_ids_form') do %>
                   <div class="table-responsive">
-                    <table class="table table-hover table-right-btns table-checks table-users">
+                    <table class="table table-hover table-right-btns table-checks js-table-users">
                       <thead>
                         <tr>
                           <th>
                             <% if policy(User).update? %>
                               <div class="am-checkbox" title="Select/unselect all">
-                                <%= check_box_tag 'select_all_check_boxes', 'user_ids', false, class: "toggle-all-users" %>
+                                <%= check_box_tag 'select_all_check_boxes', 'user_ids', false, class: "js-toggle-all-users" %>
                                 <label for="select_all_check_boxes"></label>
                               </div>
                             <% end %>
@@ -120,7 +120,7 @@
                             <td>
                               <% if policy(User).update? %>
                                 <div class="am-checkbox">
-                                  <%= check_box_tag 'user_ids[]', user.id, false, id: "user_ids_#{user.id}", class: "toggle-user" %>
+                                  <%= check_box_tag 'user_ids[]', user.id, false, id: "user_ids_#{user.id}", class: "js-toggle-user" %>
                                   <label for="user_ids_<%= user.id %>"></label>
                                 </div>
                               <% end %>
@@ -139,7 +139,7 @@
                                 </a>
                               <% end %>
                               <% if policy(user).destroy? %>
-                                <%= link_to(user_path(user), data: {message: %Q[User record will be deleted permanently. Are you sure?]}, class: "btn btn-danger btn-circle btn-icon-only btn-icon-only-sm btn-delete" ) do %>
+                                <%= link_to(user_path(user), data: {message: %Q[User record will be deleted permanently. Are you sure?]}, class: "btn btn-danger btn-circle btn-icon-only btn-icon-only-sm js-btn-delete" ) do %>
                                   <i class='fa fa-trash-o'></i>
                                 <% end %>
                               <% end %>
@@ -220,26 +220,26 @@
       }
     }
 
-    jQuery(document).on("click", ".table-users .btn-delete", function(event) {
+    jQuery(document).on("click", ".js-table-users .js-btn-delete", function(event) {
       event.preventDefault();
       var message = jQuery(this).data("message") || "Are you sure to delete this user?";
       var url = jQuery(this).attr("href");
 
-      jQuery("#modal_warning .confirm-text").html(message);
-      jQuery("#modal_warning .confirm-form").attr("action", url);
-      jQuery("#modal_warning .confirm-form").attr("method", "post");
-      jQuery("#modal_warning .confirm-form .method").val("delete");
+      jQuery("#modal_warning .js-confirm-text").html(message);
+      jQuery("#modal_warning .js-confirm-form").attr("action", url);
+      jQuery("#modal_warning .js-confirm-form").attr("method", "post");
+      jQuery("#modal_warning .js-confirm-form .js-method").val("delete");
       jQuery("#modal_warning").modal("show");
     });
 
-    jQuery(document).on("change", ".toggle-all-users", function(event) {
+    jQuery(document).on("change", ".js-toggle-all-users", function(event) {
       var isChecked = jQuery(this).is(":checked");
-      jQuery(".toggle-user").prop("checked", isChecked);
+      jQuery(".js-toggle-user").prop("checked", isChecked);
 
       if (isChecked) {
         var checkedUserIds = [];
 
-        jQuery(".toggle-user").each(function(index, element) {
+        jQuery(".js-toggle-user").each(function(index, element) {
           checkedUserIds.push(jQuery(element).val());
         });
 
@@ -249,11 +249,11 @@
       }
     });
 
-    jQuery(document).on("change", ".toggle-user", function(event) {
+    jQuery(document).on("change", ".js-toggle-user", function(event) {
       var hasUncheckedCheckbox = false;
       var checkedUserIds = [];
 
-      jQuery(".toggle-user").each(function(index, element) {
+      jQuery(".js-toggle-user").each(function(index, element) {
         var isChecked = jQuery(element).is(":checked")
         hasUncheckedCheckbox = hasUncheckedCheckbox || !isChecked;
 
@@ -262,10 +262,10 @@
         }
       });
 
-      if (!hasUncheckedCheckbox) {
-        jQuery(".toggle-all-users").prop("checked", true);
-      } else if (checkedUserIds.length == 0) {
-        jQuery(".toggle-all-users").prop("checked", false);
+      if (hasUncheckedCheckbox) {
+        jQuery(".js-toggle-all-users").prop("checked", false);
+      } else if (checkedUserIds.length > 0) {
+        jQuery(".js-toggle-all-users").prop("checked", true);
       }
 
       toggleBulkUpdateModal(checkedUserIds);

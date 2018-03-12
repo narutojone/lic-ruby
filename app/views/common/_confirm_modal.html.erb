@@ -1,4 +1,4 @@
-<div id="modal_warning" tabindex="-1" role="dialog" class="modal modal-warning fade confirm-modal">
+<div id="modal_warning" tabindex="-1" role="dialog" class="modal modal-warning fade js-confirm-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <%= form_tag "", class: "confirm-form" do %>
-          <input type="hidden" name="_method" value="" class="method" />
+        <%= form_tag "", class: "js-confirm-form" do %>
+          <input type="hidden" name="_method" value="" class="js-method" />
           <button type="submit" class="btn btn-danger">Yes</button>
           <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
         <% end %>

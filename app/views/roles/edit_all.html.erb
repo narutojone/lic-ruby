@@ -1,64 +1,114 @@
-<% content_for(:subnav) { render 'roles/nav' } %>
+<%= content_for(:page_title) do %>
+  Edit All Roles
+<% end %>
 
-<div class="content-block">
-  <div class="content">
-    <div class="content-heading">
-      <div class="caption">
-        <div class="title">
-          <h4>Edit All Roles</h4>
+<div class="am-content">
+  <%= render "common/users_and_roles_nav" %>
+  <%= render "page_subhead" %>
+  <div class="main-content">
+    <div class="content-block">
+      <div class="content">
+        <div class="content-heading">
+          <div class="caption">
+            <div class="title">
+              <h4>Edit All Roles</h4>
+            </div>
+          </div>
+          <div class="tools"></div>
         </div>
-      </div>
-      <div class="tools"></div>
-    </div>
-    <div class="content-body">
-      <%= form_tag update_all_roles_path, method: :patch, class: 'form-horizontal' do %>
-        <div class="table-responsive">
-          <table class="table table-roles">
-            <thead>
-              <tr>
-                <th width="30%">Permission</th>
-                <% @roles.each do |role| %>
-                  <th>
-                    <div class="am-checkbox">
-                      <input id="check-uncheck-column-<%= role.id %>" type="checkbox" class="check-uncheck-column" data-action="check">
-                      <label for="check-uncheck-column-<%= role.id %>"></label>
-                    </div>
-                  </th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <% PERMISSIONS.each do |key, perm| %>
-                <tr class="title">
-                  <td><%= perm[:label] %></td>
-
-                  <% @roles.each do |role| %>
-                    <td><%= role.name %></td>
-                  <% end %>
-                </tr>
-
-                <% perm[:activities].each do |_key, permission| %>
+        <div class="content-body">
+          <%= form_tag update_all_roles_path, method: :patch, class: 'form-horizontal' do %>
+            <div class="table-responsive">
+              <table class="table table-roles">
+                <thead>
                   <tr>
-                    <td><%= permission[:label] %></td>
-
+                    <th width="30%">Permission</th>
                     <% @roles.each do |role| %>
-                      <td>
+                      <th>
                         <div class="am-checkbox">
-                          <%= check_box_tag "permissions[#{role.id}][permissions][]", permission[:id], role.permissions.include?(permission[:id]), id: "permissions_#{role.id}_permissions_#{permission[:id]}" %>
-                          <label for="<%= "permissions_#{role.id}_permissions_#{permission[:id]}" %>"></label>
+                          <input id="check-uncheck-column-<%= role.id %>" type="checkbox" class="check-uncheck-column js-toggle-all-permissions" data-action="check">
+                          <label for="check-uncheck-column-<%= role.id %>"></label>
                         </div>
-                      </td>
+                      </th>
                     <% end %>
                   </tr>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  <% PERMISSIONS.each do |key, perm| %>
+                    <tr class="title">
+                      <td><%= perm[:label] %></td>
+
+                      <% @roles.each do |role| %>
+                        <td><%= role.name %></td>
+                      <% end %>
+                    </tr>
+
+                    <% perm[:activities].each do |_key, permission| %>
+                      <tr>
+                        <td><%= permission[:label] %></td>
+
+                        <% @roles.each do |role| %>
+                          <td>
+                            <div class="am-checkbox">
+                              <%= check_box_tag "permissions[#{role.id}][permissions][]", permission[:id], role.permissions.include?(permission[:id]), id: "permissions_#{role.id}_permissions_#{permission[:id]}", class: "js-toggle-permission" %>
+                              <label for="<%= "permissions_#{role.id}_permissions_#{permission[:id]}" %>"></label>
+                            </div>
+                          </td>
+                        <% end %>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="content-form-footer">
+              <div class="form-group">
+                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                  <a href="#" class="btn btn-default js-back-link">Cancel</a>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
-        <div class="content-form-footer">
-          <button>Save</button>
-        </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+<%= content_for(:js) do %>
+  <script type="text/javascript">
+    jQuery(document).on("change", ".js-toggle-all-permissions", function(event) {
+      var isChecked = jQuery(this).is(":checked");
+      var index = jQuery(this).closest("th").index();
+      jQuery(".js-toggle-permission")
+        .filter(function(idx, el) { return jQuery(el).parents("td").index() == index})
+        .prop("checked", isChecked);
+    });
+
+    jQuery(document).on("change", ".js-toggle-permission", function(event) {
+      var hasUncheckedCheckbox = false;
+      var hasCheckedCheckbox = false;
+      var index = jQuery(this).closest("td").index();
+
+      jQuery(".js-toggle-permission")
+        .filter(function(idx, el) { return jQuery(el).parents("td").index() == index})
+        .each(function(idx, element) {
+          var isChecked = jQuery(element).is(":checked");
+
+          hasCheckedCheckbox = hasCheckedCheckbox || isChecked;
+          hasUncheckedCheckbox = hasUncheckedCheckbox || !isChecked;
+        });
+
+      var $toggleAllCheckbox = jQuery(".js-toggle-all-permissions")
+                                 .filter(function(idx, el) { return jQuery(el).parents("th").index() == index});
+
+      if (hasUncheckedCheckbox) {
+        $toggleAllCheckbox.prop("checked", false);
+      } else if (hasCheckedCheckbox) {
+        $toggleAllCheckbox.prop("checked", true);
+      }
+    });
+  </script>
+<% end %>
