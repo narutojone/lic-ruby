@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    true || has_permission?('index')
+    has_permission?('index')
   end
 
   def show?
