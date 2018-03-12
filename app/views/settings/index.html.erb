@@ -16,14 +16,20 @@
   </div>
   <div class="main-content">
     <div class="content-block content-block-padding">
-      <% if policy(Role).index? %>
         <h3>User Management</h3>
         <ul class="list-inline list-settings">
-          <%= settings_icon_for title: 'Roles',
-                                icon: 'fa fa-lock',
-                                url: roles_path %>
+          <% if policy(Role).index? %>
+            <%= settings_icon_for title: 'Roles',
+                                  icon: 'fa fa-lock',
+                                  url: roles_path %>
+          <% end %>
+
+          <% if policy(User).index? %>
+            <%= settings_icon_for title: 'Users',
+                                  icon: 'fa fa-user',
+                                  url: users_path %>
+          <% end %>
         </ul>
-      <% end %>
 
       <% if policy(EmailNotification).index? || policy(Account).edit? %>
         <h3>E-mail Settings</h3>

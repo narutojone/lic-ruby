@@ -1,12 +1,20 @@
 <%= simple_form_for @account, url: email_settings_path do |f| %>
   <div class="content-form">
-    
+
 
     <%= f.input :email_header, label: 'E-mail header', input_html: {class: 'summernote'} %>
     <%= f.input :email_footer, label: 'E-mail footer', input_html: {class: 'summernote'} %>
   </div>
 
   <div class="content-form-footer">
-    <button>Save</button>
+    <div class="form-group">
+      <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+        <button type="submit" class="btn btn-primary">Save</button>
+
+        <% if policy(EmailNotification).index? %>
+          <a href="<%= settings_path %>" class="btn btn-default">Cancel</a>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>

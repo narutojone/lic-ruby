@@ -1,9 +1,18 @@
-<% content_for(:subnav) { render 'email_notifications/subnav' } %>
+<%= content_for(:page_title) do %>
+  Email Settings
+<% end %>
 
-<div class="content-block">
-  <div class="content">
-    <div class="content-body">
-      <%= render 'form' %>
+<div class="am-content">
+  <%= render "common/email_settings_nav"%>
+  <%= render "page_subhead" %>
+
+  <div class="main-content">
+    <div class="content-block">
+      <div class="content">
+        <div class="content-body">
+          <%= render 'form' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
