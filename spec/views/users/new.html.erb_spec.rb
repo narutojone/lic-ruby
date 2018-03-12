@@ -13,6 +13,7 @@ describe '/users/new.html.erb' do
   describe "when the user limit has been reached" do
     before do
       @account.subscription.update_attribute(:user_limit, @account.users.count)
+      allow_any_instance_of(Account).to receive(:reached_user_limit?).and_return(true)
       render
     end
 

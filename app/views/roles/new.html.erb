@@ -19,7 +19,7 @@
         <div class="content-body">
           <% if current_account.reached_role_limit? %>
             <div class="alert alert-warning">
-              You have reached the maximum number of roles you can have with your account level. You can either delete some of your roles or <%= link_to 'upgrade your account', plan_account_path %> to be able to create more roles.
+              You have reached the maximum number of roles you can have with your account level. You can either delete some of your roles or <!--%= link_to 'upgrade your account', plan_account_path %--> to be able to create more roles.
             </div>
           <% else %>
             <%= render 'form' %>

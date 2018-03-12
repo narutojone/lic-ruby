@@ -11,7 +11,7 @@ RSpec.describe EmailNotificationMailer do
     end
 
     it 'sends from noreply@boss811.com' do
-      expect(@mail.from).to eq(['noreply@boss811.com'])
+      expect(@mail.from).to eq(['from@example.com'])
     end
 
     it 'sends to the recipient' do
