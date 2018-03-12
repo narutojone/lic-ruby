@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       patch :bulk_update
+    end
+
+    member do
       patch :request_password_reset
     end
   end
