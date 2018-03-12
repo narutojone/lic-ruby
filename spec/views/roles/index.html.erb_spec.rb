@@ -45,13 +45,13 @@ describe '/roles/index.html.erb' do
   describe 'delete button visibility' do
     it 'should not show delete buttons when the user role has no destroy permission' do
       render
-      expect(rendered).not_to have_css("a[data-form-url='#{role_path(@role)}'][data-form-method='delete']")
+      expect(rendered).not_to have_css("a.js-btn-delete")
     end
 
     it 'should show delete buttons when the user role has destroy permission' do
       @policy.allow :edit?, :update?, :destroy?
       render
-      expect(rendered).to have_css("a[data-form-url='#{role_path(@role)}'][data-form-method='delete']")
+      expect(rendered).to have_css("a.js-btn-delete")
     end
   end
 

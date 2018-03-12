@@ -15,6 +15,7 @@ describe '/roles/new.html.erb' do
   context 'when the role limit has been reached' do
     before(:each) do
       @account.subscription.update_attribute(:role_limit, @account.roles.count)
+      allow_any_instance_of(Account).to receive(:reached_role_limit?).and_return(true)
       render
     end
 

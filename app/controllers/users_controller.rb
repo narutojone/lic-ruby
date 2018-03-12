@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :restore, :destroy, :request_password_reset]
   after_action  :verify_authorized
-  skip_before_action :authenticate_user!, only: [:new, :create, :index]
 
   def index
     authorize User
@@ -13,10 +12,10 @@ class UsersController < ApplicationController
                .paginate(page: params[:page], per_page: per_page('users'))
   end
 
-  # def show
-  #   authorize @user
-  #   @tickets = @user.tickets.assigned.order(:response_due_at)
-  # end
+  def show
+    authorize @user
+    @tickets = @user.tickets.assigned.order(:response_due_at)
+  end
 
   def new
     authorize User
@@ -65,8 +64,9 @@ class UsersController < ApplicationController
       # Rails rejects blank array from parameters
       if params[:user].present?
         filtered_user_params = user_params.reject { |key, val| val.blank? }
+        user_ids = (params[:user_ids] || "").split(/;/).reject(&:blank?)
 
-        current_account.users.find(params[:user_ids]).each do |user|
+        current_account.users.find(user_ids).each do |user|
           authorize user, :update?
           user.update_attributes!(filtered_user_params)
         end

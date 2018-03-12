@@ -1,17 +1,25 @@
-<% content_for(:subnav) { render 'roles/nav' } %>
+<%= content_for(:page_title) do %>
+  Edit Role
+<% end %>
 
-<div class="content-block">
-  <div class="content">
-    <div class="content-heading">
-      <div class="caption">
-        <div class="title">
-          <h4>Edit Role "<%= @role.name %>"</h4>
+<div class="am-content">
+  <%= render "common/users_and_roles_nav" %>
+  <%= render "page_subhead" %>
+  <div class="main-content">
+    <div class="content-block">
+      <div class="content">
+        <div class="content-heading">
+          <div class="caption">
+            <div class="title">
+              <h4>Edit Role "<%= @role.name %>"</h4>
+            </div>
+          </div>
+          <div class="tools"></div>
+        </div>
+        <div class="content-body">
+          <%= render 'form' %>
         </div>
       </div>
-      <div class="tools"></div>
-    </div>
-    <div class="content-body">
-      <%= render 'form' %>
     </div>
   </div>
 </div>

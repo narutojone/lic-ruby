@@ -1,41 +1,50 @@
-<% content_for(:subnav) { render 'email_notifications/subnav' } %>
+<%= content_for(:page_title) do %>
+  Email Notifications
+<% end %>
 
-<div class="content-block">
-  <div class="content">
-    <div class="content-heading">
-      <div class="caption">
-        <div class="title">
-          <h4></h4>
-        </div>
-      </div>
-      <div class="tools"></div>
-    </div>
-    <div class="content-body">
-      <div class="tabs-container">
-
-        <div class="tab-content">
-          <div class="tab-pane active" id="call-center-common">
-            <div class="content-body">
-              <div class="table-responsive">
-                <table class="table table-hover table-right-btns table-checks table-notifications">
-                  <thead>
-                    <tr>
-                      <th>Notification</th>
-                      <th>&nbsp;</th>
-                      <th>Recipients</th>
-                      <th>&nbsp;</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="title"><td colspan="4">User Notifications</td></tr>
-                  </tbody>
-                </table>
-              </div>
+<div class="am-content">
+  <%= render "common/email_settings_nav"%>
+  <%= render "page_subhead" %>
+  
+  <div class="main-content">
+    <div class="content-block">
+      <div class="content">
+        <div class="content-heading">
+          <div class="caption">
+            <div class="title">
+              <h4></h4>
             </div>
           </div>
-
+          <div class="tools"></div>
         </div>
+        <div class="content-body">
+          <div class="tabs-container">
 
+            <div class="tab-content">
+              <div class="tab-pane active" id="call-center-common">
+                <div class="content-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-right-btns table-checks table-notifications">
+                      <thead>
+                        <tr>
+                          <th>Notification</th>
+                          <th>&nbsp;</th>
+                          <th>Recipients</th>
+                          <th>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="title"><td colspan="4">User Notifications</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>

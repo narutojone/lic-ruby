@@ -1,0 +1,15 @@
+<div id="am-navbar-collapse" class="second-level-menu collapse navbar-collapse">
+  <ul class="list-inline">
+    <% if policy(Account).edit? %>
+      <li class="<%= active_when("email_settings") %>">
+        <a href="<%= edit_email_settings_path %>"><i class="icon fa fa-code"></i><span>Header and Footer</span></a>
+      </li>
+    <% end %>
+
+    <% if policy(EmailNotification).index? %>
+      <li class="<%= active_when("email_notifications") %>">
+        <a href="<%= email_notifications_path %>"><i class="s7-bell"></i><span>Notifications</span></a>
+      </li>
+    <% end %>
+  </ul>
+</div>

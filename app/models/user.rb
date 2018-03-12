@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :dashboard_widgets,  -> { order("settings->'y', settings->'x', widget_type") }, dependent: :delete_all
   has_many :call_centers_users
   has_many :call_centers, through: :call_centers_users
+  has_many :tickets
 
   validates_uniqueness_of :email, scope: :account_id
   validates_presence_of     :email
@@ -31,6 +32,10 @@ class User < ApplicationRecord
     else
      first_name
     end
+  end
+
+  def display_name
+    self.name || self.email
   end
 
   def has_permission?(resource, activity)

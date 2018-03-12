@@ -252,6 +252,10 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
   # config.parent_controller = 'PublicController'
+
+  config.mailer.class_eval do
+    helper :devise_subdomain
+  end
 end
 
 # ==> Layouts

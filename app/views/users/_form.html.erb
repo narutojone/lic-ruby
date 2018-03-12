@@ -20,7 +20,7 @@
       <label class="control-label">Call Centers</label>
     </div>
     <div class="col-xs-12 col-sm-9">
-      <%= f.collection_select :call_center_ids, current_account_call_centers, :id, :name, {}, class: 'select2-multiple', multiple: true, 'data-placeholder' => 'Select Call Centers' %>
+      <%= f.collection_select :call_center_ids, current_account.call_centers, :id, :name, {}, class: 'select2-multiple', multiple: true, 'data-placeholder' => 'Select Call Centers' %>
       <%= f.error :call_centers %>
     </div>
   </div>

@@ -11,7 +11,7 @@
         <div class="modal-body">
 
           <%= f.input :role_ids, label: 'Roles', collection: current_account.roles.all, input_html: { class: 'select2-multiple', multiple: true, 'data-placeholder' => 'Select roles'} %>
-
+          <input type="hidden" name="user_ids" class="user-ids" />
         </div>
 
         <div class="modal-footer">

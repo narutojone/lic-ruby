@@ -6,8 +6,8 @@ describe '/dashboard_widgets/widgets/_number_of_open_tickets_past_due.html.erb' 
 
   before do
     @account = FactoryBot.create(:account)
-    @call_center1 = @account.call_centers.first
-    @call_center2 = FactoryBot.create(:call_center, account: @account, settings: {})
+    @call_center1 = FactoryBot.create(:call_center, account: @account)
+    @call_center2 = FactoryBot.create(:call_center, account: @account)
 
     @user = account_admin(@account)
     @user.call_centers << @call_center1
@@ -19,15 +19,15 @@ describe '/dashboard_widgets/widgets/_number_of_open_tickets_past_due.html.erb' 
 
   describe 'color of the icons' do
     it 'should be navy when the number of past due tickets is 0' do
-      @data = {number_of_tickets: 0}
-      render partial: 'dashboard_widgets/widgets/number_of_open_tickets_past_due'
+      data = {number_of_tickets: 0}
+      render partial: 'dashboard_widgets/widgets/number_of_open_tickets_past_due', locals: {data: data}
       expect(rendered).to include('icon-primary')
       expect(rendered).to_not include('icon-danger')
     end
 
     it 'should be danger when the number of past due tickets is over 0' do
-      @data = {number_of_tickets: 1}
-      render partial: 'dashboard_widgets/widgets/number_of_open_tickets_past_due'
+      data = {number_of_tickets: 1}
+      render partial: 'dashboard_widgets/widgets/number_of_open_tickets_past_due', locals: {data: data}
       expect(rendered).to_not include('icon-primary')
       expect(rendered).to include('icon-danger')
     end

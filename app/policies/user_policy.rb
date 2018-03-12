@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    true || has_permission?('index')
+    has_permission?('index')
   end
 
   def show?
@@ -16,7 +16,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    has_permission?('create')
   end
 
   def edit?
@@ -40,7 +40,9 @@ class UserPolicy < ApplicationPolicy
 
     if user && (has_permission?('create') || has_permission?('update'))
       attrs << {role_ids: []}
+      attrs << {call_center_ids: []}
       attrs << :active if (record.instance_of?(User) ? user.id != record.id : true)
+
     end
 
     if user && record.instance_of?(User) && user.id == record.id
